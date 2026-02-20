@@ -1,1 +1,40 @@
+:root {
+    --algues-titre : #c9a8a8;
+}
+h1 {
+    color: var(--algues-titre);
+}
+header {
+    background-color: #FAFAFA;
+    color: #212121;
+    padding: 10px;
+    text-align: center ;
 
+}
+.gommette1 {
+ 
+    border: 2px solid #212121; 
+    background-color: #FFFFFF;
+    color: #E63946;
+    border-radius: 50px; 
+    
+ 
+    padding: 4px 12px; 
+    
+    text-decoration: none;
+    font-weight: bold;
+    
+
+    font-size: 11px; 
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.gommette1:hover {
+    background-color: #E63946;
+    color: white;
+    transform: scale(1.05);
+}
