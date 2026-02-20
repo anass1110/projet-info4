@@ -1,40 +1,70 @@
-:root {
-    --algues-titre : #c9a8a8;
-}
-h1 {
-    color: var(--algues-titre);
-}
-header {
+/* Fichier style.css */
+body {
     background-color: #FAFAFA;
     color: #212121;
-    padding: 10px;
-    text-align: center ;
-
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
-.gommette1 {
- 
-    border: 2px solid #212121; 
+
+header {
+    background-color: #FFFFFF;
+    text-align: center;
+    padding: 20px;
+    border-bottom: 2px solid #212121;
+}
+
+h1 {
+    color: #c9a8a8;
+    font-size: 2.5em;
+    margin: 0;
+}
+
+nav ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    margin-right: 10px;
+    margin-left: 10px;
+}
+
+a.bouton-nav {
+    border: 2px solid #212121;
     background-color: #FFFFFF;
     color: #E63946;
-    border-radius: 50px; 
-    
- 
-    padding: 4px 12px; 
-    
+    padding: 5px 15px;
     text-decoration: none;
     font-weight: bold;
-    
-
-    font-size: 11px; 
-    
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.3s ease;
+    font-size: 14px;
+    border-radius: 20px;
 }
 
-.gommette1:hover {
+a.bouton-nav:hover {
     background-color: #E63946;
-    color: white;
-    transform: scale(1.05);
+    color: #FFFFFF;
+}
+
+#contenu-principal {
+    margin: 20px;
+    text-align: center;
+}
+
+.recherche {
+    margin-bottom: 30px;
+    padding: 20px;
+    border: 1px solid #212121;
+    background-color: #FFFFFF;
+    display: inline-block;
+}
+
+.plats-vedettes {
+    text-align: left;
+    display: inline-block;
+}
+
+.plats-vedettes ul {
+    list-style-type: square;
 }
