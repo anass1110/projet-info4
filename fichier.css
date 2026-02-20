@@ -1,12 +1,20 @@
-/* fichier.css */
-body {
+/* Styles globaux (Toutes les pages)*/
+
+   body {
     background-color: #FAFAFA;
     color: #212121;
-    font-family: Arial, sans-serif;
+    font-family: Verdana, sans-serif;
     margin: 0;
     padding: 0;
+    line-height: 1.6;
 }
 
+h1, h2, h3 {
+    color: #c9a8a8;
+    font-weight: bold;
+}
+
+/* En-tête et logo */
 header {
     background-color: #FFFFFF;
     text-align: center;
@@ -15,11 +23,13 @@ header {
 }
 
 h1 {
-    color: #c9a8a8;
     font-size: 2.5em;
+    text-transform: uppercase;
+    letter-spacing: 2px;
     margin: 0;
 }
 
+/* Menu de navigation */
 nav ul {
     list-style-type: none;
     padding: 0;
@@ -27,25 +37,29 @@ nav ul {
 
 nav li {
     display: inline-block;
-    margin-right: 10px;
-    margin-left: 10px;
+    margin: 10px;
 }
 
-a.bouton-nav {
-    border: 2px solid #212121;
+/* Boutons standards (Navigation et Formulaires) */
+a.bouton-nav, input[type="submit"] {
+    display: inline-block;
     background-color: #FFFFFF;
     color: #E63946;
-    padding: 5px 15px;
+    border: 2px solid #212121;
+    padding: 8px 20px;
     text-decoration: none;
     font-weight: bold;
-    font-size: 14px;
     border-radius: 20px;
 }
 
-a.bouton-nav:hover {
+a.bouton-nav:hover, input[type="submit"]:hover {
     background-color: #E63946;
     color: #FFFFFF;
+    border-color: #E63946;
+    cursor: pointer;
 }
+
+/* Page d'acceuil (acceuil.html) */
 
 #contenu-principal {
     margin: 20px;
@@ -67,4 +81,100 @@ a.bouton-nav:hover {
 
 .plats-vedettes ul {
     list-style-type: square;
+}
+
+/* Page produits (produits.html)*/
+
+#contenu-produits {
+    display: grid;
+    grid-template-columns: 250px auto;
+    margin: 30px;
+}
+
+/* Barre latérale gauche (filtres) */
+#filtres {
+    background-color: #FFFFFF;
+    border: 1px solid #c9a8a8;
+    border-radius: 10px;
+    padding: 20px;
+    margin-right: 30px;
+}
+
+#filtres p {
+    font-weight: bold;
+    border-bottom: 1px dashed #c9a8a8;
+    padding-bottom: 5px;
+}
+
+/* Zone droite (grille des plats) */
+#liste-plats {
+    display: grid;
+    grid-template-columns: 250px 250px 250px;
+}
+
+/* Design d'une carte produit */
+.plat {
+    background-color: #FFFFFF;
+    border: 1px solid #c9a8a8;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+}
+
+.plat:hover {
+    border: 2px solid #E63946; 
+}
+
+.plat img {
+    border-radius: 10px;
+}
+
+.plat h4 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #212121;
+}
+
+.plat p {
+    color: #E63946;
+    font-weight: bold;
+    font-size: 1.1em;
+}
+
+/* --- 5. GRILLE DES PLATS --- */
+#liste-plats {
+    display: grid;
+    grid-template-columns: 250px 250px 250px; /* 3 colonnes fixes de produits */
+}
+
+/* La carte produit (Le secret d'un bon design = les marges) */
+.plat {
+    background-color: #FFFFFF;
+    border: 1px solid #c9a8a8;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+}
+
+/* Effet interactif autorisé par le cours (p.27) */
+.plat:hover {
+    border: 2px solid #E63946; 
+}
+
+.plat img {
+    border-radius: 10px;
+}
+
+.plat h4 {
+    margin: 10px 0;
+    font-size: 1.2em;
+    color: #212121;
+}
+
+.plat p {
+    color: #E63946;
+    font-weight: bold;
+    font-size: 1.1em;
 }
