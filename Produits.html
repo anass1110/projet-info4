@@ -1,1 +1,72 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>SushyTech - Notre Menu</title>
+    <link rel="stylesheet" type="text/css" href="fichier.css">
+</head>
+
+<body>
+    <header>
+        <div id="logo">
+            <h1>SushyTech</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html" class="bouton-nav">Accueil</a></li>
+                <li><a href="connexion.html" class="bouton-nav">Connexion</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div id="contenu-produits">
+        <div id="filtres">
+            <h3>Filtrer le menu</h3>
+            <form action="produits.html" method="get">
+                <p>Recherche :</p>
+                <input type="text" name="recherche" value="Nom du plat...">
+
+                <p>Catégorie :</p>
+                <select name="categorie">
+                    <option value="tous">Tous les plats</option>
+                    <option value="sushi">Sushis & Makis</option>
+                    <option value="chaud">Plats chauds</option>
+                    <option value="dessert">Desserts</option>
+                </select>
+
+                <p>Allergènes (à exclure) :</p>
+                <input type="checkbox" name="allergene" value="arachide"> Arachide<br>
+                <input type="checkbox" name="allergene" value="crustaces"> Crustacés<br>
+                <input type="checkbox" name="allergene" value="gluten"> Gluten<br>
+
+                <br>
+                <input type="submit" value="Appliquer les filtres">
+            </form>
+        </div>
+
+        <div id="liste-plats">
+            <div class="plat">
+                <img src="image-sushi.jpg" alt="Sushi Saumon" width="150" height="150">
+                <h4>Sushi Saumon</h4>
+                <p>Prix : 4.50€</p>
+                <a href="#" class="bouton-nav">Ajouter</a>
+            </div>
+            
+            <div class="plat">
+                <img src="image-maki.jpg" alt="Maki Thon" width="150" height="150">
+                <h4>Maki Thon</h4>
+                <p>Prix : 5.00€</p>
+                <a href="#" class="bouton-nav">Ajouter</a>
+            </div>
+
+            <div class="plat">
+                <img src="image-yakitori.jpg" alt="Yakitori" width="150" height="150">
+                <h4>Yakitori Bœuf</h4>
+                <p>Prix : 6.00€</p>
+                <a href="#" class="bouton-nav">Ajouter</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
 
