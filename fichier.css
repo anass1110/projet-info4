@@ -211,3 +211,97 @@ textarea {
     border-radius: 30px;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* --- Nouveaux Styles Phase 1 --- */
+
+/* Tableaux (Profil et Admin) */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+}
+
+th, td {
+    border: 1px solid #1C1C1C;
+    padding: 12px;
+    text-align: center;
+}
+
+th {
+    background-color: #BC002D;
+    color: white;
+}
+
+/* Profil */
+#contenu-profil {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+}
+
+.infos-perso {
+    background: white;
+    padding: 20px;
+    border-radius: 10px;
+    border: 2px solid #1C1C1C;
+    margin-bottom: 20px;
+}
+
+.points {
+    color: #BC002D;
+    font-size: 1.5em;
+}
+
+/* Restaurateur & Commandes */
+#gestion-commandes {
+    display: flex;
+    justify-content: space-around;
+    padding: 20px;
+}
+
+.colonne-commandes {
+    width: 45%;
+    background: #fff;
+    border: 2px solid #1C1C1C;
+    border-radius: 10px;
+    padding: 15px;
+}
+
+.carte-commande {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+    background: #F4F1EA;
+}
+
+/* Livraison Mobile (Simplification pour gros gants) */
+.mobile-view h1 {
+    font-size: 1.5em;
+}
+
+#infos-livraison {
+    padding: 20px;
+    font-size: 1.2em; /* Texte plus gros pour lisibilité */
+}
+
+#infos-livraison .bouton-nav {
+    display: block;
+    width: 100%;
+    margin: 20px 0;
+    padding: 20px; /* Zone de clic agrandie */
+}
