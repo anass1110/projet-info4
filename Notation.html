@@ -2,25 +2,53 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>SushyTech - Votre avis</title>
+    <title>SushyTech - Notez votre commande</title>
     <link rel="stylesheet" type="text/css" href="fichier.css">
 </head>
 <body>
+    <header>
+        <div id="logo"><h1>SushyTech</h1></div>
+        <nav>
+            <ul>
+                <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
+                <li><a href="Produits.html" class="bouton-nav">Menu</a></li>
+                <li><a href="Profil.html" class="bouton-nav">Mon Profil</a></li>
+            </ul>
+        </nav>
+    </header>
+
     <div id="contenu-formulaire">
-        <h2>Votre avis nous intéresse !</h2>
-        <form>
-            <label>Note de la cuisine (1 à 5) :</label>
-            <input type="number" min="1" max="5" value="5">
-            
-            <label>Note de la livraison :</label>
-            <input type="number" min="1" max="5" value="5">
+        <form action="Profil.html" method="post">
+            <fieldset>
+                <legend>Votre avis sur la commande #451</legend>
 
-            <label>Commentaire :</label>
-            <textarea rows="4"></textarea>
+                <p>Merci d'avoir commandé chez SushyTech !</p>
 
-            <div class="actions-form">
-                <input type="submit" value="Envoyer mon avis">
-            </div>
+                <label for="note-produit">Qualité des produits (Sushi, Ramen...) :</label>
+                <select id="note-produit" name="note_produit">
+                    <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
+                    <option value="4">⭐⭐⭐⭐ - Très bon</option>
+                    <option value="3">⭐⭐⭐ - Moyen</option>
+                    <option value="2">⭐⭐ - Décevant</option>
+                    <option value="1">⭐ - Mauvais</option>
+                </select>
+
+                <label for="note-livraison">Qualité de la livraison (Rapidité, amabilité) :</label>
+                <select id="note-livraison" name="note_livraison">
+                    <option value="5">⭐⭐⭐⭐⭐ - Parfait</option>
+                    <option value="4">⭐⭐⭐⭐ - Bien</option>
+                    <option value="3">⭐⭐⭐ - Correct</option>
+                    <option value="2">⭐⭐ - En retard</option>
+                    <option value="1">⭐ - Problème de livraison</option>
+                </select>
+
+                <label for="commentaire">Commentaire éventuel :</label>
+                <textarea id="commentaire" name="user_commentaire" rows="4" placeholder="Dites-nous ce que vous avez pensé de votre repas..."></textarea>
+
+                <div class="actions-form">
+                    <input type="submit" value="Envoyer mon avis">
+                </div>
+            </fieldset>
         </form>
     </div>
 </body>
