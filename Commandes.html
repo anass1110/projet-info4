@@ -2,27 +2,49 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>SushyTech - Gestion Commandes</title>
+    <title>SushyTech - Gestion Restaurateur</title>
     <link rel="stylesheet" type="text/css" href="fichier.css">
 </head>
 <body>
     <header>
-        <h1>Interface Restaurateur</h1>
+        <div id="logo"><h1>SUSHYTECH - RESTAURATEUR</h1></div>
+        <nav>
+            <ul>
+                <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
+                <li><a href="Produits.html" class="bouton-nav">Menu</a></li>
+                <li><a href="Administrateur.html" class="bouton-nav">Admin</a></li>
+                <li><a href="Connexion.html" class="bouton-nav">Déconnexion</a></li>
+            </ul>
+        </nav>
     </header>
 
     <div id="gestion-commandes">
         <div class="colonne-commandes">
-            <h3>À Préparer</h3>
+            <h2 style="color: #BC002D; text-align: center;">À Préparer</h2>
+            
             <div class="carte-commande">
-                <p>#452 - Maki Thon (x2)</p>
-                <button class="bouton-nav">Prêt pour Livraison</button>
+                <p><strong>Commande #452</strong></p>
+                <p>Détails : 2x Maki Thon, 1x Soupe Miso</p>
+                <p>Statut : <span style="color: orange;">En attente</span></p>
+                <button class="bouton-nav" style="width: 100%; margin-top: 10px;">Passer en Livraison</button>
+            </div>
+
+            <div class="carte-commande">
+                <p><strong>Commande #453</strong></p>
+                <p>Détails : 1x Plateau Saumon, 1x Mochi</p>
+                <p>Statut : <span style="color: orange;">En attente</span></p>
+                <button class="bouton-nav" style="width: 100%; margin-top: 10px;">Passer en Livraison</button>
             </div>
         </div>
+
         <div class="colonne-commandes">
-            <h3>En Livraison</h3>
+            <h2 style="color: #BC002D; text-align: center;">En Livraison</h2>
+            
             <div class="carte-commande">
-                <p>#451 - Yakitori Boeuf</p>
-                <span>En cours...</span>
+                <p><strong>Commande #451</strong></p>
+                <p>Détails : 1x Yakitori Boeuf, 1x Riz</p>
+                <p>Livreur : Marc Livreur</p>
+                <p>Statut : <span style="color: blue;">En cours...</span></p>
             </div>
         </div>
     </div>
