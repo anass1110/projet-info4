@@ -8,16 +8,33 @@
 <body>
     <header>
         <div id="logo"><h1>SushyTech - Admin</h1></div>
+        <nav>
+            <ul>
+                <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
+                <li><a href="Produits.html" class="bouton-nav">Menu</a></li>
+                <li><a href="Connexion.html" class="bouton-nav">Déconnexion</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <div id="contenu-admin">
+    <div id="contenu-admin" style="margin: 30px;">
         <h2>Gestion des Utilisateurs</h2>
+        
+        <div class="filtres-admin" style="margin-bottom: 20px;">
+            <label>Afficher :</label>
+            <select id="filtre-users">
+                <option value="tous">Tous les utilisateurs</option>
+                <option value="commandes">Uniquement avec commandes</option>
+            </select>
+        </div>
+
         <table class="table-admin">
             <thead>
                 <tr>
                     <th>ID</th>
-                    <th>Nom</th>
+                    <th>Nom & Prénom</th>
                     <th>Rôle</th>
+                    <th>Nb Commandes</th>
                     <th>Action</th>
                 </tr>
             </thead>
@@ -26,7 +43,15 @@
                     <td>001</td>
                     <td>Jean Dupont</td>
                     <td>Client</td>
+                    <td>2</td>
                     <td><a href="Profil.html" class="bouton-nav">Voir Profil</a></td>
+                </tr>
+                <tr>
+                    <td>002</td>
+                    <td>Marc Livreur</td>
+                    <td>Livreur</td>
+                    <td>0</td>
+                    <td><a href="#" class="bouton-nav">Voir Profil</a></td>
                 </tr>
             </tbody>
         </table>
