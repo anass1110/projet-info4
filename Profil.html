@@ -12,65 +12,59 @@
             <ul>
                 <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
                 <li><a href="Produits.html" class="bouton-nav">Menu</a></li>
-                <li><a href="Connexion.html" class="bouton-nav">Déconnexion</a></li>
+                <li><a href="Administrateur.html" class="bouton-nav">Retour Admin</a></li>
             </ul>
         </nav>
     </header>
 
     <div id="contenu-profil">
         <section class="infos-perso">
-            <h2>Mes Informations <span class="edit-icon" title="Sera modifiable en Phase 2">✎</span></h2>
+            <h2 id="titre-profil">Profil de Jean Dupont <span class="edit-icon">✎</span></h2>
             <form id="form-profil">
                 <div class="champ-profil">
                     <label>Nom :</label>
-                    <input type="text" value="Dupont" readonly>
+                    <input type="text" id="p-nom" value="Dupont" readonly>
                 </div>
                 <div class="champ-profil">
                     <label>Prénom :</label>
-                    <input type="text" value="Jean" readonly>
+                    <input type="text" id="p-prenom" value="Jean" readonly>
                 </div>
                 <div class="champ-profil">
                     <label>Email :</label>
-                    <input type="email" value="jean.dupont@email.com" readonly>
-                </div>
-                <div class="champ-profil">
-                    <label>Adresse :</label>
-                    <textarea readonly>12 rue des Sushis, 95000 Cergy</textarea>
+                    <input type="email" id="p-email" value="jean.dupont@email.com" readonly>
                 </div>
                 <div class="champ-profil">
                     <label>Fidélité :</label>
-                    <span class="points">150 pts</span>
+                    <span id="p-points" class="points">150 pts</span>
                 </div>
             </form>
         </section>
 
-        <section class="historique-commandes">
+        <section class="historique-commandes" id="section-commandes">
             <h2>Anciennes Commandes</h2>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Date</th>
-                        <th>Commande</th>
-                        <th>Prix</th>
-                        <th>Statut</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>10/02/2026</td>
-                        <td>Plateau Saumon x1</td>
-                        <td>15.50€</td>
-                        <td><span class="statut livre">Livré</span></td>
-                    </tr>
-                    <tr>
-                        <td>05/02/2026</td>
-                        <td>Ramen Boeuf x2</td>
-                        <td>25.00€</td>
-                        <td><span class="statut livre">Livré</span></td>
-                    </tr>
-                </tbody>
+            <table id="table-commandes">
+                <tr><th>Date</th><th>Commande</th><th>Prix</th></tr>
+                <tr><td>10/02/2026</td><td>Plateau Saumon</td><td>15.50€</td></tr>
             </table>
         </section>
     </div>
+
+    <script>
+        // Ce script regarde qui a été cliqué dans la page Admin
+        const params = new URLSearchParams(window.location.search);
+        const user = params.get('user');
+
+        if (user === 'marc') {
+            // On change les infos pour Marc
+            document.getElementById('titre-profil').innerHTML = "Profil de Marc Livreur <span class='edit-icon'>✎</span>";
+            document.getElementById('p-nom').value = "Livreur";
+            document.getElementById('p-prenom').value = "Marc";
+            document.getElementById('p-email').value = "marc.livreur@sushytech.fr";
+            document.getElementById('p-points').innerText = "0 pts (Livreur)";
+            
+            // Marc n'a pas de commandes, on cache la table
+            document.getElementById('section-commandes').innerHTML = "<h2>Anciennes Commandes</h2><p>Aucune commande passée.</p>";
+        }
+    </script>
 </body>
 </html>
