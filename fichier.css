@@ -114,10 +114,11 @@ a.bouton-nav:hover, input[type="submit"]:hover {
     padding-bottom: 5px;
 }
 
-/* Zone droite (grille des plats) */
 #liste-plats {
     display: grid;
-    grid-template-columns: 250px 250px 250px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    padding: 10px;
 }
 
 /* Design d'une carte produit */
@@ -135,7 +136,12 @@ a.bouton-nav:hover, input[type="submit"]:hover {
 }
 
 .plat img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
     border-radius: 10px;
+    margin-bottom: 10px;
+}
 }
 
 .plat h4 {
