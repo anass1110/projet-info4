@@ -3,22 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Livraison en cours</title>
+    <title>SushyTech - Livraison en cours</title>
     <link rel="stylesheet" type="text/css" href="fichier.css">
 </head>
 <body class="mobile-view">
-    <header><h1>Livraison #451</h1></header>
+    <header>
+        <div id="logo"><h1>LIVRAISON #451</h1></div>
+        <nav>
+            <ul>
+                <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
+                <li><a href="Commandes.html" class="bouton-nav">Commandes</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <div id="infos-livraison">
-        <p><strong>Client :</strong> Jean Dupont</p>
-        <p><strong>Adresse :</strong> 12 rue des Sushis, Cergy</p>
-        <p><strong>Interphone :</strong> B42 - 3ème étage</p>
-        <p><strong>Tél :</strong> 06 00 00 00 00</p>
+        <div class="carte-livraison">
+            <p><strong>Client :</strong> Jean Dupont</p>
+            <p><strong>Numéro de téléphone :</strong> 06 00 00 00 00</p> 
+            <p><strong>Adresse :</strong> 12 rue des Sushis, 95000 Cergy</p> 
+            <p><strong>Code Interphone :</strong> B42</p> 
+            <p><strong>Étage :</strong> 3ème étage</p> 
+            <p><strong>Commentaires :</strong> "Sonner fort, la sonnette fonctionne mal."</p> 
+        </div>
         
-        <a href="https://www.google.com/maps" target="_blank" class="bouton-nav">Ouvrir Itinéraire (Maps)</a>
+        <a href="https://www.google.com/maps/search/?api=1&query=12+rue+des+Sushis+Cergy" target="_blank" class="bouton-nav" style="background-color: #1C1C1C; color: white; display: block; text-align: center; padding: 20px; margin: 20px 0;">
+            🗺️ Ouvrir l'itinéraire (Maps/Waze)
+        </a> 
         
         <div class="actions-form">
-            <button class="bouton-nav" style="background-color: green; color: white;">Livraison Terminée</button>
+            <button class="bouton-nav" style="background-color: #BC002D; color: white; width: 100%; padding: 25px; font-size: 1.3em; border: none;">
+                CONFIRMER LA LIVRAISON
+            </button> 
+            <p style="font-size: 0.8em; color: gray; margin-top: 10px;">(Bouton actif en Phase 2/3)</p> 
         </div>
     </div>
 </body>
