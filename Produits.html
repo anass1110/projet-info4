@@ -21,24 +21,23 @@
             <h3>Filtrer le menu</h3>
             <form id="form-filtres">
                 <p>Recherche :</p>
-                <input type="text" id="rech-nom" placeholder="Nom du plat...">
+                <input type="text" id="rech-nom" placeholder="Nom du plat..." onkeyup="filtrerTout()">
 
                 <p>Catégorie :</p>
-                <select id="sel-categorie">
+                <select id="sel-categorie" onchange="filtrerTout()">
                     <option value="tous">Tous les plats</option>
                     <option value="sushi">Sushis & Makis</option>
                     <option value="chaud">Plats chauds</option>
-                    <option value="accompagnement">Accompagnements</option>
                     <option value="dessert">Desserts</option>
                 </select>
 
                 <p>Allergènes à exclure :</p>
-                <input type="checkbox" class="check-alg" value="arachide"> Arachide<br>
-                <input type="checkbox" class="check-alg" value="crustaces"> Crustacés<br>
-                <input type="checkbox" class="check-alg" value="gluten"> Gluten<br>
-
+                <input type="checkbox" class="check-alg" value="arachide" onclick="filtrerTout()"> Arachide<br>
+                <input type="checkbox" class="check-alg" value="crustaces" onclick="filtrerTout()"> Crustacés<br>
+                <input type="checkbox" class="check-alg" value="gluten" onclick="filtrerTout()"> Gluten<br>
+                
                 <br>
-                <button type="button" class="bouton-nav" onclick="simulerFiltre()">Appliquer les filtres</button>
+                <button type="button" class="bouton-nav" onclick="filtrerTout()">Appliquer les filtres</button>
             </form>
         </div>
 
@@ -88,12 +87,23 @@
     </div>
 
     <script>
-        function simulerFiltre() {
-            const cat = document.getElementById('sel-categorie').value;
+        function filtrerTout() {
+            // Récupération des valeurs des filtres
+            const recherche = document.getElementById('rech-nom').value.toLowerCase();
+            const categorie = document.getElementById('sel-categorie').value;
             const plats = document.querySelectorAll('.plat');
 
             plats.forEach(plat => {
-                if (cat === 'tous' || plat.classList.contains('cat-' + cat)) {
+                const nomPlat = plat.querySelector('h4').innerText.toLowerCase();
+                
+                // Vérification Catégorie
+                const matchCat = (categorie === 'tous' || plat.classList.contains('cat-' + categorie));
+                
+                // Vérification Recherche (Nom)
+                const matchRech = nomPlat.includes(recherche);
+
+                // Affichage si les deux conditions sont vraies
+                if (matchCat && matchRech) {
                     plat.style.display = "block";
                 } else {
                     plat.style.display = "none";
