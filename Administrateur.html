@@ -21,40 +21,60 @@
         <h2>Gestion des Utilisateurs</h2>
         
         <div class="filtres-admin" style="margin-bottom: 20px;">
-            <label>Afficher :</label>
-            <select id="filtre-users">
-                <option value="tous">Tous les utilisateurs</option>
-                <option value="commandes">Uniquement avec commandes</option>
-            </select>
-        </div>
+    <label>Afficher :</label>
+    <select id="filtre-users" onchange="filtrerUtilisateurs()">
+        <option value="tous">Tous les utilisateurs</option>
+        <option value="commandes">Uniquement avec commandes</option>
+    </select>
+</div>
 
-        <table class="table-admin">
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nom & Prénom</th>
-                    <th>Rôle</th>
-                    <th>Nb Commandes</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>001</td>
-                    <td>Jean Dupont</td>
-                    <td>Client</td>
-                    <td>2</td>
-                    <td><a href="Profil.html" class="bouton-nav">Voir Profil</a></td>
-                </tr>
-                <tr>
-                    <td>002</td>
-                    <td>Marc Livreur</td>
-                    <td>Livreur</td>
-                    <td>0</td>
-                    <td><a href="#" class="bouton-nav">Voir Profil</a></td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</body>
-</html>
+<table class="table-admin" id="table-utilisateurs">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nom & Prénom</th>
+            <th>Rôle</th>
+            <th>Nb Commandes</th>
+            <th>Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr class="user-row" data-commandes="2">
+            <td>001</td>
+            <td>Jean Dupont</td>
+            <td>Client</td>
+            <td>2</td>
+            <td><a href="Profil.html" class="bouton-nav">Voir Profil</a></td>
+        </tr>
+        <tr class="user-row" data-commandes="0">
+            <td>002</td>
+            <td>Marc Livreur</td>
+            <td>Livreur</td>
+            <td>0</td>
+            <td><a href="#" class="bouton-nav">Voir Profil</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+function filtrerUtilisateurs() {
+    const choix = document.getElementById('filtre-users').value;
+    const lignes = document.querySelectorAll('.user-row');
+
+    lignes.forEach(ligne => {
+        // On récupère le nombre de commandes via l'attribut data-commandes
+        const nbCommandes = parseInt(ligne.getAttribute('data-commandes'));
+
+        if (choix === 'tous') {
+            ligne.style.display = ""; // Affiche tout
+        } else if (choix === 'commandes') {
+            // N'affiche que si le nombre de commandes est supérieur à 0
+            if (nbCommandes > 0) {
+                ligne.style.display = "";
+            } else {
+                ligne.style.display = "none";
+            }
+        }
+    });
+}
+</script>
