@@ -230,7 +230,50 @@ textarea {
 
 
 
+/* --- Ajustements Profil Interactif --- */
 
+.champ-profil {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.champ-profil label {
+    width: 100px;
+    font-weight: bold;
+    color: #BC002D;
+}
+
+.champ-profil input[readonly], 
+.champ-profil textarea[readonly] {
+    border: none;
+    background: transparent;
+    font-family: Verdana, sans-serif;
+    font-size: 1em;
+    color: #1C1C1C;
+    width: 100%;
+    outline: none;
+    padding: 5px;
+}
+
+.edit-icon {
+    font-size: 0.8em;
+    cursor: pointer;
+    color: #BC002D;
+    margin-left: 10px;
+}
+
+.statut.livre {
+    color: green;
+    font-weight: bold;
+}
+
+/* Amélioration visuelle des tableaux */
+table {
+    border: 2px solid #1C1C1C;
+    border-radius: 8px;
+    overflow: hidden;
+}
 /* --- Nouveaux Styles Phase 1 --- */
 
 /* Tableaux (Profil et Admin) */
