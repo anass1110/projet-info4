@@ -7,28 +7,28 @@
 </head>
 <body>
     <header>
-    <div id="logo">
-        <h1>SUSHYTECH</h1>
-    </div>
-    <nav>
-        <ul>
-            <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
-            <li><a href="Produits.html" class="bouton-nav">Menu</a></li>
-            <li><a href="Connexion.html" class="bouton-nav">Connexion</a></li>
-            <li><a href="Administrateur.html" class="bouton-nav">Admin</a></li>
-        </ul>
-    </nav>
-</header>
+        <div id="logo">
+            <h1>SUSHYTECH</h1>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
+                <li><a href="Produits.html" class="bouton-nav">Menu</a></li>
+                <li><a href="Connexion.html" class="bouton-nav">Connexion</a></li>
+                <li><a href="Administrateur.html" class="bouton-nav">Admin</a></li>
+            </ul>
+        </nav>
+    </header>
 
     <div id="contenu-produits">
         <div id="filtres">
             <h3>Filtrer le menu</h3>
-            <form id="form-filtres">
+            <form id="form-filtres" action="Produits.html" method="get">
                 <p>Recherche :</p>
-                <input type="text" id="rech-nom" placeholder="Nom du plat..." onkeyup="filtrerTout()">
+                <input type="text" id="rech-nom" name="recherche" value="Nom du plat...">
 
                 <p>Catégorie :</p>
-                <select id="sel-categorie" onchange="filtrerTout()">
+                <select id="sel-categorie" name="categorie">
                     <option value="tous">Tous les plats</option>
                     <option value="sushi">Sushis & Makis</option>
                     <option value="chaud">Plats chauds</option>
@@ -36,52 +36,52 @@
                 </select>
 
                 <p>Allergènes à exclure :</p>
-                <input type="checkbox" class="check-alg" value="arachide" onclick="filtrerTout()"> Arachide<br>
-                <input type="checkbox" class="check-alg" value="crustaces" onclick="filtrerTout()"> Crustacés<br>
-                <input type="checkbox" class="check-alg" value="gluten" onclick="filtrerTout()"> Gluten<br>
+                <input type="checkbox" class="check-alg" name="allergene" value="arachide"> Arachide<br>
+                <input type="checkbox" class="check-alg" name="allergene" value="crustaces"> Crustacés<br>
+                <input type="checkbox" class="check-alg" name="allergene" value="gluten"> Gluten<br>
                 
                 <br>
-                <button type="button" class="bouton-nav" onclick="filtrerTout()">Appliquer les filtres</button>
+                <input type="submit" class="bouton-nav" value="Appliquer les filtres">
             </form>
         </div>
 
         <div id="liste-plats">
-            <div class="plat cat-sushi">
+            <div class="plat">
                 <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800" alt="Sushi Saumon">
                 <h4>Sushi Saumon</h4>
                 <p>4.50€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
             
-            <div class="plat cat-sushi alg-gluten">
+            <div class="plat">
                 <img src="https://images.unsplash.com/photo-1559466273-d95e72debaf8?w=800" alt="Maki California">
                 <h4>Maki California</h4>
                 <p>5.00€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
 
-            <div class="plat cat-chaud alg-gluten">
+            <div class="plat">
                 <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800" alt="Ramen Boeuf">
                 <h4>Ramen Boeuf</h4>
                 <p>12.50€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
 
-            <div class="plat cat-chaud alg-gluten">
+            <div class="plat">
                 <img src="https://images.unsplash.com/photo-1511910849309-0dffb8785146?w=800" alt="Gyoza Grillés">
                 <h4>Gyoza Grillés</h4>
                 <p>4.00€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
 
-            <div class="plat cat-dessert">
+            <div class="plat">
                 <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=800" alt="Mochi Glacé">
                 <h4>Mochi Glacé</h4>
                 <p>3.80€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
 
-            <div class="plat cat-chaud">
+            <div class="plat">
                 <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800" alt="Yakitori Poulet">
                 <h4>Yakitori Poulet</h4>
                 <p>5.50€</p>
@@ -89,31 +89,5 @@
             </div>
         </div>
     </div>
-
-    <script>
-        function filtrerTout() {
-            // Récupération des valeurs des filtres
-            const recherche = document.getElementById('rech-nom').value.toLowerCase();
-            const categorie = document.getElementById('sel-categorie').value;
-            const plats = document.querySelectorAll('.plat');
-
-            plats.forEach(plat => {
-                const nomPlat = plat.querySelector('h4').innerText.toLowerCase();
-                
-                // Vérification Catégorie
-                const matchCat = (categorie === 'tous' || plat.classList.contains('cat-' + categorie));
-                
-                // Vérification Recherche (Nom)
-                const matchRech = nomPlat.includes(recherche);
-
-                // Affichage si les deux conditions sont vraies
-                if (matchCat && matchRech) {
-                    plat.style.display = "block";
-                } else {
-                    plat.style.display = "none";
-                }
-            });
-        }
-    </script>
 </body>
 </html>
