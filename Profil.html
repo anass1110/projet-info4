@@ -8,16 +8,16 @@
 <body>
     <header>
         <div id="logo"><h1>SushyTech</h1></div>
-       <nav>
-    <ul>
-        <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
-        <li><a href="Produits.html" class="bouton-nav">Menu</a></li>
-        <li><a href="Connexion.html" class="bouton-nav">Connexion</a></li>
-        <li><a href="Administrateur.html" class="bouton-nav">Admin</a></li>
-        <li><a href="Commandes.html" class="bouton-nav">Commandes</a></li>
-        <li><a href="Livraison.html" class="bouton-nav">Livraison</a></li>
-    </ul>
-</nav>
+        <nav>
+            <ul>
+                <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
+                <li><a href="Produits.html" class="bouton-nav">Menu</a></li>
+                <li><a href="Connexion.html" class="bouton-nav">Connexion</a></li>
+                <li><a href="Administrateur.html" class="bouton-nav">Admin</a></li>
+                <li><a href="Commandes.html" class="bouton-nav">Commandes</a></li>
+                <li><a href="Livraison.html" class="bouton-nav">Livraison</a></li>
+            </ul>
+        </nav>
     </header>
 
     <div id="contenu-profil">
@@ -51,28 +51,5 @@
             </table>
         </section>
     </div>
-
-    <script>
-        // Ce script regarde qui a été cliqué dans la page Admin
-        const params = new URLSearchParams(window.location.search);
-        const user = params.get('user');
-
-if (user === 'marc') {
-    // Changement du titre et des champs du formulaire
-    document.getElementById('titre-profil').innerHTML = "Profil de Marc Livreur <span class='edit-icon'>✎</span>";
-    document.getElementById('p-nom').value = "Livreur";
-    document.getElementById('p-prenom').value = "Marc";
-    document.getElementById('p-email').value = "marc.livreur@sushytech.fr";
-    
-    // Mise à jour de la fidélité (Fidélité au lieu de Points Fidélité selon ton image)
-    document.getElementById('p-points').innerText = "0 pts"; 
-    
-    // Cacher l'adresse ou la modifier si besoin
-    document.getElementById('p-adresse').value = "Dépôt Central - Cergy";
-
-    // Vider le tableau des commandes
-    document.getElementById('section-commandes').innerHTML = "<h2>Anciennes Commandes</h2><p>Aucune commande passée.</p>";
-}
-    </script>
 </body>
 </html>
