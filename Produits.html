@@ -5,16 +5,13 @@
     <title>SushyTech - Notre Menu</title>
     <link rel="stylesheet" type="text/css" href="fichier.css">
 </head>
-
 <body>
     <header>
-        <div id="logo">
-            <h1>SushyTech</h1>
-        </div>
+        <div id="logo"><h1>SushyTech</h1></div>
         <nav>
             <ul>
                 <li><a href="accueil.html" class="bouton-nav">Accueil</a></li>
-                <li><a href="connexion.html" class="bouton-nav">Connexion</a></li>
+                <li><a href="Connexion.html" class="bouton-nav">Connexion</a></li>
             </ul>
         </nav>
     </header>
@@ -22,12 +19,12 @@
     <div id="contenu-produits">
         <div id="filtres">
             <h3>Filtrer le menu</h3>
-            <form action="produits.html" method="get">
+            <form id="form-filtres">
                 <p>Recherche :</p>
-                <input type="text" name="recherche" placeholder="Nom du plat...">
+                <input type="text" id="rech-nom" placeholder="Nom du plat...">
 
                 <p>Catégorie :</p>
-                <select name="categorie">
+                <select id="sel-categorie">
                     <option value="tous">Tous les plats</option>
                     <option value="sushi">Sushis & Makis</option>
                     <option value="chaud">Plats chauds</option>
@@ -35,59 +32,74 @@
                     <option value="dessert">Desserts</option>
                 </select>
 
-                <p>Allergènes (à exclure) :</p>
-                <input type="checkbox" name="allergene" value="arachide"> Arachide<br>
-                <input type="checkbox" name="allergene" value="crustaces"> Crustacés<br>
-                <input type="checkbox" name="allergene" value="gluten"> Gluten<br>
+                <p>Allergènes à exclure :</p>
+                <input type="checkbox" class="check-alg" value="arachide"> Arachide<br>
+                <input type="checkbox" class="check-alg" value="crustaces"> Crustacés<br>
+                <input type="checkbox" class="check-alg" value="gluten"> Gluten<br>
 
                 <br>
-                <input type="submit" value="Appliquer les filtres">
+                <button type="button" class="bouton-nav" onclick="simulerFiltre()">Appliquer les filtres</button>
             </form>
         </div>
 
         <div id="liste-plats">
-            <div class="plat">
-                <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?q=80&w=800&auto=format&fit=crop" alt="Sushi Saumon">
+            <div class="plat cat-sushi">
+                <img src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=800" alt="Sushi Saumon">
                 <h4>Sushi Saumon</h4>
                 <p>4.50€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
             
-            <div class="plat">
-                <img src="https://images.unsplash.com/photo-1559466273-d95e72debaf8?q=80&w=800&auto=format&fit=crop" alt="Maki California">
+            <div class="plat cat-sushi alg-gluten">
+                <img src="https://images.unsplash.com/photo-1559466273-d95e72debaf8?w=800" alt="Maki California">
                 <h4>Maki California</h4>
                 <p>5.00€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
 
-            <div class="plat">
-                <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?q=80&w=800&auto=format&fit=crop" alt="Ramen Boeuf">
+            <div class="plat cat-chaud alg-gluten">
+                <img src="https://images.unsplash.com/photo-1569718212165-3a8278d5f624?w=800" alt="Ramen Boeuf">
                 <h4>Ramen Boeuf</h4>
                 <p>12.50€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
 
-            <div class="plat">
-                <img src="https://images.unsplash.com/photo-1511910849309-0dffb8785146?q=80&w=800&auto=format&fit=crop" alt="Gyoza Grillés">
+            <div class="plat cat-chaud alg-gluten">
+                <img src="https://images.unsplash.com/photo-1511910849309-0dffb8785146?w=800" alt="Gyoza Grillés">
                 <h4>Gyoza Grillés</h4>
                 <p>4.00€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
 
-            <div class="plat">
-                <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?q=80&w=800&auto=format&fit=crop" alt="Mochi Glacé">
+            <div class="plat cat-dessert">
+                <img src="https://images.unsplash.com/photo-1590080875515-8a3a8dc5735e?w=800" alt="Mochi Glacé">
                 <h4>Mochi Glacé</h4>
                 <p>3.80€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
 
-            <div class="plat">
-                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?q=80&w=800&auto=format&fit=crop" alt="Yakitori Poulet">
+            <div class="plat cat-chaud">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800" alt="Yakitori Poulet">
                 <h4>Yakitori Poulet</h4>
                 <p>5.50€</p>
                 <a href="#" class="bouton-nav">Ajouter</a>
             </div>
         </div>
     </div>
+
+    <script>
+        function simulerFiltre() {
+            const cat = document.getElementById('sel-categorie').value;
+            const plats = document.querySelectorAll('.plat');
+
+            plats.forEach(plat => {
+                if (cat === 'tous' || plat.classList.contains('cat-' + cat)) {
+                    plat.style.display = "block";
+                } else {
+                    plat.style.display = "none";
+                }
+            });
+        }
+    </script>
 </body>
 </html>
