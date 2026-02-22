@@ -1,5 +1,4 @@
 /* Styles globaux (toutes les pages)*/
-
 body {
     background-color: #F4F1EA; 
     color: #1C1C1C; 
@@ -41,7 +40,7 @@ nav li {
 }
 
 /* Boutons standards (navigation et formulaires) */
-a.bouton-nav, input[type="submit"] {
+a.bouton-nav, input[type="submit"], button.bouton-nav {
     display: inline-block;
     background-color: #FFFFFF;
     color: #BC002D;
@@ -50,17 +49,16 @@ a.bouton-nav, input[type="submit"] {
     text-decoration: none;
     font-weight: bold;
     border-radius: 20px;
-}
-
-a.bouton-nav:hover, input[type="submit"]:hover {
-    background-color: #BC002D;
-    color: #FFFFFF;
-    border-color: #BC002D;
     cursor: pointer;
 }
 
-/* Page d'acceuil */
+a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
+    background-color: #BC002D;
+    color: #FFFFFF;
+    border-color: #BC002D;
+}
 
+/* Page d'accueil */
 #contenu-principal {
     margin: 40px;
     text-align: center;
@@ -75,7 +73,6 @@ a.bouton-nav:hover, input[type="submit"]:hover {
     background-color: #FFFFFF;
     border: 2px solid #1C1C1C;
     border-radius: 15px;
-    box-sizing: border-box;
 }
 
 .plats-vedettes {
@@ -92,7 +89,6 @@ a.bouton-nav:hover, input[type="submit"]:hover {
 }
 
 /* Page produits */
-
 #contenu-produits {
     display: grid;
     grid-template-columns: 250px auto;
@@ -115,14 +111,15 @@ a.bouton-nav:hover, input[type="submit"]:hover {
 }
 
 #liste-plats {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-    gap: 15px;
+    text-align: center;
     padding: 10px;
 }
 
-/* Design d'une carte produit */
+/* carte produit */
 .plat {
+    display: inline-block;
+    vertical-align: top;
+    width: 220px;
     background-color: #FFFFFF;
     border: 2px solid #1C1C1C;
     border-radius: 10px;
@@ -137,8 +134,7 @@ a.bouton-nav:hover, input[type="submit"]:hover {
 
 .plat img {
     width: 100%;
-    height: 180px; /* Légèrement plus grand pour plus de clarté */
-    object-fit: cover; /* Garde les proportions sans déformer */
+    height: 180px;
     border-radius: 10px;
     margin-bottom: 10px;
 }
@@ -155,8 +151,7 @@ a.bouton-nav:hover, input[type="submit"]:hover {
     font-size: 1.1em;
 }
 
-/* (Inscription,Connexion) */
-
+/* (Inscription, Connexion) */
 #contenu-formulaire {
     width: 40%;
     margin: 50px auto;
@@ -209,72 +204,14 @@ textarea {
     text-align: center;
 }
 
-.actions-form input[type="submit"] {
-    width: 90%;
+.actions-form input[type="submit"], .actions-form input[type="reset"] {
+    width: 45%;
     padding: 15px;
     font-size: 1.1em;
     border-radius: 30px;
+    margin: 5px;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* --- Ajustements Profil Interactif --- */
-
-.champ-profil {
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-}
-
-.champ-profil label {
-    width: 100px;
-    font-weight: bold;
-    color: #BC002D;
-}
-
-.champ-profil input[readonly], 
-.champ-profil textarea[readonly] {
-    border: none;
-    background: transparent;
-    font-family: Verdana, sans-serif;
-    font-size: 1em;
-    color: #1C1C1C;
-    width: 100%;
-    outline: none;
-    padding: 5px;
-}
-
-.edit-icon {
-    font-size: 0.8em;
-    cursor: pointer;
-    color: #BC002D;
-    margin-left: 10px;
-}
-
-.statut.livre {
-    color: green;
-    font-weight: bold;
-}
-
-/* Amélioration visuelle des tableaux */
-table {
-    border: 2px solid #1C1C1C;
-    border-radius: 8px;
-    overflow: hidden;
-}
-/* --- Nouveaux Styles Phase 1 --- */
 
 /* Tableaux (Profil et Admin) */
 table {
@@ -282,6 +219,7 @@ table {
     border-collapse: collapse;
     margin-top: 20px;
     background: white;
+    border: 2px solid #1C1C1C;
 }
 
 th, td {
@@ -297,7 +235,7 @@ th {
 
 /* Profil */
 #contenu-profil {
-    max-width: 800px;
+    width: 800px;
     margin: 20px auto;
     padding: 20px;
 }
@@ -315,19 +253,69 @@ th {
     font-size: 1.5em;
 }
 
+.champ-profil {
+    margin-bottom: 15px;
+}
+
+.champ-profil label {
+    display: inline-block;
+    width: 150px;
+    font-weight: bold;
+    color: #BC002D;
+    margin-top: 0;
+}
+
+.champ-profil input[readonly], 
+.champ-profil textarea[readonly] {
+    border: none;
+    background: transparent;
+    font-family: Verdana, sans-serif;
+    font-size: 1em;
+    color: #1C1C1C;
+    width: 60%;
+    padding: 5px;
+}
+
+.edit-icon {
+    font-size: 0.8em;
+    color: #BC002D;
+    margin-left: 10px;
+}
+
+/* Admin */
+#contenu-admin {
+    margin: 30px;
+}
+
+#contenu-admin h2 {
+    color: #BC002D;
+}
+
+.filtres-admin {
+    margin-bottom: 20px;
+}
+
 /* Restaurateur & Commandes */
 #gestion-commandes {
-    display: flex;
-    justify-content: space-around;
+    text-align: center;
     padding: 20px;
 }
 
 .colonne-commandes {
+    display: inline-block;
+    vertical-align: top;
     width: 45%;
+    margin: 0 2%;
     background: #fff;
     border: 2px solid #1C1C1C;
     border-radius: 10px;
     padding: 15px;
+    text-align: left;
+}
+
+.colonne-commandes h2 {
+    color: #BC002D;
+    text-align: center;
 }
 
 .carte-commande {
@@ -337,19 +325,51 @@ th {
     background: #F4F1EA;
 }
 
-/* Livraison Mobile (Simplification pour gros gants) */
+.texte-orange {
+    color: orange;
+    font-weight: bold;
+}
+
+.texte-bleu {
+    color: blue;
+    font-weight: bold;
+}
+
+.bouton-large {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Livraison mobile */
 .mobile-view h1 {
     font-size: 1.5em;
 }
 
 #infos-livraison {
     padding: 20px;
-    font-size: 1.2em; /* Texte plus gros pour lisibilité */
+    font-size: 1.2em; 
 }
 
-#infos-livraison .bouton-nav {
-    display: block;
-    width: 100%;
+.bouton-maps {
+    background-color: #1C1C1C; 
+    color: white; 
+    display: block; 
+    text-align: center; 
+    padding: 20px; 
     margin: 20px 0;
-    padding: 20px; /* Zone de clic agrandie */
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+.bouton-confirmer {
+    background-color: #BC002D; 
+    color: white; 
+    width: 100%; 
+    padding: 25px; 
+    font-size: 1.3em; 
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-weight: bold;
 }
