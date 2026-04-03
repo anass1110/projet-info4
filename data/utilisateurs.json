@@ -1,0 +1,99 @@
+{
+    "utilisateurs": [
+        {
+            "id": "U001",
+            "login": "admin1@cyu.fr",
+            "mot_de_passe": "admin",
+            "role": "admin",
+            "informations": {
+                "nom": "Le Breton",
+                "prenom": "Caryl",
+                "pseudo": "AdminCaryl",
+                "naissance": "1990-01-01",
+                "adresse": "Cergy",
+                "telephone": ""
+            },
+            "dates": {
+                "inscription": "2026-01-10 09:00:00",
+                "derniere_connexion": "2026-03-28 23:00:20"
+            },
+            "points": 0
+        },
+        {
+            "id": "U002",
+            "login": "admin2@cyu.fr",
+            "mot_de_passe": "admin",
+            "role": "admin",
+            "informations": {
+                "nom": "Grignon",
+                "prenom": "Romuald",
+                "pseudo": "AdminRomuald",
+                "naissance": "1985-05-15",
+                "adresse": "Cergy",
+                "telephone": ""
+            },
+            "dates": {
+                "inscription": "2026-01-10 09:30:00",
+                "derniere_connexion": "2026-03-25 14:20:00"
+            },
+            "points": 0
+        },
+        {
+            "id": "U003",
+            "login": "resto@cyu.fr",
+            "mot_de_passe": "resto",
+            "role": "restaurateur",
+            "informations": {
+                "nom": "Chef",
+                "prenom": "Sushy",
+                "pseudo": "MasterSushy",
+                "naissance": "1980-11-20",
+                "adresse": "Restaurant SushyTech",
+                "telephone": ""
+            },
+            "dates": {
+                "inscription": "2026-01-15 11:00:00",
+                "derniere_connexion": "2026-03-28 23:01:03"
+            },
+            "points": 0
+        },
+        {
+            "id": "U004",
+            "login": "livreur@cyu.fr",
+            "mot_de_passe": "livreur",
+            "role": "livreur",
+            "informations": {
+                "nom": "Fast",
+                "prenom": "Delivery",
+                "pseudo": "Flash",
+                "naissance": "1995-07-08",
+                "adresse": "D\u00e9p\u00f4t",
+                "telephone": ""
+            },
+            "dates": {
+                "inscription": "2026-02-01 10:00:00",
+                "derniere_connexion": "2026-03-28 11:45:00"
+            },
+            "points": 0
+        },
+        {
+            "id": "U005",
+            "login": "client1@mail.com",
+            "mot_de_passe": "123",
+            "role": "client",
+            "informations": {
+                "nom": "Dupont",
+                "prenom": "Jean",
+                "pseudo": "Jeannot95",
+                "naissance": "1992-04-12",
+                "adresse": "Cergy",
+                "telephone": "0601020304"
+            },
+            "dates": {
+                "inscription": "2026-02-10 18:00:00",
+                "derniere_connexion": "2026-03-20 19:30:00"
+            },
+            "points": 150
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+{
+    "menus": [
+        {
+            "id": "M1", 
+            "nom": "Menu Midi", 
+            "prix": 15.00, 
+            "description": "Idéal pour la pause déjeuner rapide et économique.",
+            "liste_plats": ["Soupe Miso", "Sushi Saumon", "Mochi Glacé"],
+            "nb_personnes_min": 1,
+            "creneaux": ["11h30 - 14h30"]
+        },
+        {
+            "id": "M2", 
+            "nom": "Menu Duo", 
+            "prix": 28.00, 
+            "description": "Un assortiment complet à partager en amoureux ou entre amis.",
+            "liste_plats": ["Edamame", "Maki California", "Sashimi Thon", "Gyoza Grillés"],
+            "nb_personnes_min": 2,
+            "creneaux": ["Tous les jours"]
+        },
+        {
+            "id": "M3", 
+            "nom": "Menu Famille", 
+            "prix": 45.00, 
+            "description": "L'assortiment géant pour les grandes faims !",
+            "liste_plats": ["Yakitori Boeuf Fromage", "Sushi Crevette", "Ramen Boeuf", "Dorayaki", "Perles de Coco"],
+            "nb_personnes_min": 4,
+            "creneaux": ["Soir", "Week-end"]
+        }
+    ],
+    "plats": [
+        {"id": "P1", "nom": "Sushi Saumon", "prix": 4.50, "categorie": "sushi", "image": "https://images.unsplash.com/photo-1611143669185-af224c5e3252?w=400&h=400&fit=crop", "description": "Fine tranche de saumon frais posée sur un lit de riz vinaigré.", "nutrition": "50 kcal / pièce", "allergenes": ["Poisson"]},
+        {"id": "P2", "nom": "Maki California", "prix": 5.00, "categorie": "sushi", "image": "https://images.unsplash.com/photo-1579584425555-c3ce17fd4351?w=400&h=400&fit=crop", "description": "Rouleau inversé à l'avocat, surimi et concombre, parsemé de sésame.", "nutrition": "40 kcal / pièce", "allergenes": ["Poisson", "Crustacés", "Sésame", "Gluten"]},
+        {"id": "P3", "nom": "Ramen Boeuf", "prix": 12.50, "categorie": "chaud", "image": "https://images.unsplash.com/photo-1552611052-33e04de081de?w=400&h=400&fit=crop", "description": "Bouillon savoureux, nouilles fraîches, émincé de boeuf et légumes croquants.", "nutrition": "450 kcal / bol", "allergenes": ["Gluten", "Soja", "Oeuf"]},
+        {"id": "P4", "nom": "Gyoza Grillés", "prix": 4.00, "categorie": "chaud", "image": "https://images.unsplash.com/photo-1511910849309-0dffb8785146?w=400&h=400&fit=crop", "description": "Raviolis japonais farcis au poulet et aux légumes, dorés à la poêle.", "nutrition": "200 kcal / portion", "allergenes": ["Gluten", "Soja", "Sésame"]},
+        {"id": "P5", "nom": "Mochi Glacé", "prix": 3.80, "categorie": "dessert", "image": "https://images.unsplash.com/photo-1551024506-0bccd828d307?w=400&h=400&fit=crop", "description": "Pâte de riz gluante et moelleuse enrobant une délicieuse crème glacée.", "nutrition": "110 kcal / pièce", "allergenes": ["Lait"]},
+        {"id": "P6", "nom": "Sashimi Thon", "prix": 6.50, "categorie": "sushi", "image": "https://images.unsplash.com/photo-1534482421-64566f976cfa?w=400&h=400&fit=crop", "description": "Tranches épaisses de thon rouge cru de première qualité.", "nutrition": "120 kcal / portion", "allergenes": ["Poisson"]},
+        {"id": "P7", "nom": "Yakitori Boeuf Fromage", "prix": 5.50, "categorie": "chaud", "image": "https://images.unsplash.com/photo-1529692236671-f1f6cf9683ba?w=400&h=400&fit=crop", "description": "Brochettes de gouda fondant enrobées d'un fin carpaccio de boeuf caramélisé.", "nutrition": "250 kcal / portion", "allergenes": ["Lait", "Soja", "Gluten"]},
+        {"id": "P8", "nom": "Soupe Miso", "prix": 2.50, "categorie": "entree", "image": "https://images.unsplash.com/photo-1604908176997-125f25cc6f3d?w=400&h=400&fit=crop", "description": "Bouillon traditionnel à la pâte de soja fermentée, tofu et algues wakame.", "nutrition": "40 kcal / bol", "allergenes": ["Soja"]},
+        {"id": "P9", "nom": "Salade de Chou", "prix": 2.00, "categorie": "entree", "image": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=400&fit=crop", "description": "Chou blanc croquant mariné dans une sauce vinaigrée légèrement sucrée.", "nutrition": "60 kcal / portion", "allergenes": ["Sésame"]},
+        {"id": "P10", "nom": "Spring Roll Saumon", "prix": 5.50, "categorie": "sushi", "image": "https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?w=400&h=400&fit=crop", "description": "Rouleau de printemps frais au saumon, menthe, coriandre et laitue.", "nutrition": "150 kcal / portion", "allergenes": ["Poisson"]},
+        {"id": "P11", "nom": "Edamame", "prix": 3.00, "categorie": "entree", "image": "https://images.unsplash.com/photo-1534604973900-c43ab4c2e0ab?w=400&h=400&fit=crop", "description": "Fèves de soja immatures, servies tièdes et parsemées de gros sel.", "nutrition": "120 kcal / portion", "allergenes": ["Soja"]},
+        {"id": "P12", "nom": "Udon Poulet", "prix": 11.50, "categorie": "chaud", "image": "https://images.unsplash.com/photo-1526318896980-cf78c088247c?w=400&h=400&fit=crop", "description": "Nouilles japonaises épaisses sautées au poulet et légumes de saison.", "nutrition": "410 kcal / plat", "allergenes": ["Gluten", "Soja"]},
+        {"id": "P13", "nom": "Dorayaki", "prix": 4.50, "categorie": "dessert", "image": "https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=400&h=400&fit=crop", "description": "Pancakes japonais fourrés à la pâte de haricots rouges sucrée.", "nutrition": "220 kcal / pièce", "allergenes": ["Gluten", "Oeuf", "Lait"]},
+        {"id": "P14", "nom": "Perles de Coco", "prix": 3.50, "categorie": "dessert", "image": "https://images.unsplash.com/photo-TON_IDENTIFIANT_ICI?w=400&h=400&fit=crop", "description": "Boules de riz gluant farcies à la cacahuète et saupoudrées de noix de coco.", "nutrition": "180 kcal / portion", "allergenes": ["Arachides", "Sésame"]},
+        {"id": "P15", "nom": "Sushi Crevette", "prix": 4.80, "categorie": "sushi", "image": "https://images.unsplash.com/photo-1553621042-f6e147245754?w=400&h=400&fit=crop", "description": "Crevette cuite papillon (Ebi) délicatement posée sur un lit de riz.", "nutrition": "45 kcal / pièce", "allergenes": ["Crustacés"]}
+    ]
+}

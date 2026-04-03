@@ -79,79 +79,61 @@ a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
     text-align: left;
 }
 
-.plats-vedettes ul {
-    list-style-type: square;
-}
-
-.recherche input[type="text"] {
-    width: 80%;
-    margin-bottom: 15px;
-}
-
-/* Page produits */
+/* ========================================= */
+/* NOUVEAU : MISE EN PAGE DES PRODUITS (GRID)*/
+/* ========================================= */
 #contenu-produits {
-    display: grid;
-    grid-template-columns: 250px auto;
     margin: 30px;
+    max-width: 1200px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-/* Barre latérale gauche (filtres) */
-#filtres {
-    background-color: #FFFFFF;
-    border: 2px solid #1C1C1C;
-    border-radius: 10px;
-    padding: 20px;
-    margin-right: 30px;
+/* Grille pour les Menus Spéciaux (3 colonnes) */
+.grid-menus {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    margin-bottom: 40px;
 }
 
-#filtres p {
-    font-weight: bold;
-    border-bottom: 2px dashed #1C1C1C;
-    padding-bottom: 5px;
+/* Grille pour les Plats "À la carte" (4 colonnes) */
+.grid-plats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
 }
 
-#liste-plats {
-    text-align: center;
-    padding: 10px;
-}
-
-/* carte produit */
+/* Style commun d'une carte (plat ou menu) */
 .plat {
-    display: inline-block;
-    vertical-align: top;
-    width: 220px;
     background-color: #FFFFFF;
     border: 2px solid #1C1C1C;
     border-radius: 10px;
     padding: 20px;
-    margin: 10px;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .plat:hover {
     border: 2px solid #BC002D; 
 }
 
-.plat img {
-    width: 100%;
-    height: 180px;
-    border-radius: 10px;
-    margin-bottom: 10px;
+/* Style spécifique pour les MENUS */
+.menu-special {
+    border-color: #BC002D;
+    border-width: 3px;
 }
 
-.plat h4 {
-    margin: 10px 0;
-    font-size: 1.2em;
-    color: #1C1C1C;
+/* Alignement des formulaires dans les cartes */
+.plat form {
+    margin-top: 15px;
 }
+/* ========================================= */
 
-.plat p {
-    color: #BC002D;
-    font-weight: bold;
-    font-size: 1.1em;
-}
 
-/* (Inscription, Connexion) */
+/* (Inscription, Connexion, etc...) */
 #contenu-formulaire {
     width: 40%;
     margin: 50px auto;
@@ -161,215 +143,34 @@ a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
     padding: 40px;
 }
 
-fieldset {
-    border: none;
-    margin: 0;
-    padding: 0;
-}
-
-legend {
-    font-size: 1.8em;
-    font-weight: bold;
-    color: #BC002D;
-    text-align: center;
-    margin-bottom: 25px;
-    width: 100%;
-}
-
-label {
-    display: block; 
-    margin-top: 20px;
-    font-weight: bold;
-    color: #1C1C1C;
-    font-size: 0.9em;
-    text-align: left;
-}
-
-input[type="text"],
-input[type="email"],
-input[type="password"],
-input[type="tel"],
-textarea {
-    width: 95%;
-    padding: 12px;
-    margin-top: 8px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    font-family: Verdana, sans-serif;
-    background-color: #F4F1EA;
-}
-
-.actions-form {
-    margin-top: 35px;
-    text-align: center;
-}
-
-.actions-form input[type="submit"], .actions-form input[type="reset"] {
-    width: 45%;
-    padding: 15px;
-    font-size: 1.1em;
-    border-radius: 30px;
-    margin: 5px;
-}
-
+fieldset { border: none; margin: 0; padding: 0; }
+legend { font-size: 1.8em; font-weight: bold; color: #BC002D; text-align: center; margin-bottom: 25px; width: 100%; }
+label { display: block; margin-top: 20px; font-weight: bold; color: #1C1C1C; font-size: 0.9em; text-align: left; }
+input[type="text"], input[type="email"], input[type="password"], input[type="tel"], textarea { width: 95%; padding: 12px; margin-top: 8px; border: 1px solid #ccc; border-radius: 8px; font-family: Verdana, sans-serif; background-color: #F4F1EA; }
+.actions-form { margin-top: 35px; text-align: center; }
 
 /* Tableaux (Profil et Admin) */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-    background: white;
-    border: 2px solid #1C1C1C;
-}
-
-th, td {
-    border: 1px solid #1C1C1C;
-    padding: 12px;
-    text-align: center;
-}
-
-th {
-    background-color: #BC002D;
-    color: white;
-}
+table { width: 100%; border-collapse: collapse; margin-top: 20px; background: white; border: 2px solid #1C1C1C; }
+th, td { border: 1px solid #1C1C1C; padding: 12px; text-align: center; }
+th { background-color: #BC002D; color: white; }
 
 /* Profil */
-#contenu-profil {
-    width: 800px;
-    margin: 20px auto;
-    padding: 20px;
-}
-
-.infos-perso {
-    background: white;
-    padding: 20px;
-    border-radius: 10px;
-    border: 2px solid #1C1C1C;
-    margin-bottom: 20px;
-}
-
-.points {
-    color: #BC002D;
-    font-size: 1.5em;
-}
-
-.champ-profil {
-    margin-bottom: 15px;
-}
-
-.champ-profil label {
-    display: inline-block;
-    width: 150px;
-    font-weight: bold;
-    color: #BC002D;
-    margin-top: 0;
-}
-
-.champ-profil input[readonly], 
-.champ-profil textarea[readonly] {
-    border: none;
-    background: transparent;
-    font-family: Verdana, sans-serif;
-    font-size: 1em;
-    color: #1C1C1C;
-    width: 60%;
-    padding: 5px;
-}
-
-.edit-icon {
-    font-size: 0.8em;
-    color: #BC002D;
-    margin-left: 10px;
-}
-
-/* Admin */
-#contenu-admin {
-    margin: 30px;
-}
-
-#contenu-admin h2 {
-    color: #BC002D;
-}
-
-.filtres-admin {
-    margin-bottom: 20px;
-}
+#contenu-profil { width: 800px; margin: 20px auto; padding: 20px; }
+.infos-perso { background: white; padding: 20px; border-radius: 10px; border: 2px solid #1C1C1C; margin-bottom: 20px; }
+.points { color: #BC002D; font-size: 1.5em; }
+.champ-profil { margin-bottom: 15px; }
+.champ-profil label { display: inline-block; width: 150px; font-weight: bold; color: #BC002D; margin-top: 0; }
+.champ-profil input[readonly] { border: none; background: transparent; font-family: Verdana, sans-serif; font-size: 1em; color: #1C1C1C; width: 60%; padding: 5px; }
 
 /* Restaurateur & Commandes */
-#gestion-commandes {
-    text-align: center;
-    padding: 20px;
-}
-
-.colonne-commandes {
-    display: inline-block;
-    vertical-align: top;
-    width: 45%;
-    margin: 0 2%;
-    background: #fff;
-    border: 2px solid #1C1C1C;
-    border-radius: 10px;
-    padding: 15px;
-    text-align: left;
-}
-
-.colonne-commandes h2 {
-    color: #BC002D;
-    text-align: center;
-}
-
-.carte-commande {
-    border: 1px solid #ccc;
-    padding: 10px;
-    margin-bottom: 10px;
-    background: #F4F1EA;
-}
-
-.texte-orange {
-    color: orange;
-    font-weight: bold;
-}
-
-.texte-bleu {
-    color: blue;
-    font-weight: bold;
-}
-
-.bouton-large {
-    width: 100%;
-    margin-top: 10px;
-}
+#gestion-commandes { text-align: center; padding: 20px; }
+.colonne-commandes { display: inline-block; vertical-align: top; width: 45%; margin: 0 2%; background: #fff; border: 2px solid #1C1C1C; border-radius: 10px; padding: 15px; text-align: left; }
+.carte-commande { border: 1px solid #ccc; padding: 10px; margin-bottom: 10px; background: #F4F1EA; }
+.texte-bleu { color: blue; font-weight: bold; }
+.bouton-large { width: 100%; margin-top: 10px; }
 
 /* Livraison mobile */
-.mobile-view h1 {
-    font-size: 1.5em;
-}
-
-#infos-livraison {
-    padding: 20px;
-    font-size: 1.2em; 
-}
-
-.bouton-maps {
-    background-color: #1C1C1C; 
-    color: white; 
-    display: block; 
-    text-align: center; 
-    padding: 20px; 
-    margin: 20px 0;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 10px;
-}
-
-.bouton-confirmer {
-    background-color: #BC002D; 
-    color: white; 
-    width: 100%; 
-    padding: 25px; 
-    font-size: 1.3em; 
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-}
+.mobile-view h1 { font-size: 1.5em; }
+#infos-livraison { padding: 20px; font-size: 1.2em; }
+.bouton-maps { background-color: #1C1C1C; color: white; display: block; text-align: center; padding: 20px; margin: 20px 0; text-decoration: none; border-radius: 10px; }
+.bouton-confirmer { background-color: #BC002D; color: white; width: 100%; padding: 25px; font-size: 1.3em; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
