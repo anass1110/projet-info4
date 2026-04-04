@@ -1,3 +1,36 @@
 {
-    "commandes": []
+    "commandes": [
+        {
+            "id_commande": "CMD-20260404-4446",
+            "id_client": "U005",
+            "client": " ",
+            "adresse": "Sur place",
+            "telephone": "",
+            "articles": [
+                {
+                    "id": "M2",
+                    "nom": "Menu Duo",
+                    "prix": 28,
+                    "quantite": 1,
+                    "option": ""
+                }
+            ],
+            "total": 28,
+            "type": "emporter",
+            "heure_souhaitee": "D\u00e8s que possible",
+            "date_commande": "2026-04-04 12:54:00",
+            "statut": "A preparer",
+            "statut_paiement": "Pay\u00e9"
+        }
+    ],
+    "paiements": [
+        {
+            "id_paiement": "PAY-1775307240-855",
+            "id_commande": "CMD-20260404-4446",
+            "id_client": "U005",
+            "montant": 28,
+            "date_transaction": "2026-04-04 12:54:00",
+            "coordonnees_bancaires": "**** **** **** 1231"
+        }
+    ]
 }

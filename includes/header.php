@@ -2,6 +2,14 @@
 if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
+
+// Calcul du nombre d'articles dans le panier
+$nb_articles_panier = 0;
+if (isset($_SESSION['panier']) && is_array($_SESSION['panier'])) {
+    foreach ($_SESSION['panier'] as $article) {
+        $nb_articles_panier += intval($article['quantite']);
+    }
+}
 ?>
 <header>
     <div id="logo"><h1>SUSHYTECH</h1></div>
@@ -9,6 +17,15 @@ if (session_status() === PHP_SESSION_NONE) {
         <ul>
             <li><a href="accueil.php" class="bouton-nav">Accueil</a></li>
             <li><a href="Produits.php" class="bouton-nav">Menu</a></li>
+            
+            <li>
+                <a href="panier.php" class="bouton-nav" style="font-weight: bold; border-color: #1C1C1C;">
+                    🛒 Panier 
+                    <?php if ($nb_articles_panier > 0): ?>
+                        <span style="color: #BC002D;">(<?= $nb_articles_panier ?>)</span>
+                    <?php endif; ?>
+                </a>
+            </li>
             
             <?php if(!isset($_SESSION['user'])): ?>
                 <li><a href="Connexion.php" class="bouton-nav">Connexion</a></li>
