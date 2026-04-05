@@ -1,21 +1,34 @@
 <?php
-session_start();
+// Initialisation de la session
+session_start(); 
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $login = $_POST['user_login'] ?? '';
     $mdp = $_POST['user_password'] ?? '';
     
     if(empty($login) || empty($mdp)) {
         header("Location: Inscription.php?erreur=1");
-        exit();
+        exit(); 
     }
 
     $fichier = 'data/utilisateurs.json';
-    if(!file_exists($fichier)) {
+    
+    if(!file_exists($fichier)) { 
         file_put_contents($fichier, json_encode(["utilisateurs" => []]));
     }
     
-    $data = json_decode(file_get_contents($fichier), true);
+    $data = json_decode(file_get_contents($fichier), true); 
     
+    // Parcours séquentiel des utilisateurs pour prévenir la duplication des identifiants 
+    foreach ($data['utilisateurs'] as $u) {
+        if ($u['login'] === $login) {
+            // Interruption du flux et redirection avec code d'erreur spécifique
+            header("Location: Inscription.php?erreur=doublon");
+            exit(); 
+        }
+    }
+    
+    // Construction de la structure de données du nouvel utilisateur 
     $nouvel_user = [
         "id" => "U" . str_pad(count($data['utilisateurs']) + 1, 3, "0", STR_PAD_LEFT),
         "login" => $login,
@@ -37,9 +50,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ];
 
     $data['utilisateurs'][] = $nouvel_user;
-    file_put_contents($fichier, json_encode($data, JSON_PRETTY_PRINT));
+    file_put_contents($fichier, json_encode($data, JSON_PRETTY_PRINT)); 
 
-    header("Location: Connexion.php?succes=inscription");
+    header("Location: Connexion.php?succes=inscription"); 
     exit();
 }
 ?>
