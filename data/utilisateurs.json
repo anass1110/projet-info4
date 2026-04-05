@@ -15,7 +15,7 @@
             },
             "dates": {
                 "inscription": "2026-01-10 09:00:00",
-                "derniere_connexion": "2026-03-28 23:00:20"
+                "derniere_connexion": "2026-04-05 15:19:29"
             },
             "points": 0
         },
@@ -72,7 +72,7 @@
             },
             "dates": {
                 "inscription": "2026-02-01 10:00:00",
-                "derniere_connexion": "2026-03-28 11:45:00"
+                "derniere_connexion": "2026-04-05 15:58:10"
             },
             "points": 0
         },
@@ -94,6 +94,82 @@
                 "derniere_connexion": "2026-04-04 12:15:05"
             },
             "points": 150
+        },
+        {
+            "id": "U006",
+            "login": "marie.durand@mail.fr",
+            "mot_de_passe": "password456",
+            "role": "client",
+            "informations": {
+                "nom": "Durand",
+                "prenom": "Marie",
+                "pseudo": "Mariiie",
+                "naissance": "1998-11-22",
+                "adresse": "Pontoise",
+                "telephone": "0611223344"
+            },
+            "dates": {
+                "inscription": "2026-03-01 14:20:00",
+                "derniere_connexion": "2026-04-01 09:10:00"
+            },
+            "points": 50
+        },
+        {
+            "id": "U007",
+            "login": "lucas.martin@gmail.com",
+            "mot_de_passe": "azerty",
+            "role": "client",
+            "informations": {
+                "nom": "Martin",
+                "prenom": "Lucas",
+                "pseudo": "Lulu95",
+                "naissance": "2000-01-30",
+                "adresse": "Eragny",
+                "telephone": "0788990011"
+            },
+            "dates": {
+                "inscription": "2026-03-05 10:00:00",
+                "derniere_connexion": "2026-04-02 18:45:00"
+            },
+            "points": 200
+        },
+        {
+            "id": "U008",
+            "login": "sophie.bernard@outlook.fr",
+            "mot_de_passe": "sophie123",
+            "role": "client",
+            "informations": {
+                "nom": "Bernard",
+                "prenom": "Sophie",
+                "pseudo": "SophSushy",
+                "naissance": "1994-06-15",
+                "adresse": "Osny",
+                "telephone": "0655443322"
+            },
+            "dates": {
+                "inscription": "2026-03-12 12:30:00",
+                "derniere_connexion": "2026-04-03 20:15:00"
+            },
+            "points": 15
+        },
+        {
+            "id": "U009",
+            "login": "thomas.petit@mail.com",
+            "mot_de_passe": "toto99",
+            "role": "client",
+            "informations": {
+                "nom": "Petit",
+                "prenom": "Thomas",
+                "pseudo": "Thom",
+                "naissance": "1988-09-05",
+                "adresse": "Cergy-le-Haut",
+                "telephone": "0677889900"
+            },
+            "dates": {
+                "inscription": "2026-03-20 08:00:00",
+                "derniere_connexion": "2026-04-05 15:21:16"
+            },
+            "points": 340
         }
     ]
 }

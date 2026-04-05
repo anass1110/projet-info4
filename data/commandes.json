@@ -3,9 +3,9 @@
         {
             "id_commande": "CMD-20260404-4446",
             "id_client": "U005",
-            "client": " ",
+            "client": "Jean Dupont",
             "adresse": "Sur place",
-            "telephone": "",
+            "telephone": "0601020304",
             "articles": [
                 {
                     "id": "M2",
@@ -17,10 +17,32 @@
             ],
             "total": 28,
             "type": "emporter",
-            "heure_souhaitee": "D\u00e8s que possible",
+            "heure_souhaitee": "Dès que possible",
             "date_commande": "2026-04-04 12:54:00",
             "statut": "A preparer",
-            "statut_paiement": "Pay\u00e9"
+            "statut_paiement": "Payé"
+        },
+        {
+            "id_commande": "CMD-20260405-1234",
+            "id_client": "U006",
+            "client": "Marie Durand",
+            "adresse": "12 rue de la Paix, 95000 Cergy",
+            "telephone": "0611223344",
+            "articles": [
+                {
+                    "id": "M1",
+                    "nom": "Menu Midi",
+                    "prix": 15,
+                    "quantite": 2,
+                    "option": ""
+                }
+            ],
+            "total": 30,
+            "type": "livraison",
+            "heure_souhaitee": "20:00",
+            "date_commande": "2026-04-05 19:30:00",
+            "statut": "En livraison",
+            "statut_paiement": "Payé"
         }
     ],
     "paiements": [
