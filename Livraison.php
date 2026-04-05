@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Sécurité : seul le livreur accède à cette page
+// seul le livreur accède à cette page
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
     header("Location: accueil.php"); 
     exit();
@@ -32,7 +32,8 @@ if (file_exists($fichier_cmd)) {
         <?php 
         $nb_livraisons = 0;
         foreach($commandes as $c): 
-            if($c['statut'] === 'En livraison'): 
+            // Application des règles de gestion métier
+            if($c['statut'] === 'En livraison' && isset($c['id_livreur']) && $c['id_livreur'] === $_SESSION['user']['id']): 
                 $nb_livraisons++;
         ?>
         <div class="carte-livraison" style="border:2px solid #1C1C1C; padding:15px; margin-bottom:15px; background:white; border-radius: 10px;">
