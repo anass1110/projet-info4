@@ -4,8 +4,15 @@ if (!isset($_SESSION['user'])) {
     header("Location: Connexion.php");
     exit();
 }
+
+// Initialisation par défaut sur le profil de l'utilisateur authentifié
+$id_utilisateur_actuel = $_SESSION['user']['id'];
 $u = $_SESSION['user'];
-$id_utilisateur_actuel = $u['id']; // On récupère l'ID unique de l'utilisateur connecté
+
+// Surcharge de l'identifiant cible si l'utilisateur possède le rôle d'administration
+if (isset($_GET['id']) && $_SESSION['user']['role'] === 'admin') {
+    $id_utilisateur_actuel = $_GET['id'];
+}
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -46,7 +53,7 @@ $id_utilisateur_actuel = $u['id']; // On récupère l'ID unique de l'utilisateur
                     
                     $nb_trouve = 0;
                     foreach ($cmds as $c) {
-                        // COMPARAISON PAR ID UNIQUE AU LIEU DU NOM
+                        // comparaison par id unique 
                         if (isset($c['id_client']) && $c['id_client'] === $id_utilisateur_actuel) {
                             $nb_trouve++;
                             echo "<tr>
