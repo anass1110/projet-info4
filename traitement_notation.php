@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
     
     $data = json_decode(file_get_contents($fichier), true); 
     
-    // Nettoyage et typage strict des données entrantes avant persistance
+    // Nettoyage et typage strict des données entrantes 
     $nouvel_avis = [
         "id_client" => $_SESSION['user']['id'],
         "note_produit" => intval($_POST['note_produit']),
