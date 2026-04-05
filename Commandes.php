@@ -1,13 +1,13 @@
 <?php
 session_start();
 
-// Sécurité : seul le restaurateur accède à cette page
+//  seul le restaurateur accède à cette page
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
     header("Location: accueil.php"); 
     exit();
 }
 
-// --- CHARGEMENT DYNAMIQUE DES DONNÉES (PHASE 2) ---
+// chargement dynamique des données 
 $fichier_json = 'data/commandes.json';
 $commandes = [];
 
