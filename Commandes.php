@@ -16,7 +16,7 @@ if (file_exists($fichier_json)) {
     $commandes = $donnees['commandes'] ?? [];
 }
 
-// Récupération de la liste des livreurs pour l'attribution (Affichage Phase 2)
+// Récupération de la liste des livreurs pour l'attribution
 $livreurs = [];
 $fichier_users = 'data/utilisateurs.json';
 if (file_exists($fichier_users)) {
@@ -67,18 +67,24 @@ $statuts = [
                             <p style="margin: 5px 0;"><small>👤 Client : <?= htmlspecialchars($c['client']) ?></small></p>
                             <p style="margin: 5px 0; font-weight: bold; color: #800020;"><?= number_format($c['total'], 2) ?>€</p>
                             
-                            <?php if($c['type'] === 'livraison'): ?>
+                            <?php if($c['type'] === 'livraison' && empty($c['id_livreur'])): ?>
                                 <div style="margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 5px;">
-                                    <label style="font-size: 0.7em; font-weight: bold;">Attribuer à :</label>
-                                    <select style="width: 100%; font-size: 0.8em; padding: 3px;">
-                                        <option value="">-- Choisir un livreur --</option>
-                                        <?php foreach($livreurs as $l): ?>
-                                            <option value="<?= $l['id'] ?>"><?= htmlspecialchars($l['informations']['prenom'] . " " . $l['informations']['nom']) ?></option>
-                                        <?php endforeach; ?>
-                                    </select>
+                                    <form action="traitement_commande.php" method="post" style="display:flex; flex-direction:column; gap:5px;">
+                                        <input type="hidden" name="action" value="attribuer_livreur">
+                                        <input type="hidden" name="id_commande" value="<?= $c['id_commande'] ?>">
+                                        <label style="font-size: 0.7em; font-weight: bold;">Attribuer à :</label>
+                                        <select name="id_livreur" required style="width: 100%; font-size: 0.8em; padding: 3px;">
+                                            <option value="">-- Choisir un livreur --</option>
+                                            <?php foreach($livreurs as $l): ?>
+                                                <option value="<?= $l['id'] ?>"><?= htmlspecialchars($l['informations']['prenom'] . " " . $l['informations']['nom']) ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                        <input type="submit" value="Assigner & Expédier" class="bouton-nav" style="font-size: 0.7em; padding: 5px; background: #E67E22; color: white; border: none;">
+                                    </form>
                                 </div>
+                            <?php elseif($c['type'] === 'livraison' && !empty($c['id_livreur'])): ?>
+                                <p style="font-size: 0.75em; color: blue; font-style: italic; margin-top: 10px;">🚚 Attribué au livreur : <?= htmlspecialchars($c['id_livreur']) ?></p>
                             <?php endif; ?>
-
                             <div style="margin-top: 10px;">
                                 <?php if($code_statut === 'A preparer'): ?>
                                     <button class="bouton-nav" style="width: 100%; font-size: 0.75em; background: #800020; color: white;">🔥 Commencer</button>
