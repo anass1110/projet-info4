@@ -27,7 +27,7 @@ $menus = $donnees_menu['menus'] ?? [];
                 </div>
                 <p style="font-size: 1.3em; margin: 10px 0; color: #BC002D; font-weight: bold;"><?= number_format($m['prix'], 2) ?>€</p>
                 
-                <form action="panier.php" method="post">
+                <form action="traitement_panier.php" method="post">
                     <input type="hidden" name="action" value="ajouter">
                     <input type="hidden" name="id_article" value="<?= $m['id'] ?>">
                     <input type="hidden" name="nom_article" value="<?= htmlspecialchars($m['nom']) ?>">
@@ -41,7 +41,16 @@ $menus = $donnees_menu['menus'] ?? [];
 
         <h2 style="width:100%; text-align:center; margin-top:40px;">À la carte</h2>
         <div class="grid-plats">
-            <?php foreach ($plats as $p): ?>
+            <?php 
+            // Normalisation du paramètre de recherche pour comparaison
+            $recherche = strtolower($_GET['recherche'] ?? ''); 
+            
+            foreach ($plats as $p): 
+                // Logique de filtrage dynamique 
+                if (!empty($recherche) && strpos(strtolower($p['nom']), $recherche) === false) {
+                    continue; 
+                }
+            ?>
             <div class="plat">
                 <img src="<?= htmlspecialchars($p['image']) ?>" alt="<?= htmlspecialchars($p['nom']) ?>" style="width:100%; height:180px; object-fit:cover; border-radius:8px;">
                 <h4><?= htmlspecialchars($p['nom']) ?></h4>
@@ -53,7 +62,7 @@ $menus = $donnees_menu['menus'] ?? [];
 
                 <p style="color: #BC002D; font-weight: bold; font-size: 1.2em; margin-bottom: 15px;"><?= number_format($p['prix'], 2) ?>€</p>
                 
-                <form action="panier.php" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
+                <form action="traitement_panier.php" method="post" style="display: flex; flex-direction: column; align-items: center; gap: 10px;">
                     <input type="hidden" name="action" value="ajouter">
                     <input type="hidden" name="id_article" value="<?= $p['id'] ?>">
                     <input type="hidden" name="nom_article" value="<?= htmlspecialchars($p['nom']) ?>">
