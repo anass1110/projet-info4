@@ -15,7 +15,7 @@ if (!isset($_SESSION['user'])) {
 <body>
     <?php include('includes/header.php'); ?>
     <div id="contenu-formulaire">
-        <form action="accueil.php" method="post">
+        <form action="traitement_notation.php" method="post">
             <fieldset>
                 <legend>Votre avis sur votre dernière commande</legend>
 
