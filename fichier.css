@@ -79,9 +79,7 @@ a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
     text-align: left;
 }
 
-
 /* MISE EN PAGE DES PRODUITS */
-
 #contenu-produits {
     margin: 30px;
     max-width: 1200px;
@@ -131,7 +129,6 @@ a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
     margin-top: 15px;
 }
 
-
 /* (Inscription, Connexion, etc...) */
 #contenu-formulaire {
     width: 40%;
@@ -172,14 +169,25 @@ th { background-color: #BC002D; color: white; }
 .mobile-view h1 { font-size: 1.5em; }
 #infos-livraison { padding: 20px; font-size: 1.2em; }
 .bouton-maps { background-color: #1C1C1C; color: white; display: block; text-align: center; padding: 20px; margin: 20px 0; text-decoration: none; border-radius: 10px; }
-.bouton-confirmer { background-color: #BC002D; color: white; width: 100%; padding: 25px; font-size: 1.3em; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;
-                  
 
+/* L'ERREUR ÉTAIT ICI : IL MANQUAIT L'ACCOLADE FERMANTE */
+.bouton-confirmer { 
+    background-color: #BC002D; 
+    color: white; 
+    width: 100%; 
+    padding: 25px; 
+    font-size: 1.3em; 
+    border: none; 
+    border-radius: 10px; 
+    cursor: pointer; 
+    font-weight: bold;
+}
                    
-                   
-/*  phase 3*/
-                   
-/* Utilitaires structurels */
+/* ==========================================================================
+   PHASE 3 : NETTOYAGE DES STYLES EN LIGNE & THÈME SOMBRE
+   ========================================================================== */
+
+/* Utilitaires structurels globaux */
 .cache { display: none !important; }
 .separateur { margin: 20px 0; border: 1px solid #1C1C1C; }
 .txt-gras { font-weight: bold; }
@@ -216,8 +224,16 @@ th { background-color: #BC002D; color: white; }
 .btn-bloquer { color: red; border-color: red; }
 
 /* Page Catalogue & Recherche (Produits.php) */
-.titre-menu { width: 100%; text-align: center; }
-.inclus-menu { background-color: #F4F1EA; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.85em; border: 1px solid #1C1C1C; }
+.recherche-container { text-align: center; margin-bottom: 30px; }
+.input-recherche { padding: 10px; width: 50%; border-radius: 20px; border: 2px solid #1C1C1C; }
+.marge-top { margin-top: 40px; }
+.desc-plat { font-style: italic; font-size: 0.9em; }
+.box-grise { background-color: #F4F1EA; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.85em; border: 1px solid #1C1C1C; }
+.texte-gauche { text-align: left; border-color: #E0E0E0; margin-bottom: 15px; }
+.m-0 { margin: 3px 0; }
+.txt-alerte { color: #BC002D; }
+.prix-plat { font-size: 1.3em; margin: 10px 0; color: #BC002D; font-weight: bold; margin-bottom: 15px; }
+.img-plat { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
 .form-ajout { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .select-perso { width: 80%; padding: 5px; border-radius: 5px; }
 .box-quantite { display: flex; gap: 10px; }
@@ -228,7 +244,9 @@ th { background-color: #BC002D; color: white; }
 .etat-bloque { border-color: grey !important; color: grey !important; cursor: not-allowed; }
 .etat-ajoute { background-color: green !important; color: white !important; }
 
-/*  STYLE DU THÈME SOMBRE */
+/* ==========================================================================
+   STYLE DU THÈME SOMBRE
+   ========================================================================== */
 body.theme-sombre {
     background-color: #222 !important;
     color: #E0E0E0 !important;
@@ -243,6 +261,10 @@ body.theme-sombre .plat {
     color: #E0E0E0 !important;
     border-color: #555 !important;
 }
+body.theme-sombre .box-grise { 
+    background-color: #444 !important; 
+    border-color: #666 !important; 
+}
 body.theme-sombre a.bouton-nav, 
 body.theme-sombre input[type="submit"], 
 body.theme-sombre button.bouton-nav {
@@ -256,7 +278,5 @@ body.theme-sombre th {
 }
 body.theme-sombre td {
     border-color: #555 !important;
-}
-                  
-                  
+}           
                   }
