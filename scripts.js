@@ -14,19 +14,19 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-  
+    // ========================================================================
+    // PANIER : LA FONCTION LOURDE (Pour gérer l'asynchrone avec boucles classiques)
+    // ========================================================================
     function activerBoutonsPanier() {
         var formulairesPanier = document.querySelectorAll('form[action="traitement_panier.php"]');
         
         formulairesPanier.forEach(function(form) {
-            // On vérifie si on n'a pas déjà mis un écouteur (pour éviter que l'action s'exécute 2 fois)
             if (form.getAttribute('data-ecouteur-actif') !== 'oui') {
-                
                 form.addEventListener('submit', function(e) {
                     e.preventDefault();
                     var actionInput = form.querySelector('input[name="action"]');
                     
-                    // AJOUT PANIER
+                    // AJOUT
                     if (actionInput && actionInput.value === 'ajouter') {
                         fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
                         .then(function(r) { return r.json(); })
@@ -44,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         });
                     }
                     
-                    // SUPPRESSION PANIER
+                    // SUPPRESSION
                     if (actionInput && actionInput.value === 'supprimer') {
                         fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
                         .then(function(r) { return r.json(); })
@@ -53,20 +53,17 @@ document.addEventListener("DOMContentLoaded", function() {
                         });
                     }
                 });
-                
-                // On marque le formulaire pour dire qu'il est "surveillé"
                 form.setAttribute('data-ecouteur-actif', 'oui');
             }
         });
     }
 
-    // On lance la fonction une première fois au chargement normal de la page
+    // Lancement initial
     activerBoutonsPanier();
 
-
-
+    // ========================================================================
     // RECHERCHE DYNAMIQUE LIVE
-
+    // ========================================================================
     var champRecherche = document.getElementById('champ-recherche');
     var zoneCatalogue = document.getElementById('zone-catalogue');
     if (champRecherche && zoneCatalogue) {
@@ -80,20 +77,14 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(function(r) { return r.text(); })
             .then(function(html) { 
                 zoneCatalogue.innerHTML = html; 
-                
-             
-                // Les nouveaux plats viennent d'apparaître, on doit relancer la boucle sur leurs boutons
-                activerBoutonsPanier(); 
+                activerBoutonsPanier(); // On relance l'écoute sur les nouveaux plats
             });
         });
     }
 
-
-    // BOUCLES CLASSIQUES (CUISINE, LIVREUR, ADMIN) - Statiques au chargement
-
-    
-   
-   // ACTION CUISINE
+    // ========================================================================
+    // ACTION CUISINE (Avec déplacement de carte DOM)
+    // ========================================================================
     var boutonsCuisine = document.querySelectorAll('.btn-action-cmd');
     boutonsCuisine.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
@@ -111,42 +102,41 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
             }).then(function(r) { return r.json(); }).then(function(data) {
                 if(data.success) {
-                    //  On met à jour le texte du statut en vert
                     carte.querySelector('.statut-actuel').innerHTML = "<strong>Statut actuel :</strong> <span style='color:green'>" + data.nouveau_statut + "</span>";
                     
-                    //  TRANSFORMATION DU BOUTON ET PRÉPARATION DU DÉPLACEMENT
                     var nomColonneCible = "";
-                    
                     if (action === 'demarrer') {
                         btn.setAttribute('data-action', 'prete');
                         btn.innerHTML = "✅ Prête";
                         btn.classList.remove('btn-demarrer');
                         btn.classList.add('btn-prete');
                         btn.disabled = false;
-                        nomColonneCible = "En Préparation"; // Nom exact du <h3> dans ton PHP
+                        nomColonneCible = "En Préparation";
                     } else if (action === 'prete') {
-                        btn.style.display = 'none'; // Le bouton disparaît
-                        nomColonneCible = "En Attente"; // Nom exact du <h3> dans ton PHP
+                        btn.style.display = 'none';
+                        nomColonneCible = "En Attente";
                     }
 
-                    //  LE DÉPLACEMENT PHYSIQUE DANS LE DOM 
                     var colonnes = document.querySelectorAll('.colonne-commandes');
                     colonnes.forEach(function(col) {
                         var titre = col.querySelector('h3');
                         if (titre && titre.textContent.trim() === nomColonneCible) {
-                            // On arrache la carte pour la coller dans la nouvelle colonne
                             col.appendChild(carte); 
-                            
-                            // Si la colonne cible avait le texte "Aucune commande", on le cache
                             var msgVide = col.querySelector('.txt-vide');
                             if (msgVide) msgVide.style.display = 'none';
                         }
                     });
+                } else {
+                    alert("Erreur Serveur.");
+                    this.innerHTML = textInitial; this.disabled = false;
                 }
             });
         });
     });
+
+    // ========================================================================
     // ACTION LIVREUR
+    // ========================================================================
     var boutonsLivreur = document.querySelectorAll('.btn-action-livreur');
     boutonsLivreur.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
@@ -169,14 +159,16 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-// ACTION ADMIN 
+    // ========================================================================
+    // ACTION ADMIN (Corrigée, sans erreur de syntaxe)
+    // ========================================================================
     var boutonsAdmin = document.querySelectorAll('.btn-action-admin');
     boutonsAdmin.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             var idUser = this.getAttribute('data-id');
-            // On récupère l'action actuelle du bouton (bloquer ou debloquer)
-            var action Actuelle = this.getAttribute('data-action') || 'bloquer'; 
+            // Correction : La variable est collée proprement
+            var actionActuelle = this.getAttribute('data-action') || 'bloquer'; 
 
             this.innerHTML = "⏳..."; this.disabled = true;
 
@@ -186,13 +178,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: 'id_user=' + encodeURIComponent(idUser) + '&action=' + encodeURIComponent(actionActuelle)
             }).then(function(r) { return r.json(); }).then(function(data) {
                 if(data.success) {
+                    // Logique de bascule (Toggle)
                     if (actionActuelle === 'bloquer') {
-                        // L'utilisateur est bloqué, le bouton devient l'outil de déblocage
                         btn.innerHTML = "Débloquer";
                         btn.setAttribute('data-action', 'debloquer');
                         btn.classList.add('etat-bloque');
                     } else {
-                        // L'utilisateur est débloqué, le bouton redevient l'outil de blocage
                         btn.innerHTML = "Bloquer";
                         btn.setAttribute('data-action', 'bloquer');
                         btn.classList.remove('etat-bloque');
@@ -202,3 +193,5 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
+
+});
