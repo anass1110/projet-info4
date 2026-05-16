@@ -4,7 +4,13 @@ $nb_articles_panier = 0;
 if (isset($_SESSION['panier']) && is_array($_SESSION['panier'])) {
     foreach ($_SESSION['panier'] as $article) { $nb_articles_panier += intval($article['quantite']); }
 }
+$cookie_theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
 ?>
+<script>
+    if (document.cookie.indexOf("theme=dark") !== -1) {
+        document.body.classList.add('theme-sombre');
+    }
+</script>
 <header>
     <div id="logo"><h1>SUSHYTECH</h1></div>
     <nav>
@@ -19,7 +25,7 @@ if (isset($_SESSION['panier']) && is_array($_SESSION['panier'])) {
                     <?php endif; ?>
                 </a>
             </li>
-            <li><button id="btn-theme" class="bouton-nav">Thème</button></li>
+            <li><button id="btn-theme" class="bouton-nav">🌓 Thème</button></li>
             
             <?php if(!isset($_SESSION['user'])): ?>
                 <li><a href="Connexion.php" class="bouton-nav">Connexion</a></li>
@@ -39,4 +45,3 @@ if (isset($_SESSION['panier']) && is_array($_SESSION['panier'])) {
         </ul>
     </nav>
 </header>
-<script src="scripts.js"></script>
