@@ -1,19 +1,6 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // 1. GESTION DU COOKIE THÈME SOMBRE
-    var btnTheme = document.getElementById('btn-theme');
-    if (btnTheme) {
-        // On utilise onclick direct pour être sûr de contourner les éventuels conflits d'événements
-        btnTheme.onclick = function(e) {
-            e.preventDefault();
-            // On bascule la classe sur le body
-            var isDark = document.body.classList.toggle('theme-sombre');
-            // On met à jour le cookie
-            document.cookie = "theme=" + (isDark ? "dark" : "light") + "; path=/; max-age=2592000";
-        };
-    }
-
-    // 2. VALIDATION DU FORMULAIRE D'INSCRIPTION
+    // 1. VALIDATION DU FORMULAIRE D'INSCRIPTION
     var formInsc = document.getElementById('form-inscription');
     if (formInsc) {
         formInsc.addEventListener('submit', function(event) {
@@ -27,119 +14,61 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    // 3. FETCH : ACTION CUISINE (Restaurateur)
-    var btnCmd = document.querySelectorAll('.btn-action-cmd');
-    btnCmd.forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            var idCmd = this.getAttribute('data-id');
-            var action = this.getAttribute('data-action');
-            var carte = document.getElementById('cmd-' + idCmd);
-
-            fetch('traitement_async_commandes.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
-            })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (data.success) {
-                    carte.querySelector('.statut-actuel').innerHTML = "<strong>Statut actuel :</strong> " + data.nouveau_statut;
-                    btn.classList.add('cache');
-                }
-            });
-        });
-    });
-
-    // 4. FETCH : ACTION LIVRAISON (Livreur)
-    var btnLivraison = document.querySelectorAll('.btn-action-livreur');
-    btnLivraison.forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            var idCmd = this.getAttribute('data-id');
-            var action = this.getAttribute('data-action');
-
-            fetch('traitement_async_livraison.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
-            })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (data.success) {
-                    document.getElementById('actions-' + idCmd).innerHTML = "<p class='msg-succes'>Action enregistrée</p>";
-                }
-            });
-        });
-    });
-
-    // 5. FETCH : ACCÈS ADMIN (Bloquer)
-    var btnAdmin = document.querySelectorAll('.btn-action-admin');
-    btnAdmin.forEach(function(btn) {
-        btn.addEventListener('click', function(e) {
-            e.preventDefault();
-            var idUser = this.getAttribute('data-id');
-
-            fetch('traitement_async_admin.php', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                body: 'id_user=' + encodeURIComponent(idUser) + '&action=bloquer'
-            })
-            .then(function(r) { return r.json(); })
-            .then(function(data) {
-                if (data.success) {
-                    btn.innerHTML = "Bloqué";
-                    btn.classList.add('etat-bloque');
-                    btn.disabled = true;
-                }
-            });
-        });
-    });
-
-    // 6. FETCH : AJOUT PANIER ASYNCHRONE (Délégation de clics)
-   // 6. FETCH : PANIER (Ajout et Suppression)
-    document.body.addEventListener('submit', function(e) {
-        var form = e.target;
-        if (form && form.getAttribute('action') === 'traitement_panier.php') {
-            var actionInput = form.querySelector('input[name="action"]');
-            
-            // Si c'est un ajout
-            if (actionInput && actionInput.value === 'ajouter') {
-                e.preventDefault();
-                fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (data.success) {
-                        var btnSubmit = form.querySelector('input[type="submit"]');
-                        var txtBackup = btnSubmit.value;
-                        btnSubmit.value = "✓ Ajouté !";
-                        btnSubmit.classList.add('etat-ajoute');
-                        setTimeout(function() {
-                            btnSubmit.value = txtBackup;
-                            btnSubmit.classList.remove('etat-ajoute');
-                        }, 2000);
+  
+    function activerBoutonsPanier() {
+        var formulairesPanier = document.querySelectorAll('form[action="traitement_panier.php"]');
+        
+        formulairesPanier.forEach(function(form) {
+            // On vérifie si on n'a pas déjà mis un écouteur (pour éviter que l'action s'exécute 2 fois)
+            if (form.getAttribute('data-ecouteur-actif') !== 'oui') {
+                
+                form.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    var actionInput = form.querySelector('input[name="action"]');
+                    
+                    // AJOUT PANIER
+                    if (actionInput && actionInput.value === 'ajouter') {
+                        fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
+                        .then(function(r) { return r.json(); })
+                        .then(function(data) {
+                            if (data.success) {
+                                var btnSubmit = form.querySelector('input[type="submit"]');
+                                var txtBackup = btnSubmit.value;
+                                btnSubmit.value = "✓ Ajouté !";
+                                btnSubmit.classList.add('etat-ajoute');
+                                setTimeout(function() {
+                                    btnSubmit.value = txtBackup;
+                                    btnSubmit.classList.remove('etat-ajoute');
+                                }, 2000);
+                            }
+                        });
+                    }
+                    
+                    // SUPPRESSION PANIER
+                    if (actionInput && actionInput.value === 'supprimer') {
+                        fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
+                        .then(function(r) { return r.json(); })
+                        .then(function(data) {
+                            if (data.success) { window.location.reload(); }
+                        });
                     }
                 });
+                
+                // On marque le formulaire pour dire qu'il est "surveillé"
+                form.setAttribute('data-ecouteur-actif', 'oui');
             }
-            
-            // Si c'est une suppression
-            if (actionInput && actionInput.value === 'supprimer') {
-                e.preventDefault();
-                fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
-                .then(function(r) { return r.json(); })
-                .then(function(data) {
-                    if (data.success) {
-                        // On recharge la page pour mettre à jour l'affichage du panier et le prix total
-                        window.location.reload(); 
-                    }
-                });
-            }
-        }
-    });
-    // 7. FETCH : RECHERCHE DYNAMIQUE LIVE
+        });
+    }
+
+    // On lance la fonction une première fois au chargement normal de la page
+    activerBoutonsPanier();
+
+
+
+    // RECHERCHE DYNAMIQUE LIVE
+
     var champRecherche = document.getElementById('champ-recherche');
     var zoneCatalogue = document.getElementById('zone-catalogue');
-
     if (champRecherche && zoneCatalogue) {
         champRecherche.addEventListener('input', function() {
             var query = this.value;
@@ -149,9 +78,88 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: 'recherche=' + encodeURIComponent(query)
             })
             .then(function(r) { return r.text(); })
-            .then(function(html) {
-                zoneCatalogue.innerHTML = html;
+            .then(function(html) { 
+                zoneCatalogue.innerHTML = html; 
+                
+             
+                // Les nouveaux plats viennent d'apparaître, on doit relancer la boucle sur leurs boutons
+                activerBoutonsPanier(); 
             });
         });
     }
+
+
+    // BOUCLES CLASSIQUES (CUISINE, LIVREUR, ADMIN) - Statiques au chargement
+
+    
+    // ACTION CUISINE
+    var boutonsCuisine = document.querySelectorAll('.btn-action-cmd');
+    boutonsCuisine.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var idCmd = this.getAttribute('data-id');
+            var action = this.getAttribute('data-action');
+            var carte = document.getElementById('cmd-' + idCmd);
+            
+            var textInitial = this.innerHTML;
+            this.innerHTML = "⏳..."; this.disabled = true;
+
+            fetch('traitement_async_commandes.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
+            }).then(function(r) { return r.json(); }).then(function(data) {
+                if(data.success) {
+                    carte.querySelector('.statut-actuel').innerHTML = "<strong>Statut actuel :</strong> <span style='color:green'>" + data.nouveau_statut + "</span>";
+                    btn.style.display = 'none';
+                }
+            });
+        });
+    });
+
+    // ACTION LIVREUR
+    var boutonsLivreur = document.querySelectorAll('.btn-action-livreur');
+    boutonsLivreur.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var idCmd = this.getAttribute('data-id');
+            var action = this.getAttribute('data-action');
+            var actionsDiv = document.getElementById('actions-' + idCmd);
+            
+            this.innerHTML = "⏳..."; this.disabled = true;
+
+            fetch('traitement_async_livraison.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
+            }).then(function(r) { return r.json(); }).then(function(data) {
+                if(data.success) {
+                    actionsDiv.innerHTML = "<p style='color:green; font-weight:bold; padding:15px; border:1px solid green; text-align:center;'>✅ Action enregistrée</p>";
+                }
+            });
+        });
+    });
+
+    // ACTION ADMIN
+    var boutonsAdmin = document.querySelectorAll('.btn-action-admin');
+    boutonsAdmin.forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            var idUser = this.getAttribute('data-id');
+            
+            this.innerHTML = "⏳..."; this.disabled = true;
+
+            fetch('traitement_async_admin.php', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: 'id_user=' + encodeURIComponent(idUser) + '&action=bloquer'
+            }).then(function(r) { return r.json(); }).then(function(data) {
+                if(data.success) {
+                    btn.innerHTML = "Bloqué";
+                    btn.classList.add('etat-bloque');
+                }
+            });
+        });
+    });
+
 });
