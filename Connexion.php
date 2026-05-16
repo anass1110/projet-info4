@@ -13,8 +13,8 @@
             <fieldset>
                 <legend>Connectez-vous</legend>
                 <?php 
-                if(isset($_GET['succes'])) echo "<p style='color:green; text-align:center;'>Inscription réussie, connectez-vous.</p>"; 
-                if(isset($_GET['erreur'])) echo "<p style='color:red; text-align:center;'>Email ou mot de passe incorrect.</p>"; 
+                if(isset($_GET['succes'])) echo "<p class='msg-succes'>Inscription réussie, connectez-vous.</p>"; 
+                if(isset($_GET['erreur'])) echo "<p class='msg-erreur'>Email ou mot de passe incorrect.</p>"; 
                 ?>
 
                 <label for="login-email">Adresse e-mail :</label>
