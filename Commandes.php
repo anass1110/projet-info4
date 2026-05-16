@@ -91,6 +91,6 @@ $statuts = [ 'A preparer' => 'À Préparer', 'En cours' => 'En Préparation', 'E
             <?php endforeach; ?>
         </div>
     </div>
-</body>
- </script>
+    </script>
+ </body>
 </html>
