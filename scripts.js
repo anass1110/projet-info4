@@ -3,11 +3,14 @@ document.addEventListener("DOMContentLoaded", function() {
     // 1. GESTION DU COOKIE THÈME SOMBRE
     var btnTheme = document.getElementById('btn-theme');
     if (btnTheme) {
-        btnTheme.addEventListener("click", function(e) {
+        // On utilise onclick direct pour être sûr de contourner les éventuels conflits d'événements
+        btnTheme.onclick = function(e) {
             e.preventDefault();
+            // On bascule la classe sur le body
             var isDark = document.body.classList.toggle('theme-sombre');
+            // On met à jour le cookie
             document.cookie = "theme=" + (isDark ? "dark" : "light") + "; path=/; max-age=2592000";
-        });
+        };
     }
 
     // 2. VALIDATION DU FORMULAIRE D'INSCRIPTION
@@ -94,17 +97,16 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     // 6. FETCH : AJOUT PANIER ASYNCHRONE (Délégation de clics)
+   // 6. FETCH : PANIER (Ajout et Suppression)
     document.body.addEventListener('submit', function(e) {
         var form = e.target;
         if (form && form.getAttribute('action') === 'traitement_panier.php') {
             var actionInput = form.querySelector('input[name="action"]');
+            
+            // Si c'est un ajout
             if (actionInput && actionInput.value === 'ajouter') {
                 e.preventDefault();
-                var formData = new FormData(form);
-                fetch('traitement_async_panier.php', {
-                    method: 'POST',
-                    body: formData
-                })
+                fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
                 .then(function(r) { return r.json(); })
                 .then(function(data) {
                     if (data.success) {
@@ -119,9 +121,21 @@ document.addEventListener("DOMContentLoaded", function() {
                     }
                 });
             }
+            
+            // Si c'est une suppression
+            if (actionInput && actionInput.value === 'supprimer') {
+                e.preventDefault();
+                fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
+                .then(function(r) { return r.json(); })
+                .then(function(data) {
+                    if (data.success) {
+                        // On recharge la page pour mettre à jour l'affichage du panier et le prix total
+                        window.location.reload(); 
+                    }
+                });
+            }
         }
     });
-
     // 7. FETCH : RECHERCHE DYNAMIQUE LIVE
     var champRecherche = document.getElementById('champ-recherche');
     var zoneCatalogue = document.getElementById('zone-catalogue');
