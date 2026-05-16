@@ -46,5 +46,6 @@ $commandes = file_exists($fichier_cmd) ? json_decode(file_get_contents($fichier_
         if($nb_livraisons === 0) { echo "<p class='vide-livraison'>🎉 Aucune livraison en cours !</p>"; }
         ?>
     </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
