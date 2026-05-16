@@ -1,39 +1,24 @@
 <?php
 session_start();
-
-//  seul le restaurateur accède à cette page
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
-    header("Location: accueil.php"); 
-    exit();
+    header("Location: accueil.php"); exit();
 }
 
-// chargement dynamique des données 
 $fichier_json = 'data/commandes.json';
 $commandes = [];
-
 if (file_exists($fichier_json)) {
-    $donnees = json_decode(file_get_contents($fichier_json), true);
-    $commandes = $donnees['commandes'] ?? [];
+    $commandes = json_decode(file_get_contents($fichier_json), true)['commandes'] ?? [];
 }
 
-// Récupération de la liste des livreurs pour l'attribution
 $livreurs = [];
 $fichier_users = 'data/utilisateurs.json';
 if (file_exists($fichier_users)) {
-    $data_users = json_decode(file_get_contents($fichier_users), true);
-    foreach ($data_users['utilisateurs'] as $u) {
-        if ($u['role'] === 'livreur') {
-            $livreurs[] = $u;
-        }
+    foreach (json_decode(file_get_contents($fichier_users), true)['utilisateurs'] as $u) {
+        if ($u['role'] === 'livreur') { $livreurs[] = $u; }
     }
 }
 
-$statuts = [
-    'A preparer'   => 'À Préparer',
-    'En cours'     => 'En Préparation',
-    'En attente'   => 'En Attente',
-    'En livraison' => 'En Livraison'
-];
+$statuts = [ 'A preparer' => 'À Préparer', 'En cours' => 'En Préparation', 'En attente' => 'En Attente', 'En livraison' => 'En Livraison' ];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -46,13 +31,11 @@ $statuts = [
     <?php include('includes/header.php'); ?>
 
     <div id="gestion-commandes">
-        <h2 style="text-align: center; margin-top: 20px; color: #800020;">Tableau de bord - Cuisine (Temps Réel)</h2>
-        
-        <div class="tableau-bord-container" style="display: flex; justify-content: space-around; padding: 20px; gap: 15px; align-items: flex-start;">
-            
-            <?php foreach ($statuts as $code_statut => $nom_statut): ?>
-                <div class="colonne-commandes" style="flex: 1; background: #f4f4f4; border: 1px solid #1C1C1C; border-radius: 10px; padding: 15px; min-height: 400px;">
-                    <h3 style="border-bottom: 2px solid #800020; padding-bottom: 10px; margin-bottom: 15px; color: #800020;"><?= $nom_statut ?></h3>
+        <h2>Tableau de bord - Cuisine</h2>
+        <div class="grille-statuts">
+            <?php foreach ($statuts as $code_statut => $label_statut): ?>
+                <div class="colonne-commandes">
+                    <h3 class="colonne-titre"><?= $label_statut ?></h3>
                     
                     <?php 
                     $trouve = false;
@@ -60,53 +43,52 @@ $statuts = [
                         if($c['statut'] === $code_statut): 
                             $trouve = true;
                     ?>
-                        <div class="carte-commande" style="background: white; border: 1px solid #ddd; padding: 12px; margin-bottom: 15px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
-                            <p style="margin: 0; font-weight: bold; color: #1C1C1C;">#<?= $c['id_commande'] ?> <span style="font-size: 0.8em; color: #666;">(<?= ucfirst($c['type']) ?>)</span></p>
-                            <hr style="border: 0; border-top: 1px solid #eee; margin: 8px 0;">
-                            <p style="margin: 5px 0;"><small>🕒 Prévu pour : <strong><?= htmlspecialchars($c['heure_souhaitee']) ?></strong></small></p>
-                            <p style="margin: 5px 0;"><small>👤 Client : <?= htmlspecialchars($c['client']) ?></small></p>
-                            <p style="margin: 5px 0; font-weight: bold; color: #800020;"><?= number_format($c['total'], 2) ?>€</p>
+                        <div class="carte-commande" id="cmd-<?= htmlspecialchars($c['id_commande']) ?>">
+                            <p><strong>Commande :</strong> <?= htmlspecialchars($c['id_commande']) ?></p>
+                            <p><strong>Type :</strong> <?= htmlspecialchars(ucfirst($c['type'])) ?></p>
+                            <p><strong>Heure :</strong> <?= htmlspecialchars($c['heure_souhaitee']) ?></p>
                             
-                            <?php if($c['type'] === 'livraison' && empty($c['id_livreur'])): ?>
-                                <div style="margin-top: 10px; border-top: 1px dashed #ccc; padding-top: 5px;">
-                                    <form action="traitement_commande.php" method="post" style="display:flex; flex-direction:column; gap:5px;">
+                            <div class="details-articles">
+                                <ul class="liste-articles">
+                                    <?php foreach($c['articles'] as $art): ?>
+                                        <li><?= $art['quantite'] ?>x <?= htmlspecialchars($art['nom']) ?> <?= !empty($art['option']) ? "<i>(".htmlspecialchars($art['option']).")</i>" : "" ?></li>
+                                    <?php endforeach; ?>
+                                </ul>
+                            </div>
+                            
+                            <p class="statut-actuel"><strong>Statut actuel :</strong> <?= htmlspecialchars($c['statut']) ?></p>
+
+                            <?php if($code_statut === 'A preparer'): ?>
+                                <button class="bouton-nav btn-action-cmd btn-demarrer" data-id="<?= htmlspecialchars($c['id_commande']) ?>" data-action="demarrer">🔥 Commencer</button>
+                            <?php elseif($code_statut === 'En cours'): ?>
+                                <button class="bouton-nav btn-action-cmd btn-prete" data-id="<?= htmlspecialchars($c['id_commande']) ?>" data-action="prete">✅ Prête</button>
+                            <?php elseif($code_statut === 'En attente'): ?>
+                                <?php if($c['type'] === 'livraison'): ?>
+                                    <form action="traitement_commande.php" method="post" class="form-attrib">
                                         <input type="hidden" name="action" value="attribuer_livreur">
-                                        <input type="hidden" name="id_commande" value="<?= $c['id_commande'] ?>">
-                                        <label style="font-size: 0.7em; font-weight: bold;">Attribuer à :</label>
-                                        <select name="id_livreur" required style="width: 100%; font-size: 0.8em; padding: 3px;">
-                                            <option value="">-- Choisir un livreur --</option>
+                                        <input type="hidden" name="id_commande" value="<?= htmlspecialchars($c['id_commande']) ?>">
+                                        <select name="id_livreur" required class="select-livreur">
+                                            <option value="">-- Assigner un livreur --</option>
                                             <?php foreach($livreurs as $l): ?>
-                                                <option value="<?= $l['id'] ?>"><?= htmlspecialchars($l['informations']['prenom'] . " " . $l['informations']['nom']) ?></option>
+                                                <option value="<?= $l['id'] ?>"><?= htmlspecialchars($l['informations']['nom'] . ' ' . $l['informations']['prenom']) ?></option>
                                             <?php endforeach; ?>
                                         </select>
-                                        <input type="submit" value="Assigner & Expédier" class="bouton-nav" style="font-size: 0.7em; padding: 5px; background: #E67E22; color: white; border: none;">
+                                        <input type="submit" class="bouton-nav btn-expedier" value="Expédier">
                                     </form>
-                                </div>
-                            <?php elseif($c['type'] === 'livraison' && !empty($c['id_livreur'])): ?>
-                                <p style="font-size: 0.75em; color: blue; font-style: italic; margin-top: 10px;">🚚 Attribué au livreur : <?= htmlspecialchars($c['id_livreur']) ?></p>
-                            <?php endif; ?>
-                            <div style="margin-top: 10px;">
-                                <?php if($code_statut === 'A preparer'): ?>
-                                    <button class="bouton-nav" style="width: 100%; font-size: 0.75em; background: #800020; color: white;">🔥 Commencer</button>
-                                <?php elseif($code_statut === 'En cours'): ?>
-                                    <button class="bouton-nav" style="width: 100%; font-size: 0.75em; border-color: orange;">⏸️ Pause</button>
-                                    <button class="bouton-nav" style="width: 100%; font-size: 0.75em; margin-top: 5px;">✅ Prête</button>
-                                <?php elseif($code_statut === 'En attente'): ?>
-                                    <button class="bouton-nav" style="width: 100%; font-size: 0.75em;">▶️ Reprendre</button>
-                                <?php elseif($code_statut === 'En livraison'): ?>
-                                    <span style="color: blue; font-size: 0.8em; font-style: italic;">🚚 Coursier en route...</span>
+                                <?php else: ?>
+                                    <span class="txt-attente">En attente du client</span>
                                 <?php endif; ?>
-                            </div>
+                            <?php elseif($code_statut === 'En livraison'): ?>
+                                <span class="txt-route">🚚 Coursier en route...</span>
+                            <?php endif; ?>
                         </div>
                     <?php 
                         endif; 
                     endforeach; 
-
-                    if(!$trouve): echo "<p style='color: gray; font-style: italic; font-size: 0.9em; text-align: center;'>Aucune commande</p>"; endif;
+                    if(!$trouve): echo "<p class='txt-vide'>Aucune commande</p>"; endif;
                     ?>
                 </div>
             <?php endforeach; ?>
-
         </div>
     </div>
 </body>
