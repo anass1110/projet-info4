@@ -92,4 +92,5 @@ $statuts = [ 'A preparer' => 'À Préparer', 'En cours' => 'En Préparation', 'E
         </div>
     </div>
 </body>
+ </script>
 </html>
