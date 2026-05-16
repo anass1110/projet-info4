@@ -27,12 +27,6 @@ $cookie_theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
                 </a>
             </li>
             
-            <li>
-                <button class="bouton-nav" onclick="document.body.classList.toggle('theme-sombre'); document.cookie = 'theme=' + (document.body.classList.contains('theme-sombre') ? 'dark' : 'light') + '; path=/; max-age=2592000'; return false;">
-                    🌓 Thème
-                </button>
-            </li>
-            
             <?php if(!isset($_SESSION['user'])): ?>
                 <li><a href="Connexion.php" class="bouton-nav">Connexion</a></li>
                 <li><a href="Inscription.php" class="bouton-nav">S'inscrire</a></li>
@@ -50,4 +44,8 @@ $cookie_theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
             <?php endif; ?>
         </ul>
     </nav>
+
+    <button class="bouton-nav btn-theme-top-right" onclick="document.body.classList.toggle('theme-sombre'); document.cookie = 'theme=' + (document.body.classList.contains('theme-sombre') ? 'dark' : 'light') + '; path=/; max-age=2592000'; return false;">
+        🌓 Thème
+    </button>
 </header>
