@@ -177,54 +177,21 @@ th { background-color: #BC002D; color: white; }
 
                    
                    
-/* Phase 3  */
-
-
-/* THEME SOMBRE */
-body.theme-sombre {
-    background-color: #222;
-    color: #E0E0E0;
-}
-body.theme-sombre header, 
-body.theme-sombre .carte-commande, 
-body.theme-sombre .carte-livraison, 
-body.theme-sombre fieldset,
-body.theme-sombre .infos-perso,
-body.theme-sombre .plat {
-    background-color: #333;
-    color: #E0E0E0;
-    border-color: #555;
-}
-body.theme-sombre a.bouton-nav, 
-body.theme-sombre input[type="submit"], 
-body.theme-sombre button.bouton-nav {
-    background-color: #444;
-    color: #FF4D4D;
-    border-color: #FF4D4D;
-}
-body.theme-sombre th {
-    background-color: #444;
-    color: white;
-}
-body.theme-sombre td {
-    border-color: #555;
-}                   
+/*  phase 3*/
                    
-                   
-/* Utilitaires globaux */
+/* Utilitaires structurels */
 .cache { display: none !important; }
-.separateur { margin: 20px 0; border: 1px solid #ddd; }
+.separateur { margin: 20px 0; border: 1px solid #1C1C1C; }
+.txt-gras { font-weight: bold; }
+.msg-erreur { color: red; text-align: center; font-weight: bold; }
+.msg-succes { color: green; text-align: center; font-weight: bold; margin-bottom: 15px; }
 
-/* Header */
+/* Éléments du Header */
 .btn-panier { font-weight: bold; border-color: #1C1C1C; }
 .nb-panier { color: #BC002D; }
 .btn-deco { color: #BC002D; border-color: #BC002D; }
 
-/* Formulaires (Inscription/Connexion) */
-.msg-erreur { color: red; text-align: center; font-weight: bold; }
-.msg-succes { color: green; text-align: center; font-weight: bold; margin-bottom: 15px; }
-
-/* Commandes (Restaurateur) */
+/* Page Table de bord - Cuisine (Commandes.php) */
 .grille-statuts { display: flex; justify-content: space-between; margin-top: 20px; }
 .colonne-titre { text-align: center; border-bottom: 2px solid #BC002D; padding-bottom: 10px; }
 .details-articles { background-color: white; padding: 10px; border-radius: 5px; margin: 10px 0; border: 1px dashed #ccc; }
@@ -238,17 +205,17 @@ body.theme-sombre td {
 .txt-route { color: blue; font-size: 0.8em; font-style: italic; }
 .txt-vide { color: gray; font-style: italic; font-size: 0.9em; text-align: center; }
 
-/* Livraison */
+/* Page Livreur (Livraison.php) */
 .titre-livraison { text-align: center; color: #1C1C1C; }
 .carte-livreur { border: 2px solid #1C1C1C; padding: 15px; margin-bottom: 15px; background: white; border-radius: 10px; }
 .actions-livreur { display: flex; flex-direction: column; gap: 10px; }
 .btn-abandon { background-color: #E67E22; font-size: 1.1em; padding: 15px; color: #1C1C1C; }
 .vide-livraison { text-align: center; margin-top: 50px; font-size: 1.2em; }
 
-/* Admin */
+/* Page Administration (Administrateur.php) */
 .btn-bloquer { color: red; border-color: red; }
 
-/* Produits & Recherche dynamique */
+/* Page Catalogue & Recherche (Produits.php) */
 .titre-menu { width: 100%; text-align: center; }
 .inclus-menu { background-color: #F4F1EA; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.85em; border: 1px solid #1C1C1C; }
 .form-ajout { display: flex; flex-direction: column; align-items: center; gap: 10px; }
@@ -257,15 +224,39 @@ body.theme-sombre td {
 .input-qty { width: 50px; text-align: center; }
 .msg-aucun-resultat { text-align: center; width: 100%; color: #1C1C1C; }
 
-/* Classes pilotées par le Javascript */
+/* États dynamiques gérés par JavaScript */
 .etat-bloque { border-color: grey !important; color: grey !important; cursor: not-allowed; }
-.etat-ajoute { background-color: green !important; color: white !important; }                 
-                  
-                  
-                  
-                  
-                  
-                  
+.etat-ajoute { background-color: green !important; color: white !important; }
+
+/*  STYLE DU THÈME SOMBRE */
+body.theme-sombre {
+    background-color: #222 !important;
+    color: #E0E0E0 !important;
+}
+body.theme-sombre header, 
+body.theme-sombre .carte-commande, 
+body.theme-sombre .carte-livraison, 
+body.theme-sombre fieldset,
+body.theme-sombre .infos-perso,
+body.theme-sombre .plat {
+    background-color: #333 !important;
+    color: #E0E0E0 !important;
+    border-color: #555 !important;
+}
+body.theme-sombre a.bouton-nav, 
+body.theme-sombre input[type="submit"], 
+body.theme-sombre button.bouton-nav {
+    background-color: #444 !important;
+    color: #FF4D4D !important;
+    border-color: #FF4D4D !important;
+}
+body.theme-sombre th {
+    background-color: #444 !important;
+    color: white !important;
+}
+body.theme-sombre td {
+    border-color: #555 !important;
+}
                   
                   
                   }
