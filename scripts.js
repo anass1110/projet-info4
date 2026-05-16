@@ -1,21 +1,17 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    //THÈME SOMBRE
+    // 1. GESTION DU COOKIE THÈME SOMBRE
     var btnTheme = document.getElementById('btn-theme');
-    var body = document.body;
-
-    if (document.cookie.indexOf("theme=dark") !== -1) { body.classList.add('theme-sombre'); }
-
     if (btnTheme) {
         btnTheme.addEventListener("click", function(e) {
             e.preventDefault();
-            var isDark = body.classList.toggle('theme-sombre');
+            var isDark = document.body.classList.toggle('theme-sombre');
             document.cookie = "theme=" + (isDark ? "dark" : "light") + "; path=/; max-age=2592000";
         });
     }
 
-    // VALIDATION INSCRIPTION
-    var formInsc = document.querySelector('form[action="traitement_inscription.php"]');
+    // 2. VALIDATION DU FORMULAIRE D'INSCRIPTION
+    var formInsc = document.getElementById('form-inscription');
     if (formInsc) {
         formInsc.addEventListener('submit', function(event) {
             var mdp = document.getElementById('mdp').value;
@@ -28,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
-    //  COMMANDES (Restaurateur)
+    // 3. FETCH : ACTION CUISINE (Restaurateur)
     var btnCmd = document.querySelectorAll('.btn-action-cmd');
     btnCmd.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
@@ -42,7 +38,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
             })
-            .then(function(response) { return response.json(); })
+            .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.success) {
                     carte.querySelector('.statut-actuel').innerHTML = "<strong>Statut actuel :</strong> " + data.nouveau_statut;
@@ -52,7 +48,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // LIVRAISON (Livreur)
+    // 4. FETCH : ACTION LIVRAISON (Livreur)
     var btnLivraison = document.querySelectorAll('.btn-action-livreur');
     btnLivraison.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
@@ -65,16 +61,16 @@ document.addEventListener("DOMContentLoaded", function() {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
             })
-            .then(function(response) { return response.json(); })
+            .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.success) {
-                    document.getElementById('actions-' + idCmd).innerHTML = "<p class='msg-succes'>Action validée</p>";
+                    document.getElementById('actions-' + idCmd).innerHTML = "<p class='msg-succes'>Action enregistrée</p>";
                 }
             });
         });
     });
 
-    //ADMIN (Bloquer)
+    // 5. FETCH : ACCÈS ADMIN (Bloquer)
     var btnAdmin = document.querySelectorAll('.btn-action-admin');
     btnAdmin.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
@@ -86,7 +82,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'id_user=' + encodeURIComponent(idUser) + '&action=bloquer'
             })
-            .then(function(response) { return response.json(); })
+            .then(function(r) { return r.json(); })
             .then(function(data) {
                 if (data.success) {
                     btn.innerHTML = "Bloqué";
@@ -97,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // PANIER (Délégation)
+    // 6. FETCH : AJOUT PANIER ASYNCHRONE (Délégation de clics)
     document.body.addEventListener('submit', function(e) {
         var form = e.target;
         if (form && form.getAttribute('action') === 'traitement_panier.php') {
@@ -109,16 +105,15 @@ document.addEventListener("DOMContentLoaded", function() {
                     method: 'POST',
                     body: formData
                 })
-                .then(function(response) { return response.json(); })
+                .then(function(r) { return r.json(); })
                 .then(function(data) {
                     if (data.success) {
                         var btnSubmit = form.querySelector('input[type="submit"]');
-                        var texteOriginal = btnSubmit.value;
+                        var txtBackup = btnSubmit.value;
                         btnSubmit.value = "✓ Ajouté !";
                         btnSubmit.classList.add('etat-ajoute');
-                        
                         setTimeout(function() {
-                            btnSubmit.value = texteOriginal;
+                            btnSubmit.value = txtBackup;
                             btnSubmit.classList.remove('etat-ajoute');
                         }, 2000);
                     }
@@ -127,24 +122,22 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
-    // RECHERCHE
+    // 7. FETCH : RECHERCHE DYNAMIQUE LIVE
     var champRecherche = document.getElementById('champ-recherche');
-    var formRecherche = document.querySelector('.recherche form');
-    var conteneurProduits = document.querySelector('.grid-menus');
+    var zoneCatalogue = document.getElementById('zone-catalogue');
 
-    if (champRecherche && formRecherche && conteneurProduits) {
-        champRecherche.addEventListener('input', function(e) {
+    if (champRecherche && zoneCatalogue) {
+        champRecherche.addEventListener('input', function() {
             var query = this.value;
             fetch('traitement_async_recherche.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'recherche=' + encodeURIComponent(query)
             })
-            .then(function(response) { return response.text(); })
+            .then(function(r) { return r.text(); })
             .then(function(html) {
-                conteneurProduits.innerHTML = html;
+                zoneCatalogue.innerHTML = html;
             });
         });
-        formRecherche.addEventListener('submit', function(e) { e.preventDefault(); });
     }
 });
