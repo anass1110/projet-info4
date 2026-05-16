@@ -36,4 +36,5 @@ $utilisateurs = file_exists($fichier_json) ? json_decode(file_get_contents($fich
         </table>
     </div>
 </body>
+</script>
 </html>
