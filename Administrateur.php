@@ -26,7 +26,16 @@ $utilisateurs = file_exists($fichier_json) ? json_decode(file_get_contents($fich
                          <td><?= htmlspecialchars($u['informations']['nom'] . ' ' . $u['informations']['prenom']) ?></td>
                          <td><?= htmlspecialchars($u['role']) ?></td>
                          <td>
-                             <button class="bouton-nav btn-action-admin btn-bloquer" data-id="<?= htmlspecialchars($u['id']) ?>">Bloquer</button>
+                             <?php 
+                             //  on vérifie la base de données avant d'afficher le bouton
+                             $estBloque = (isset($u['statut']) && $u['statut'] === 'bloque');
+                             if ($estBloque): 
+                             ?>
+                                 <button class="bouton-nav btn-action-admin etat-bloque" data-id="<?= htmlspecialchars($u['id']) ?>" data-action="debloquer">Débloquer</button>
+                             <?php else: ?>
+                                 <button class="bouton-nav btn-action-admin btn-bloquer" data-id="<?= htmlspecialchars($u['id']) ?>" data-action="bloquer">Bloquer</button>
+                             <?php endif; ?>
+                             
                              <select class="bouton-nav"><option value="standard">Standard</option><option value="vip">VIP</option></select>
                              <a href="Profil.php?id=<?= urlencode($u['id']) ?>" class="bouton-nav">Voir Profil</a>
                          </td> 
