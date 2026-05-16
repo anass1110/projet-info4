@@ -47,4 +47,5 @@ $commandes = file_exists($fichier_cmd) ? json_decode(file_get_contents($fichier_
         ?>
     </div>
 </body>
+</script>
 </html>
