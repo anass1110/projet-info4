@@ -79,9 +79,9 @@ a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
     text-align: left;
 }
 
-/* ========================================= */
-/* NOUVEAU : MISE EN PAGE DES PRODUITS (GRID)*/
-/* ========================================= */
+
+/* MISE EN PAGE DES PRODUITS */
+
 #contenu-produits {
     margin: 30px;
     max-width: 1200px;
@@ -130,7 +130,6 @@ a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
 .plat form {
     margin-top: 15px;
 }
-/* ========================================= */
 
 
 /* (Inscription, Connexion, etc...) */
@@ -173,4 +172,68 @@ th { background-color: #BC002D; color: white; }
 .mobile-view h1 { font-size: 1.5em; }
 #infos-livraison { padding: 20px; font-size: 1.2em; }
 .bouton-maps { background-color: #1C1C1C; color: white; display: block; text-align: center; padding: 20px; margin: 20px 0; text-decoration: none; border-radius: 10px; }
-.bouton-confirmer { background-color: #BC002D; color: white; width: 100%; padding: 25px; font-size: 1.3em; border: none; border-radius: 10px; cursor: pointer; font-weight: bold; }
+.bouton-confirmer { background-color: #BC002D; color: white; width: 100%; padding: 25px; font-size: 1.3em; border: none; border-radius: 10px; cursor: pointer; font-weight: bold;
+                  
+
+                   
+                   
+/* Phase 3  */
+
+/* Utilitaires globaux */
+.cache { display: none !important; }
+.separateur { margin: 20px 0; border: 1px solid #ddd; }
+
+/* Header */
+.btn-panier { font-weight: bold; border-color: #1C1C1C; }
+.nb-panier { color: #BC002D; }
+.btn-deco { color: #BC002D; border-color: #BC002D; }
+
+/* Formulaires (Inscription/Connexion) */
+.msg-erreur { color: red; text-align: center; font-weight: bold; }
+.msg-succes { color: green; text-align: center; font-weight: bold; margin-bottom: 15px; }
+
+/* Commandes (Restaurateur) */
+.grille-statuts { display: flex; justify-content: space-between; margin-top: 20px; }
+.colonne-titre { text-align: center; border-bottom: 2px solid #BC002D; padding-bottom: 10px; }
+.details-articles { background-color: white; padding: 10px; border-radius: 5px; margin: 10px 0; border: 1px dashed #ccc; }
+.liste-articles { margin: 0; padding-left: 20px; }
+.btn-demarrer { width: 100%; font-size: 0.75em; background-color: #800020; color: white; }
+.btn-prete { width: 100%; font-size: 0.75em; margin-top: 5px; }
+.form-attrib { margin-top: 10px; }
+.select-livreur { width: 100%; padding: 5px; margin-bottom: 5px; }
+.btn-expedier { width: 100%; font-size: 0.75em; }
+.txt-attente { color: green; font-weight: bold; }
+.txt-route { color: blue; font-size: 0.8em; font-style: italic; }
+.txt-vide { color: gray; font-style: italic; font-size: 0.9em; text-align: center; }
+
+/* Livraison */
+.titre-livraison { text-align: center; color: #1C1C1C; }
+.carte-livreur { border: 2px solid #1C1C1C; padding: 15px; margin-bottom: 15px; background: white; border-radius: 10px; }
+.actions-livreur { display: flex; flex-direction: column; gap: 10px; }
+.btn-abandon { background-color: #E67E22; font-size: 1.1em; padding: 15px; color: #1C1C1C; }
+.vide-livraison { text-align: center; margin-top: 50px; font-size: 1.2em; }
+
+/* Admin */
+.btn-bloquer { color: red; border-color: red; }
+
+/* Produits & Recherche dynamique */
+.titre-menu { width: 100%; text-align: center; }
+.inclus-menu { background-color: #F4F1EA; padding: 10px; border-radius: 8px; margin-bottom: 10px; font-size: 0.85em; border: 1px solid #1C1C1C; }
+.form-ajout { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.select-perso { width: 80%; padding: 5px; border-radius: 5px; }
+.box-quantite { display: flex; gap: 10px; }
+.input-qty { width: 50px; text-align: center; }
+.msg-aucun-resultat { text-align: center; width: 100%; color: #1C1C1C; }
+
+/* Classes pilotées par le Javascript */
+.etat-bloque { border-color: grey !important; color: grey !important; cursor: not-allowed; }
+.etat-ajoute { background-color: green !important; color: white !important; }                 
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  }
