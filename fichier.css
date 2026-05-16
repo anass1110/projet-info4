@@ -247,59 +247,77 @@ th { background-color: #BC002D; color: white; }
 /* ==========================================================================
    STYLE DU THÈME SOMBRE
    ========================================================================== */
+/* ==========================================================================
+   STYLE DU THÈME SOMBRE (CORRECTION DES CONTRASTES)
+   ========================================================================== */
+
+/* 1. Fond général de la page */
 body.theme-sombre {
-    background-color: #222 !important;
+    background-color: #1A1A1A !important;
     color: #E0E0E0 !important;
 }
+
+/* 2. Forcer TOUS les blocs blancs à devenir gris foncé */
 body.theme-sombre header, 
+body.theme-sombre #contenu-formulaire, 
+body.theme-sombre .plat, 
+body.theme-sombre .recherche, 
+body.theme-sombre .plats-vedettes, 
 body.theme-sombre .carte-commande, 
 body.theme-sombre .carte-livraison, 
-body.theme-sombre fieldset,
-body.theme-sombre .infos-perso,
-body.theme-sombre .plat 
-body.theme-sombre .recherche,
-body.theme-sombre .plats-vedettes,
-body.theme-sombre #contenu-formulaire {
-    background-color: #333 !important;
+body.theme-sombre .infos-perso {
+    background-color: #2C2C2C !important;
+    border-color: #444 !important;
     color: #E0E0E0 !important;
-    border-color: #555 !important;
 }
+
+/* 3. Sauver les textes illisibles (Labels des formulaires, Titres des plats) */
+body.theme-sombre label,
+body.theme-sombre h4,
+body.theme-sombre p {
+    color: #F0F0F0 !important;
+}
+
+/* 4. Adapter les titres rouges pour qu'ils flashent bien sur le sombre */
+body.theme-sombre h1, 
+body.theme-sombre h2, 
+body.theme-sombre h3 {
+    color: #FF4D4D !important;
+}
+
+/* 5. Les petites boîtes internes (Inclus, Nutrition) */
 body.theme-sombre .box-grise { 
-    background-color: #444 !important; 
-    border-color: #666 !important; 
+    background-color: #1F1F1F !important; 
+    border-color: #555 !important; 
 }
+
+/* 6. Les boutons */
 body.theme-sombre a.bouton-nav, 
 body.theme-sombre input[type="submit"], 
 body.theme-sombre button.bouton-nav {
-    background-color: #444 !important;
+    background-color: #222 !important;
     color: #FF4D4D !important;
     border-color: #FF4D4D !important;
 }
-body.theme-sombre th {
+
+/* 7. Les inputs du formulaire pour qu'ils soient lisibles */
+body.theme-sombre input[type="text"], 
+body.theme-sombre input[type="email"], 
+body.theme-sombre input[type="password"], 
+body.theme-sombre input[type="tel"], 
+body.theme-sombre input[type="number"], 
+body.theme-sombre textarea,
+body.theme-sombre select {
     background-color: #444 !important;
+    color: #FFF !important;
+    border-color: #666 !important;
+}
+
+/* 8. Tableaux Admin */
+body.theme-sombre th {
+    background-color: #333 !important;
     color: white !important;
 }
 body.theme-sombre td {
     border-color: #555 !important;
-}           
-                  }
-
-
-
-/* FORCER LA COULEUR DES LABELS EN SOMBRE */
-body.theme-sombre label {
-    color: #E0E0E0 !important;
-}
-
-/* FORCER LE BLOC ACCUEIL EN SOMBRE */
-body.theme-sombre .recherche {
-    background-color: #333 !important;
-    border-color: #555 !important;
-}
-
-/* RENDRE LE TEXTE DU BLOC RECHERCHE VISIBLE */
-body.theme-sombre .recherche h2, 
-body.theme-sombre .recherche h3, 
-body.theme-sombre .recherche p {
-    color: #E0E0E0 !important;
 }
