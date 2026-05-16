@@ -12,7 +12,8 @@
         <form action="traitement_inscription.php" method="post">
             <fieldset>
                 <legend>Créer votre compte SushyTech</legend>
-                <?php if(isset($_GET['erreur'])) echo "<p style='color:red; text-align:center;'>Veuillez remplir les champs obligatoires.</p>"; ?>
+                <p id="erreur-js" class="msg-erreur cache"></p>
+                <?php if(isset($_GET['erreur'])) echo "<p class='msg-erreur'>Veuillez remplir les champs obligatoires.</p>"; ?>
                 
                 <label for="login">Login (Email) :</label>
                 <input type="email" id="login" name="user_login" required>
@@ -20,7 +21,7 @@
                 <label for="mdp">Mot de passe :</label>
                 <input type="password" id="mdp" name="user_password" required>
 
-                <hr style="margin: 20px 0;">
+                <hr class="separateur">
 
                 <label for="nom">Nom :</label>
                 <input type="text" id="nom" name="user_nom" required>
