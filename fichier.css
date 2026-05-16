@@ -283,3 +283,23 @@ body.theme-sombre td {
     border-color: #555 !important;
 }           
                   }
+
+
+
+/* FORCER LA COULEUR DES LABELS EN SOMBRE */
+body.theme-sombre label {
+    color: #E0E0E0 !important;
+}
+
+/* FORCER LE BLOC ACCUEIL EN SOMBRE */
+body.theme-sombre .recherche {
+    background-color: #333 !important;
+    border-color: #555 !important;
+}
+
+/* RENDRE LE TEXTE DU BLOC RECHERCHE VISIBLE */
+body.theme-sombre .recherche h2, 
+body.theme-sombre .recherche h3, 
+body.theme-sombre .recherche p {
+    color: #E0E0E0 !important;
+}
