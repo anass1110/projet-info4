@@ -7,6 +7,7 @@ if (isset($_SESSION['panier']) && is_array($_SESSION['panier'])) {
 $cookie_theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
 ?>
 <script>
+    /* Ce script s'exécute immédiatement pour éviter un flash blanc au chargement */
     if (document.cookie.indexOf("theme=dark") !== -1) {
         document.body.classList.add('theme-sombre');
     }
@@ -25,7 +26,12 @@ $cookie_theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
                     <?php endif; ?>
                 </a>
             </li>
-            <li><button id="btn-theme" class="bouton-nav">🌓 Thème</button></li>
+            
+            <li>
+                <button class="bouton-nav" onclick="document.body.classList.toggle('theme-sombre'); document.cookie = 'theme=' + (document.body.classList.contains('theme-sombre') ? 'dark' : 'light') + '; path=/; max-age=2592000'; return false;">
+                    🌓 Thème
+                </button>
+            </li>
             
             <?php if(!isset($_SESSION['user'])): ?>
                 <li><a href="Connexion.php" class="bouton-nav">Connexion</a></li>
