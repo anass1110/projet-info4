@@ -179,6 +179,38 @@ th { background-color: #BC002D; color: white; }
                    
 /* Phase 3  */
 
+
+/* THEME SOMBRE */
+body.theme-sombre {
+    background-color: #222;
+    color: #E0E0E0;
+}
+body.theme-sombre header, 
+body.theme-sombre .carte-commande, 
+body.theme-sombre .carte-livraison, 
+body.theme-sombre fieldset,
+body.theme-sombre .infos-perso,
+body.theme-sombre .plat {
+    background-color: #333;
+    color: #E0E0E0;
+    border-color: #555;
+}
+body.theme-sombre a.bouton-nav, 
+body.theme-sombre input[type="submit"], 
+body.theme-sombre button.bouton-nav {
+    background-color: #444;
+    color: #FF4D4D;
+    border-color: #FF4D4D;
+}
+body.theme-sombre th {
+    background-color: #444;
+    color: white;
+}
+body.theme-sombre td {
+    border-color: #555;
+}                   
+                   
+                   
 /* Utilitaires globaux */
 .cache { display: none !important; }
 .separateur { margin: 20px 0; border: 1px solid #ddd; }
