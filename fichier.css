@@ -321,3 +321,15 @@ body.theme-sombre th {
 body.theme-sombre td {
     border-color: #555 !important;
 }
+
+
+/* Positionnement du bouton thème en haut à droite */
+header {
+    position: relative; /* Nécessaire pour le positionnement absolu du bouton */
+}
+
+.btn-theme-top-right {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+}
