@@ -1,17 +1,30 @@
 <?php
 session_start();
+
+// Restriction d'accès transactionnel
+// Bloque le chargement du module bancaire si l'utilisateur n'est pas identifié ou si son panier est vide
 if (!isset($_SESSION['user']) || empty($_SESSION['panier'])) {
     header("Location: accueil.php");
     exit();
 }
 
-// Recalcul du total pour l'affichage visuel uniquement
+// Recalcul de l'assiette financière côté serveur
+// Détermine le montant total brut cumulé pour sécuriser l'affichage avant la transaction
 $total = 0;
-foreach ($_SESSION['panier'] as $article) { $total += $article['prix'] * $article['quantite']; }
-if (isset($_SESSION['coupon'])) {
-    if ($_SESSION['coupon']['type'] === 'pourcentage') { $total -= $total * ($_SESSION['coupon']['valeur'] / 100); } 
-    else { $total -= $_SESSION['coupon']['valeur']; }
+foreach ($_SESSION['panier'] as $article) { 
+    $total += $article['prix'] * $article['quantite']; 
 }
+
+// Application du barème de réduction en session
+// Déduit la valeur correspondante au coupon (taux ou montant fixe) sur le total calculé
+if (isset($_SESSION['coupon'])) {
+    if ($_SESSION['coupon']['type'] === 'pourcentage') { 
+        $total -= $total * ($_SESSION['coupon']['valeur'] / 100); 
+    } else { 
+        $total -= $_SESSION['coupon']['valeur']; 
+    }
+}
+// Protection contre les valeurs négatives
 $total = max(0, $total);
 ?>
 <!DOCTYPE html>
@@ -32,6 +45,8 @@ $total = max(0, $total);
             <hr>
 
             <form action="traitement_paiement.php" method="post">
+                <?php // Persistance du contexte de livraison
+                      // Transmet les paramètres logistiques issus du panier via des variables masquées (POST) ?>
                 <input type="hidden" name="type_commande" value="<?= htmlspecialchars($_POST['type_commande'] ?? 'emporter') ?>">
                 <input type="hidden" name="heure_souhaitee" value="<?= htmlspecialchars($_POST['heure_souhaitee'] ?? '') ?>">
 
