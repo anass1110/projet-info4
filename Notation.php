@@ -1,5 +1,8 @@
 <?php
 session_start();
+
+// Restriction d'accès client
+// Bloque l'accès au formulaire si aucun identifiant d'utilisateur n'est enregistré en session
 if (!isset($_SESSION['user'])) {
     header("Location: Connexion.php");
     exit();
@@ -19,6 +22,8 @@ if (!isset($_SESSION['user'])) {
             <fieldset>
                 <legend>Votre avis sur votre dernière commande</legend>
 
+                <?php // Collecte des indicateurs de satisfaction
+                      // Envoie des listes de choix numériques pour dissocier l'expérience produit et logistique ?>
                 <label>Qualité des produits :</label>
                 <select name="note_produit">
                     <option value="5">⭐⭐⭐⭐⭐ - Excellent</option>
