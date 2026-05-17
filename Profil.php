@@ -87,9 +87,9 @@ if (isset($_GET['id']) && $_SESSION['user']['role'] === 'admin') {
                             $cellule_action = "Aucune action possible";
                             if (isset($c['statut']) && $c['statut'] === 'En attente') {
                                 $cellule_action = "
-                                    <form action='traitement_edition_commande.php' method='post' style='margin:0;'>
+                                    <form action='traitement_edition_commande.php' method='post'>
                                         <input type='hidden' name='id_commande_edition' value='".htmlspecialchars($c['id_commande'])."'>
-                                        <input type='submit' class='bouton-nav' value='✏️ Modifier' style='padding: 5px 10px; font-size: 0.9em;'>
+                                        <input type='submit' class='bouton-nav btn-profil-modifier' value='✏️ Modifier'>
                                     </form>
                                 ";
                             }
