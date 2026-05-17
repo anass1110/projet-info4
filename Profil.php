@@ -99,5 +99,11 @@ if (isset($_GET['id']) && $_SESSION['user']['role'] === 'admin') {
             </table>
         </section>
     </div>
+    </form>
+        </div>
+    </div>
+    <script src="scripts.js"></script> 
+</body>
+</html>
 </body>
 </html>
