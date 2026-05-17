@@ -35,5 +35,6 @@ session_start();
             </fieldset>
         </form>
     </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
