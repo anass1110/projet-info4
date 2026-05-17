@@ -1,24 +1,41 @@
 <?php
 session_start();
+
+// Contrôle d'accès back-office
+// Restreint l'accès à la page aux seuls utilisateurs possédant le rôle de restaurateur
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
-    header("Location: accueil.php"); exit();
+    header("Location: accueil.php"); 
+    exit();
 }
 
+// Chargement des données de commandes
+// Extrait l'historique global des transactions stocké dans le fichier json
 $fichier_json = 'data/commandes.json';
 $commandes = [];
 if (file_exists($fichier_json)) {
     $commandes = json_decode(file_get_contents($fichier_json), true)['commandes'] ?? [];
 }
 
+// Extraction du personnel de livraison
+// Parcourt le registre des utilisateurs pour filtrer et isoler les comptes livreurs actifs
 $livreurs = [];
 $fichier_users = 'data/utilisateurs.json';
 if (file_exists($fichier_users)) {
     foreach (json_decode(file_get_contents($fichier_users), true)['utilisateurs'] as $u) {
-        if ($u['role'] === 'livreur') { $livreurs[] = $u; }
+        if ($u['role'] === 'livreur') { 
+            $livreurs[] = $u; 
+        }
     }
 }
 
-$statuts = [ 'A preparer' => 'À Préparer', 'En cours' => 'En Préparation', 'En attente' => 'En Attente', 'En livraison' => 'En Livraison' ];
+// Cartographie des états métier
+// Définit la correspondance entre les clés de statuts techniques et leurs libellés d'affichage
+$statuts = [ 
+    'A preparer' => 'À Préparer', 
+    'En cours' => 'En Préparation', 
+    'En attente' => 'En Attente', 
+    'En livraison' => 'En Livraison' 
+];
 ?>
 <!DOCTYPE html>
 <html lang="fr">
@@ -33,11 +50,15 @@ $statuts = [ 'A preparer' => 'À Préparer', 'En cours' => 'En Préparation', 'E
     <div id="gestion-commandes">
         <h2>Tableau de bord - Cuisine</h2>
         <div class="grille-statuts">
+            <?php // Génération dynamique des colonnes de flux
+                  // Construit un conteneur HTML pour chaque étape logique du processus de traitement ?>
             <?php foreach ($statuts as $code_statut => $label_statut): ?>
                 <div class="colonne-commandes">
                     <h3 class="colonne-titre"><?= $label_statut ?></h3>
                     
                     <?php 
+                    // Filtrage et distribution des cartes
+                    // Parcourt la liste des commandes pour injecter les fiches correspondant au statut de la colonne
                     $trouve = false;
                     foreach($commandes as $c): 
                         if($c['statut'] === $code_statut): 
@@ -50,6 +71,8 @@ $statuts = [ 'A preparer' => 'À Préparer', 'En cours' => 'En Préparation', 'E
                             
                             <div class="details-articles">
                                 <ul class="liste-articles">
+                                    <?php // Liste des lignes de commande
+                                          // Énumère le détail des plats, quantités et options personnalisées demandés ?>
                                     <?php foreach($c['articles'] as $art): ?>
                                         <li><?= $art['quantite'] ?>x <?= htmlspecialchars($art['nom']) ?> <?= !empty($art['option']) ? "<i>(".htmlspecialchars($art['option']).")</i>" : "" ?></li>
                                     <?php endforeach; ?>
@@ -58,6 +81,8 @@ $statuts = [ 'A preparer' => 'À Préparer', 'En cours' => 'En Préparation', 'E
                             
                             <p class="statut-actuel"><strong>Statut actuel :</strong> <?= htmlspecialchars($c['statut']) ?></p>
 
+                            <?php // Boutons d'actions contextuels
+                                  // Adapte les formulaires et les déclencheurs asynchrones selon l'étape courante de la commande ?>
                             <?php if($code_statut === 'A preparer'): ?>
                                 <button class="bouton-nav btn-action-cmd btn-demarrer" data-id="<?= htmlspecialchars($c['id_commande']) ?>" data-action="demarrer">🔥 Commencer</button>
                             <?php elseif($code_statut === 'En cours'): ?>
@@ -85,6 +110,8 @@ $statuts = [ 'A preparer' => 'À Préparer', 'En cours' => 'En Préparation', 'E
                     <?php 
                         endif; 
                     endforeach; 
+                    // Gestion de l'état vide
+                    // Affiche une mention textuelle par défaut si aucune commande ne possède ce statut
                     if(!$trouve): echo "<p class='txt-vide'>Aucune commande</p>"; endif;
                     ?>
                 </div>
