@@ -18,7 +18,7 @@ if (file_exists($fichier_commandes)) {
     $data_cmd = json_decode(file_get_contents($fichier_commandes), true);
     $commandes_liste = $data_cmd['commandes'] ?? [];
     
-    // Parcourt à l'envers pour trouver la DERNIÈRE commande passée par ce client
+    // Parcourt à l'envers pour trouver la dernière commande passée par ce client
     $derniere_commande = null;
     for ($i = count($commandes_liste) - 1; $i >= 0; $i--) {
         if (isset($commandes_liste[$i]['id_client']) && $commandes_liste[$i]['id_client'] === $id_client_actuel) {
