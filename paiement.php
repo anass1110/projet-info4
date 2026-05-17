@@ -9,7 +9,7 @@ if (!isset($_SESSION['user']) || empty($_SESSION['panier'])) {
 }
 
 // Recalcul de l'assiette financière côté serveur
-// Détermine le montant total brut cumulé pour sécuriser l'affichage avant la transaction
+// Détermine le montant total cumulé pour sécuriser l'affichage avant la transaction
 $total = 0;
 foreach ($_SESSION['panier'] as $article) { 
     $total += $article['prix'] * $article['quantite']; 
@@ -19,7 +19,7 @@ $montant_a_payer = $total;
 $mode_edition = false;
 $ancien_total = 0;
 
-// Logique d'ajustement pour modification de commande (Phase 3)
+// Logique d'ajustement pour modification de commande 
 if (isset($_SESSION['id_commande_en_modification'])) {
     $mode_edition = true;
     $ancien_total = $_SESSION['total_deja_paye'];
