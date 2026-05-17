@@ -199,6 +199,37 @@ document.addEventListener("DOMContentLoaded", function() {
             });
         });
     });
+    
+    // Interception de l'attribution d'un livreur sans rechargement de page (AJOUT PHASE 3)
+    document.querySelectorAll('.form-attrib').forEach(function(form) {
+        form.addEventListener('submit', function(event) {
+            event.preventDefault(); // Bloque le rechargement natif de la page
+
+            var formData = new FormData(form);
+
+            fetch('traitement_async_commandes.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(function(response) { return response.json(); })
+            .then(function(data) {
+                if (data.success) {
+                    // Récupère l'ID de la commande concernée
+                    var idCommande = form.querySelector('input[name="id_commande"]').value;
+                    var carteCommande = document.getElementById('cmd-' + idCommande);
+                    
+                    if (carteCommande) {
+                        // Supprime proprement la carte de la colonne "En Attente"
+                        // car elle passe instantanément au statut "En livraison"
+                        carteCommande.remove();
+                    }
+                } else {
+                    alert("Erreur lors de l'assignation du livreur : " + (data.message || "Inconnue"));
+                }
+            })
+            .catch(function(error) { console.error('Erreur AJAX:', error); });
+        });
+    });
 
     // Action livreur
     // Validation finale ou remontée d'anomalies de livraison par le coursier
@@ -218,7 +249,7 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
             }).then(function(r) { return r.json(); }).then(function(data) {
                 if(data.success) {
-                    // Notification graphique : Remplace définitivement les boutons d'actions pour confirmer la clôture de la course
+                    //  Remplace définitivement les boutons d'actions pour confirmer la clôture de la course
                     actionsDiv.innerHTML = "<p style='color:green; font-weight:bold; padding:15px; border:1px solid green; text-align:center;'>✅ Action enregistrée</p>";
                 }
             });
@@ -266,7 +297,7 @@ document.addEventListener("DOMContentLoaded", function() {
             e.preventDefault();
             document.body.classList.toggle('theme-sombre'); // Commutation instantanée de la classe maîtresse sur le body
             
-            // Persistance : Sauvegarde le choix du thème dans un cookie persistant (30 jours) pour les futurs chargements
+            //  Sauvegarde le choix du thème dans un cookie persistant (30 jours) pour les futurs chargements
             var themeActuel = document.body.classList.contains('theme-sombre') ? 'dark' : 'light';
             document.cookie = 'theme=' + themeActuel + '; path=/; max-age=2592000';
         });
