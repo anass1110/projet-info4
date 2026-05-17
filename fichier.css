@@ -19,6 +19,7 @@ header {
     text-align: center;
     padding: 20px;
     border-bottom: 2px solid #1C1C1C;
+    position: relative; /* Pour le bouton thème */
 }
 
 h1 {
@@ -79,7 +80,7 @@ a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
     text-align: left;
 }
 
-/* MISE EN PAGE DES PRODUITS */
+/* Mise en pages des produits */
 #contenu-produits {
     margin: 30px;
     max-width: 1200px;
@@ -118,7 +119,7 @@ a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
     border: 2px solid #BC002D; 
 }
 
-/* Style spécifique pour les MENUS */
+/* Style spécifique pour les menus */
 .menu-special {
     border-color: #BC002D;
     border-width: 3px;
@@ -170,7 +171,6 @@ th { background-color: #BC002D; color: white; }
 #infos-livraison { padding: 20px; font-size: 1.2em; }
 .bouton-maps { background-color: #1C1C1C; color: white; display: block; text-align: center; padding: 20px; margin: 20px 0; text-decoration: none; border-radius: 10px; }
 
-/* L'ERREUR ÉTAIT ICI : IL MANQUAIT L'ACCOLADE FERMANTE */
 .bouton-confirmer { 
     background-color: #BC002D; 
     color: white; 
@@ -182,48 +182,23 @@ th { background-color: #BC002D; color: white; }
     cursor: pointer; 
     font-weight: bold;
 }
-                   
-/* ==========================================================================
-   PHASE 3 : NETTOYAGE DES STYLES EN LIGNE & THÈME SOMBRE
-   ========================================================================== */
 
-/* Utilitaires structurels globaux */
+/*  Utilitaires et  états dynamiques */
 .cache { display: none !important; }
 .separateur { margin: 20px 0; border: 1px solid #1C1C1C; }
 .txt-gras { font-weight: bold; }
 .msg-erreur { color: red; text-align: center; font-weight: bold; }
 .msg-succes { color: green; text-align: center; font-weight: bold; margin-bottom: 15px; }
+.btn-theme-top-right { position: absolute; top: 20px; right: 20px; }
 
-/* Éléments du Header */
+/*   composants spécifiques (mode clair) */
+
+/* Header */
 .btn-panier { font-weight: bold; border-color: #1C1C1C; }
 .nb-panier { color: #BC002D; }
 .btn-deco { color: #BC002D; border-color: #BC002D; }
 
-/* Page Table de bord - Cuisine (Commandes.php) */
-.grille-statuts { display: flex; justify-content: space-between; margin-top: 20px; }
-.colonne-titre { text-align: center; border-bottom: 2px solid #BC002D; padding-bottom: 10px; }
-.details-articles { background-color: white; padding: 10px; border-radius: 5px; margin: 10px 0; border: 1px dashed #ccc; }
-.liste-articles { margin: 0; padding-left: 20px; }
-.btn-demarrer { width: 100%; font-size: 0.75em; background-color: #800020; color: white; }
-.btn-prete { width: 100%; font-size: 0.75em; margin-top: 5px; }
-.form-attrib { margin-top: 10px; }
-.select-livreur { width: 100%; padding: 5px; margin-bottom: 5px; }
-.btn-expedier { width: 100%; font-size: 0.75em; }
-.txt-attente { color: green; font-weight: bold; }
-.txt-route { color: blue; font-size: 0.8em; font-style: italic; }
-.txt-vide { color: gray; font-style: italic; font-size: 0.9em; text-align: center; }
-
-/* Page Livreur (Livraison.php) */
-.titre-livraison { text-align: center; color: #1C1C1C; }
-.carte-livreur { border: 2px solid #1C1C1C; padding: 15px; margin-bottom: 15px; background: white; border-radius: 10px; }
-.actions-livreur { display: flex; flex-direction: column; gap: 10px; }
-.btn-abandon { background-color: #E67E22; font-size: 1.1em; padding: 15px; color: #1C1C1C; }
-.vide-livraison { text-align: center; margin-top: 50px; font-size: 1.2em; }
-
-/* Page Administration (Administrateur.php) */
-.btn-bloquer { color: red; border-color: red; }
-
-/* Page Catalogue & Recherche (Produits.php) */
+/* Produits (Catalogue & Recherche) */
 .recherche-container { text-align: center; margin-bottom: 30px; }
 .input-recherche { padding: 10px; width: 50%; border-radius: 20px; border: 2px solid #1C1C1C; }
 .marge-top { margin-top: 40px; }
@@ -232,7 +207,7 @@ th { background-color: #BC002D; color: white; }
 .texte-gauche { text-align: left; border-color: #E0E0E0; margin-bottom: 15px; }
 .m-0 { margin: 3px 0; }
 .txt-alerte { color: #BC002D; }
-.prix-plat { font-size: 1.3em; margin: 10px 0; color: #BC002D; font-weight: bold; margin-bottom: 15px; }
+.prix-plat { font-size: 1.3em; margin: 10px 0; color: #BC002D; font-weight: bold; }
 .img-plat { width: 100%; height: 180px; object-fit: cover; border-radius: 8px; }
 .form-ajout { display: flex; flex-direction: column; align-items: center; gap: 10px; }
 .select-perso { width: 80%; padding: 5px; border-radius: 5px; }
@@ -240,174 +215,35 @@ th { background-color: #BC002D; color: white; }
 .input-qty { width: 50px; text-align: center; }
 .msg-aucun-resultat { text-align: center; width: 100%; color: #1C1C1C; }
 
-/* États dynamiques gérés par JavaScript */
+/* espace restaurateur */
+.grille-statuts { display: flex; justify-content: space-between; margin-top: 20px; }
+.colonne-titre { text-align: center; border-bottom: 2px solid #BC002D; padding-bottom: 10px; }
+.details-articles { background-color: white; padding: 10px; border-radius: 5px; margin: 10px 0; border: 1px dashed #ccc; }
+.liste-articles { margin: 0; padding-left: 20px; }
+.btn-demarrer { width: 100%; font-size: 0.75em; background-color: #800020; color: white; }
+.btn-prete, .btn-expedier { width: 100%; font-size: 0.75em; margin-top: 5px; }
+.form-attrib { margin-top: 10px; }
+.select-livreur { width: 100%; padding: 5px; margin-bottom: 5px; }
+.txt-attente { color: green; font-weight: bold; }
+.txt-route { color: blue; font-size: 0.8em; font-style: italic; }
+.txt-vide { color: gray; font-style: italic; font-size: 0.9em; text-align: center; }
+
+/*  espace livreur */
+.titre-livraison { text-align: center; color: #1C1C1C; }
+.carte-livreur { border: 2px solid #1C1C1C; padding: 15px; margin-bottom: 15px; background: white; border-radius: 10px; }
+.actions-livreur { display: flex; flex-direction: column; gap: 10px; }
+.btn-abandon { background-color: #E67E22; font-size: 1.1em; padding: 15px; color: #1C1C1C; }
+.vide-livraison { text-align: center; margin-top: 50px; font-size: 1.2em; }
+
+/*  espaces administrateurs et états  */
+.btn-bloquer { color: red; border-color: red; }
 .etat-bloque { border-color: grey !important; color: grey !important; cursor: not-allowed; }
 .etat-ajoute { background-color: green !important; color: white !important; }
 
-/* ==========================================================================
-   STYLE DU THÈME SOMBRE
-   ========================================================================== */
-/* ==========================================================================
-   STYLE DU THÈME SOMBRE (CORRECTION DES CONTRASTES)
-   ========================================================================== */
-
-/* 1. Fond général de la page */
-body.theme-sombre {
-    background-color: #1A1A1A !important;
-    color: #E0E0E0 !important;
-}
-
-/* 2. Forcer TOUS les blocs blancs à devenir gris foncé */
-body.theme-sombre header, 
-body.theme-sombre #contenu-formulaire, 
-body.theme-sombre .plat, 
-body.theme-sombre .recherche, 
-body.theme-sombre .plats-vedettes, 
-body.theme-sombre .carte-commande, 
-body.theme-sombre .carte-livraison, 
-body.theme-sombre .infos-perso {
-    background-color: #2C2C2C !important;
-    border-color: #444 !important;
-    color: #E0E0E0 !important;
-}
-
-/* 3. Sauver les textes illisibles (Labels des formulaires, Titres des plats) */
-body.theme-sombre label,
-body.theme-sombre h4,
-body.theme-sombre p {
-    color: #F0F0F0 !important;
-}
-
-/* 4. Adapter les titres rouges pour qu'ils flashent bien sur le sombre */
-body.theme-sombre h1, 
-body.theme-sombre h2, 
-body.theme-sombre h3 {
-    color: #FF4D4D !important;
-}
-
-/* 5. Les petites boîtes internes (Inclus, Nutrition) */
-body.theme-sombre .box-grise { 
-    background-color: #1F1F1F !important; 
-    border-color: #555 !important; 
-}
-
-/* 6. Les boutons */
-body.theme-sombre a.bouton-nav, 
-body.theme-sombre input[type="submit"], 
-body.theme-sombre button.bouton-nav {
-    background-color: #222 !important;
-    color: #FF4D4D !important;
-    border-color: #FF4D4D !important;
-}
-
-/* 7. Les inputs du formulaire pour qu'ils soient lisibles */
-body.theme-sombre input[type="text"], 
-body.theme-sombre input[type="email"], 
-body.theme-sombre input[type="password"], 
-body.theme-sombre input[type="tel"], 
-body.theme-sombre input[type="number"], 
-body.theme-sombre textarea,
-body.theme-sombre select {
-    background-color: #444 !important;
-    color: #FFF !important;
-    border-color: #666 !important;
-}
-
-/* 8. Tableaux Admin */
-body.theme-sombre th {
-    background-color: #333 !important;
-    color: white !important;
-}
-body.theme-sombre td {
-    border-color: #555 !important;
-}
-
-
-/* Positionnement du bouton thème en haut à droite */
-header {
-    position: relative; /* Nécessaire pour le positionnement absolu du bouton */
-}
-
-.btn-theme-top-right {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-}
-
-/*   (Admin, Cuisine, Livreur)*/
-
-/* --- PAGE CUISINE & LIVREUR --- */
-.theme-sombre .colonne-commandes {
-    background-color: #2a2a2a;
-    border: 1px solid #444;
-}
-
-.theme-sombre .colonne-titre {
-    color: #f1f1f1;
-    border-bottom: 2px solid #555;
-}
-
-.theme-sombre .carte-commande, 
-.theme-sombre .carte-livreur,
-.theme-sombre .carte-livraison {
-    background-color: #333;
-    color: #e0e0e0;
-    border: 1px solid #555;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
-}
-
-.theme-sombre .carte-commande strong, 
-.theme-sombre .carte-livreur strong,
-.theme-sombre .carte-livraison strong {
-    color: #fff;
-}
-
-.theme-sombre .details-articles {
-    background-color: #222;
-    border-left: 3px solid #ff9800; /* Garde la touche de couleur */
-    color: #ccc;
-}
-
-/* Textes de statut spécifiques */
-.theme-sombre .txt-attente, 
-.theme-sombre .txt-route, 
-.theme-sombre .txt-vide,
-.theme-sombre .vide-livraison {
-    color: #bbb;
-}
-
-/* --- PAGE ADMINISTRATEUR --- */
-.theme-sombre .table-admin {
-    background-color: #2a2a2a;
-    color: #e0e0e0;
-    border: 1px solid #444;
-}
-
-.theme-sombre .table-admin th {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    border-bottom: 2px solid #555;
-}
-
-.theme-sombre .table-admin td {
-    border-bottom: 1px solid #444;
-}
-
-.theme-sombre .table-admin tr:nth-child(even) {
-    background-color: #222; /* Lignes zébrées plus foncées */
-}
-
-.theme-sombre .table-admin tr.user-row:hover {
-    background-color: #3d3d3d; /* Effet de survol */
-}
-
-/* PAGE PANIER : MODE CLAIR */
+/* Panier */
 #contenu-panier { width: 80%; margin: 20px auto; }
-.titre-panier { text-align: center; }
-.panier-vide { text-align: center; padding: 20px; }
-.zone-bouton-vide { text-align: center; }
-
-/* Tableau */
+.titre-panier, .panier-vide, .zone-bouton-vide { text-align: center; }
+.panier-vide { padding: 20px; }
 .table-panier { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
 .entete-tableau { background-color: #f2f2f2; }
 .table-panier th, .table-panier td { padding: 10px; border: 1px solid #ddd; }
@@ -415,8 +251,6 @@ header {
 .option-article { color: #666; font-style: italic; }
 .cell-centre { text-align: center; }
 .cell-droite { text-align: right; }
-
-/* Récapitulatif global (Clair) */
 .bloc-recap-panier { text-align: right; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee; }
 .form-coupon { margin-bottom: 10px; }
 .input-coupon { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
@@ -425,10 +259,7 @@ header {
 .lien-supprimer-coupon { color: red; font-size: 0.8em; text-decoration: none; margin-left: 10px; }
 .total-a-payer { color: #BC002D; margin-top: 10px; }
 .lien-vider { color: #666; font-size: 0.9em; }
-
 .separation-panier { margin: 40px 0; border: 0; border-top: 1px solid #ddd; }
-
-/* Validation (Clair) */
 .bloc-validation-panier { max-width: 500px; margin-left: auto; }
 .titre-validation { color: #BC002D; }
 .alerte-connexion { color: red; background: #fff5f5; padding: 10px; border-radius: 5px; }
@@ -438,35 +269,124 @@ header {
 .zone-soumission { text-align: right; margin-top: 10px; }
 .bouton-valider { width: 100%; font-size: 1.1em; padding: 12px; }
 
-/*  PAGE PANIER :MODE SOMBRE OPTIMISÉ */
-.theme-sombre .table-panier td, 
-.theme-sombre .entete-tableau th {
-    background-color: #222 !important;
-    color: #e0e0e0 !important;
-    border-color: #444 !important;
-}
-.theme-sombre .option-article { color: #aaa; }
-
-/* Destruction complète des blocs pour effet flottant */
-.theme-sombre .bloc-recap-panier,
-.theme-sombre .alerte-connexion {
-    background-color: transparent !important;
-    background: transparent !important;
-    border: none !important;
-    padding: 10px 0 !important; /* Ajustement du retrait du bloc */
-    color: #e0e0e0 !important;
+/*  thème sombre globale */
+/*  Fond et Textes de base */
+body.theme-sombre {
+    background-color: #1A1A1A;
+    color: #E0E0E0;
 }
 
-/* Couleurs des textes et liens spécifiques en mode sombre */
-.theme-sombre .total-a-payer,
-.theme-sombre .titre-validation {
-    color: #ff4757 !important; /* Rouge néon lisible */
+/*  Éléments structurels (Header, Formulaires, Cartes, Blocs) */
+body.theme-sombre header, 
+body.theme-sombre #contenu-formulaire, 
+body.theme-sombre .plat, 
+body.theme-sombre .recherche, 
+body.theme-sombre .plats-vedettes, 
+body.theme-sombre .infos-perso,
+body.theme-sombre .colonne-commandes,
+body.theme-sombre .carte-commande, 
+body.theme-sombre .carte-livreur,
+body.theme-sombre .carte-livraison {
+    background-color: #2C2C2C;
+    border-color: #444;
+    color: #E0E0E0;
 }
-.theme-sombre .alerte-connexion {
-    color: #ff8a8a !important; /* Alerte rouge douce */
+
+/* Typographie Spécifique */
+body.theme-sombre h1, 
+body.theme-sombre h2, 
+body.theme-sombre h3,
+body.theme-sombre .total-a-payer,
+body.theme-sombre .titre-validation {
+    color: #FF4D4D; /* Rouge plus clair pour le contraste */
 }
-.theme-sombre .alerte-connexion a,
-.theme-sombre .lien-vider {
-    color: #ff9800 !important; /* Liens d'action orange visibles */
-    text-decoration: underline !important;
+body.theme-sombre label,
+body.theme-sombre h4,
+body.theme-sombre p,
+body.theme-sombre .carte-commande strong, 
+body.theme-sombre .carte-livreur strong,
+body.theme-sombre .carte-livraison strong,
+body.theme-sombre .colonne-titre {
+    color: #F0F0F0;
+}
+
+/* Sous-boîtes (Box grise, détails articles cuisine) */
+body.theme-sombre .box-grise,
+body.theme-sombre .details-articles { 
+    background-color: #1F1F1F; 
+    border-color: #555; 
+    color: #ccc;
+}
+body.theme-sombre .details-articles { border-left: 3px solid #ff9800; }
+
+/* Boutons et Interactions */
+body.theme-sombre a.bouton-nav, 
+body.theme-sombre input[type="submit"], 
+body.theme-sombre button.bouton-nav {
+    background-color: #222;
+    color: #FF4D4D;
+    border-color: #FF4D4D;
+}
+body.theme-sombre a.bouton-nav:hover, 
+body.theme-sombre input[type="submit"]:hover, 
+body.theme-sombre button.bouton-nav:hover {
+    background-color: #FF4D4D;
+    color: #FFF;
+}
+
+/*Formulaires (Inputs, Select, Textarea) */
+body.theme-sombre input[type="text"], 
+body.theme-sombre input[type="email"], 
+body.theme-sombre input[type="password"], 
+body.theme-sombre input[type="tel"], 
+body.theme-sombre input[type="number"], 
+body.theme-sombre textarea,
+body.theme-sombre select {
+    background-color: #444;
+    color: #FFF;
+    border-color: #666;
+}
+
+/* Tableaux (Admin & Panier) */
+body.theme-sombre table,
+body.theme-sombre th,
+body.theme-sombre td,
+body.theme-sombre .table-panier td, 
+body.theme-sombre .entete-tableau th {
+    border-color: #555;
+    background-color: #222;
+    color: #E0E0E0;
+}
+body.theme-sombre th,
+body.theme-sombre .table-admin th {
+    background-color: #1A1A1A;
+    color: white;
+}
+body.theme-sombre .table-admin tr:nth-child(even) { background-color: #2a2a2a; }
+body.theme-sombre .table-admin tr.user-row:hover { background-color: #3d3d3d; }
+
+/* Textes de statuts spécifiques & options */
+body.theme-sombre .txt-attente, 
+body.theme-sombre .txt-route, 
+body.theme-sombre .txt-vide,
+body.theme-sombre .vide-livraison,
+body.theme-sombre .option-article { color: #bbb; }
+body.theme-sombre .colonne-titre { border-bottom-color: #555; }
+body.theme-sombre .carte-commande, 
+body.theme-sombre .carte-livreur,
+body.theme-sombre .carte-livraison { box-shadow: 0 4px 6px rgba(0,0,0,0.5); }
+
+/* Effet transparent panier */
+body.theme-sombre .bloc-recap-panier,
+body.theme-sombre .alerte-connexion {
+    background-color: transparent;
+    border: none;
+    padding: 10px 0;
+    color: #E0E0E0;
+}
+body.theme-sombre .alerte-connexion { color: #ff8a8a; }
+body.theme-sombre .alerte-connexion a,
+body.theme-sombre .lien-vider {
+    color: #ff9800; 
+    text-decoration: underline;
 }
