@@ -130,5 +130,6 @@ $total_brut = 0;
             </div>
         <?php endif; ?>
     </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
