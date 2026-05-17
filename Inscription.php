@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php 
+// Initialisation de la session
+// Ouvre l'accès aux variables d'état partagées avant l'envoi du moindre flux html
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -12,6 +16,9 @@
         <form action="traitement_inscription.php" method="post">
             <fieldset>
                 <legend>Créer votre compte SushyTech</legend>
+                
+                <?php // Zones de retour d'erreurs
+                      // Contient l'élément ciblé par javascript pour les rejets locaux, et le conteneur php pour les rejets serveurs ?>
                 <p id="erreur-js" class="msg-erreur cache"></p>
                 <?php if(isset($_GET['erreur'])) echo "<p class='msg-erreur'>Veuillez remplir les champs obligatoires.</p>"; ?>
                 
