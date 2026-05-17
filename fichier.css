@@ -400,3 +400,42 @@ header {
 .theme-sombre .table-admin tr.user-row:hover {
     background-color: #3d3d3d; /* Effet de survol */
 }
+
+/*  CORRECTIONS THÈME SOMBRE : PAGE PANIER*/
+
+/* Le Tableau du Panier */
+.theme-sombre td, 
+.theme-sombre th {
+    background-color: #222 !important;
+    color: #e0e0e0 !important;
+    border-color: #444 !important;
+}
+
+/*  Les grandes boîtes de récapitulatif et d'alerte */
+.theme-sombre .recap-commande,
+.theme-sombre .box-blanche,
+.theme-sombre .zone-totaux,
+.theme-sombre .message-connexion,
+.theme-sombre .form-promo,
+.theme-sombre .cadre-panier {
+    background-color: #2a2a2a !important;
+    border: 1px solid #555 !important;
+    color: #e0e0e0 !important;
+}
+
+/*  Forcer la lisibilité des textes à l'intérieur de ces boîtes */
+.theme-sombre .recap-commande p,
+.theme-sombre .recap-commande span,
+.theme-sombre .box-blanche p,
+.theme-sombre .message-connexion p,
+.theme-sombre .message-connexion span {
+    color: #e0e0e0 !important;
+}
+
+/*  Les liens dans le panier (ex: "Vider mon panier", "connecté") */
+.theme-sombre .recap-commande a,
+.theme-sombre .message-connexion a,
+.theme-sombre .box-blanche a {
+    color: #ff9800 !important; /* Couleur d'accent pour qu'on comprenne que c'est cliquable */
+    text-decoration: underline;
+}
