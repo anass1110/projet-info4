@@ -96,7 +96,7 @@ a.bouton-nav:hover, input[type="submit"]:hover, button.bouton-nav:hover {
     margin-bottom: 40px;
 }
 
-/* Grille pour les Plats "À la carte" (4 colonnes) */
+/* Grille pour les Plats à la carte (4 colonnes) */
 .grid-plats {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -183,7 +183,7 @@ th { background-color: #BC002D; color: white; }
     font-weight: bold;
 }
 
-/*  Utilitaires et  états dynamiques */
+/* Utilitaires et  états dynamiques */
 .cache { display: none !important; }
 .separateur { margin: 20px 0; border: 1px solid #1C1C1C; }
 .txt-gras { font-weight: bold; }
@@ -191,7 +191,7 @@ th { background-color: #BC002D; color: white; }
 .msg-succes { color: green; text-align: center; font-weight: bold; margin-bottom: 15px; }
 .btn-theme-top-right { position: absolute; top: 20px; right: 20px; }
 
-/*   composants spécifiques (mode clair) */
+/* composants spécifiques (mode clair) */
 
 /* Header */
 .btn-panier { font-weight: bold; border-color: #1C1C1C; }
@@ -228,14 +228,14 @@ th { background-color: #BC002D; color: white; }
 .txt-route { color: blue; font-size: 0.8em; font-style: italic; }
 .txt-vide { color: gray; font-style: italic; font-size: 0.9em; text-align: center; }
 
-/*  espace livreur */
+/* espace livreur */
 .titre-livraison { text-align: center; color: #1C1C1C; }
 .carte-livreur { border: 2px solid #1C1C1C; padding: 15px; margin-bottom: 15px; background: white; border-radius: 10px; }
 .actions-livreur { display: flex; flex-direction: column; gap: 10px; }
 .btn-abandon { background-color: #E67E22; font-size: 1.1em; padding: 15px; color: #1C1C1C; }
 .vide-livraison { text-align: center; margin-top: 50px; font-size: 1.2em; }
 
-/*  espaces administrateurs et états  */
+/* espaces administrateurs et états  */
 .btn-bloquer { color: red; border-color: red; }
 .etat-bloque { border-color: grey !important; color: grey !important; cursor: not-allowed; }
 .etat-ajoute { background-color: green !important; color: white !important; }
@@ -269,14 +269,49 @@ th { background-color: #BC002D; color: white; }
 .zone-soumission { text-align: right; margin-top: 10px; }
 .bouton-valider { width: 100%; font-size: 1.1em; padding: 12px; }
 
-/*  thème sombre globale */
-/*  Fond et Textes de base */
+/* modules et paiement */
+
+/* paiement et alerte */
+.box-paiement { background: white; padding: 30px; border-radius: 15px; border: 2px solid #1C1C1C; max-width: 500px; margin: 40px auto; }
+.box-paiement h2 { text-align: center; margin-top: 0; }
+.box-interdiction { text-align: center; padding: 20px; max-width: 600px; margin: 40px auto; border: 2px solid #BC002D; background-color: #f9f9f9; }
+.txt-interdiction { font-weight: bold; font-size: 1.1em; color: #1C1C1C; }
+
+/* Récapitulatif d'édition de commande */
+.box-recap-edition { background: #f9f9f9; padding: 15px; border-radius: 5px; margin-bottom: 20px; text-align: center; border: 1px solid #ddd; }
+.txt-recap { margin: 0 0 5px 0; }
+.txt-avoir { color: green; margin: 10px 0 0 0; font-weight: bold; }
+.txt-complement { color: #BC002D; margin: 10px 0 0 0; font-weight: bold; }
+.txt-neutre { color: gray; margin: 10px 0 0 0; font-weight: bold; }
+
+/* Formulaire de paiement */
+.total-regler { text-align: center; font-size: 1.2em; }
+.msg-erreur-bancaire { color: red; text-align: center; font-weight: bold; margin-bottom: 15px; }
+.label-paiement { display: block; margin-bottom: 5px; font-weight: bold; }
+.input-paiement { width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; box-sizing: border-box; }
+.input-carte { letter-spacing: 2px; }
+.flex-paiement { display: flex; gap: 10px; margin-bottom: 20px; }
+.flex-paiement > div { flex: 1; }
+.compteur-carte { display: block; font-size: 0.8em; color: gray; margin-bottom: 15px; }
+.compteur-court { margin-bottom: 0; }
+
+/* Boutons spécifiques */
+.btn-paiement { width: 100%; padding: 15px; background-color: #BC002D; color: white; border: none; cursor: pointer; border-radius: 5px; font-weight: bold; }
+.btn-paiement:hover { background-color: #9a0025; }
+.zone-btn-paiement { text-align: center; }
+.mention-secu { font-size: 0.8em; color: gray; margin-top: 10px; }
+.btn-supprimer-croix { color: #BC002D; text-decoration: none; margin-left: 10px; font-weight: bold; }
+.btn-profil-modifier { padding: 5px 10px; font-size: 0.9em; }
+
+
+/* thème sombre globale */
+/* Fond et Textes de base */
 body.theme-sombre {
     background-color: #1A1A1A;
     color: #E0E0E0;
 }
 
-/*  Éléments structurels (Header, Formulaires, Cartes, Blocs) */
+/* Éléments structurels (Header, Formulaires, Cartes, Blocs) */
 body.theme-sombre header, 
 body.theme-sombre #contenu-formulaire, 
 body.theme-sombre .plat, 
@@ -286,7 +321,9 @@ body.theme-sombre .infos-perso,
 body.theme-sombre .colonne-commandes,
 body.theme-sombre .carte-commande, 
 body.theme-sombre .carte-livreur,
-body.theme-sombre .carte-livraison {
+body.theme-sombre .carte-livraison,
+body.theme-sombre .box-paiement,
+body.theme-sombre .box-interdiction {
     background-color: #2C2C2C;
     border-color: #444;
     color: #E0E0E0;
@@ -306,13 +343,15 @@ body.theme-sombre p,
 body.theme-sombre .carte-commande strong, 
 body.theme-sombre .carte-livreur strong,
 body.theme-sombre .carte-livraison strong,
-body.theme-sombre .colonne-titre {
+body.theme-sombre .colonne-titre,
+body.theme-sombre .txt-interdiction {
     color: #F0F0F0;
 }
 
 /* Sous-boîtes (Box grise, détails articles cuisine) */
 body.theme-sombre .box-grise,
-body.theme-sombre .details-articles { 
+body.theme-sombre .details-articles,
+body.theme-sombre .box-recap-edition { 
     background-color: #1F1F1F; 
     border-color: #555; 
     color: #ccc;
@@ -334,14 +373,15 @@ body.theme-sombre button.bouton-nav:hover {
     color: #FFF;
 }
 
-/*Formulaires (Inputs, Select, Textarea) */
+/*Formulaires  */
 body.theme-sombre input[type="text"], 
 body.theme-sombre input[type="email"], 
 body.theme-sombre input[type="password"], 
 body.theme-sombre input[type="tel"], 
 body.theme-sombre input[type="number"], 
 body.theme-sombre textarea,
-body.theme-sombre select {
+body.theme-sombre select,
+body.theme-sombre .input-paiement {
     background-color: #444;
     color: #FFF;
     border-color: #666;
