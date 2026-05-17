@@ -42,9 +42,10 @@ $total = max(0, $total);
             <h2 style="text-align: center; margin-top: 0;">💳 Finaliser ma commande</h2>
             
             <p style="text-align: center; font-size: 1.2em;">Total à régler : <strong><?= number_format($total, 2) ?> €</strong></p>
+            <p id="erreur-bancaire-js" class="msg-erreur cache" style="color:red; text-align:center; font-weight:bold; margin-bottom:15px;"></p>
             <hr>
 
-            <form action="traitement_paiement.php" method="post">
+            <form action="traitement_paiement.php" method="post" id="form-paiement">
                 <?php // Persistance du contexte de livraison
                       // Transmet les paramètres logistiques issus du panier via des variables masquées (POST) ?>
                 <input type="hidden" name="type_commande" value="<?= htmlspecialchars($_POST['type_commande'] ?? 'emporter') ?>">
@@ -54,16 +55,19 @@ $total = max(0, $total);
                 <input type="text" name="nom_carte" placeholder="M. JEAN DUPONT" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc;">
 
                 <label style="display: block; margin-bottom: 5px; font-weight: bold;">Numéro de carte (16 chiffres) :</label>
-                <input type="text" name="num_carte" pattern="\d{16}" title="16 chiffres requis" placeholder="1234567812345678" required style="width: 100%; padding: 10px; margin-bottom: 15px; border-radius: 5px; border: 1px solid #ccc; letter-spacing: 2px;">
+                <input type="text" id="num_carte" name="num_carte" placeholder="1234567812345678" maxlength="16" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc; letter-spacing: 2px;">
+                <span class="compteur-caracteres" data-cible="num_carte" style="display:block; font-size:0.8em; color:gray; margin-bottom:15px;">16 caractères restants</span>
 
                 <div style="display: flex; gap: 10px; margin-bottom: 20px;">
                     <div style="flex: 1;">
-                        <label style="font-weight: bold;">Expiration :</label>
-                        <input type="text" name="exp" placeholder="MM/AA" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <label style="font-weight: bold;">Expiration (MM/AA) :</label>
+                        <input type="text" id="exp_carte" name="exp" placeholder="12/28" maxlength="5" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <span class="compteur-caracteres" data-cible="exp_carte" style="display:block; font-size:0.8em; color:gray;">5 caractères restants</span>
                     </div>
                     <div style="flex: 1;">
-                        <label style="font-weight: bold;">CVC :</label>
-                        <input type="text" name="cvc" placeholder="123" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <label style="font-weight: bold;">CVC (3 chiffres) :</label>
+                        <input type="text" id="cvc_carte" name="cvc" placeholder="123" maxlength="3" required style="width: 100%; padding: 10px; border-radius: 5px; border: 1px solid #ccc;">
+                        <span class="compteur-caracteres" data-cible="cvc_carte" style="display:block; font-size:0.8em; color:gray;">3 caractères restants</span>
                     </div>
                 </div>
 
@@ -74,11 +78,6 @@ $total = max(0, $total);
             </form>
         </div>
     </div>
-    </form>
-        </div>
-    </div>
     <script src="scripts.js"></script> 
-</body>
-</html>
 </body>
 </html>
