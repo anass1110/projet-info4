@@ -28,12 +28,12 @@ if (file_exists($fichier_users)) {
     }
 }
 
-// Cartographie réalignée des états métier
-// La commande commence 'En attente' (modifiable par le client), puis passe 'En cours', puis 'Prête'
+// Cartographie des états métier
+// Définit la correspondance entre les clés de statuts techniques et leurs libellés d'affichage
 $statuts = [ 
     'En attente' => 'À Préparer', 
     'En cours' => 'En Préparation', 
-    'Prête' => 'En Attente d\'Expédition', 
+    'Prête' => 'En Attente', 
     'En livraison' => 'En Livraison' 
 ];
 ?>
@@ -61,7 +61,13 @@ $statuts = [
                     // Parcourt la liste des commandes pour injecter les fiches correspondant au statut de la colonne
                     $trouve = false;
                     foreach($commandes as $c): 
-                        if($c['statut'] === $code_statut): 
+                        // roecouvremet des status pour ne pas perdre la commande 
+                        $statut_reel = $c['statut'];
+                        if ($statut_reel === 'A preparer' && $code_statut === 'En attente') {
+                            $statut_reel = 'En attente';
+                        }
+
+                        if($statut_reel === $code_statut): 
                             $trouve = true;
                     ?>
                         <div class="carte-commande" id="cmd-<?= htmlspecialchars($c['id_commande']) ?>">
@@ -81,7 +87,7 @@ $statuts = [
                             
                             <p class="statut-actuel"><strong>Statut actuel :</strong> <?= htmlspecialchars($c['statut']) ?></p>
 
-                            <?php // Boutons d'actions contextuels réalignés sur le cycle asynchrone AJAX
+                            <?php // Boutons d'actions contextuels
                                   // Adapte les formulaires et les déclencheurs asynchrones selon l'étape courante de la commande ?>
                             <?php if($code_statut === 'En attente'): ?>
                                 <button class="bouton-nav btn-action-cmd btn-demarrer" data-id="<?= htmlspecialchars($c['id_commande']) ?>" data-action="demarrer">🔥 Commencer</button>
