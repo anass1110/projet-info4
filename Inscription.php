@@ -54,5 +54,11 @@ session_start();
             </fieldset>
         </form>
     </div>
+    </form>
+        </div>
+    </div>
+    <script src="scripts.js"></script> 
+</body>
+</html>
 </body>
 </html>
