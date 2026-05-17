@@ -1,100 +1,104 @@
 document.addEventListener("DOMContentLoaded", function() {
     
-    // 1. VALIDATION DU FORMULAIRE D'INSCRIPTION
+    // Formulaire d'inscription
+    // Intercepte la soumission pour vérifier la conformité des données utilisateur
     var formInsc = document.getElementById('form-inscription');
     if (formInsc) {
         formInsc.addEventListener('submit', function(event) {
             var mdp = document.getElementById('mdp').value;
             var msgErreur = document.getElementById('erreur-js');
+            
+            // Sécurité locale : exige une longueur minimale pour le mot de passe avant envoi au serveur
             if (mdp.length < 6) {
-                event.preventDefault();
+                event.preventDefault(); // Annulation de l'envoi du formulaire pour bloquer l'inscription incorrecte
                 msgErreur.innerHTML = "Le mot de passe doit faire au moins 6 caractères.";
-                msgErreur.classList.remove('cache');
+                msgErreur.classList.remove('cache'); // Affichage du message d'erreur d'inscription à l'écran
             }
         });
     }
 
-    // ========================================================================
-    // PANIER : LA FONCTION LOURDE (Pour gérer l'asynchrone avec boucles classiques)
-    // ========================================================================
+    // Interactions du panier
+    // Gestion asynchrone des actions d'ajout et de suppression d'articles
     function activerBoutonsPanier() {
         var formulairesPanier = document.querySelectorAll('form[action="traitement_panier.php"]');
         
         formulairesPanier.forEach(function(form) {
+            // Sécurité : empêche d'affecter plusieurs fois le même écouteur sur un formulaire déjà traité
             if (form.getAttribute('data-ecouteur-actif') !== 'oui') {
                 form.addEventListener('submit', function(e) {
-                    e.preventDefault();
+                    e.preventDefault(); // Bloque le rechargement de la page pour offrir une navigation fluide
                     var actionInput = form.querySelector('input[name="action"]');
                     
-                    // AJOUT
+                    // Action d'ajout d'un produit (Maki, Sushi, Menu) dans la session de l'utilisateur
                     if (actionInput && actionInput.value === 'ajouter') {
                         fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
                         .then(function(r) { return r.json(); })
                         .then(function(data) {
                             if (data.success) {
+                                // Rétroaction visuelle : indique immédiatement au client que le plat a rejoint son panier
                                 var btnSubmit = form.querySelector('input[type="submit"]');
                                 var txtBackup = btnSubmit.value;
                                 btnSubmit.value = "✓ Ajouté !";
-                                btnSubmit.classList.add('etat-ajoute');
+                                btnSubmit.classList.add('etat-ajoute'); // Changement de couleur temporaire du bouton
                                 setTimeout(function() {
-                                    btnSubmit.value = txtBackup;
+                                    btnSubmit.value = txtBackup; // Restauration du texte d'origine après 2 secondes
                                     btnSubmit.classList.remove('etat-ajoute');
                                 }, 2000);
                             }
                         });
                     }
                     
-                    // SUPPRESSION
+                    // Action de retrait d'un article depuis l'interface récapitative du panier
                     if (actionInput && actionInput.value === 'supprimer') {
                         fetch('traitement_async_panier.php', { method: 'POST', body: new FormData(form) })
                         .then(function(r) { return r.json(); })
                         .then(function(data) {
+                            // Rechargement nécessaire pour recalculer les totaux de la page panier après suppression
                             if (data.success) { window.location.reload(); }
                         });
                     }
                 });
-                form.setAttribute('data-ecouteur-actif', 'oui');
+                form.setAttribute('data-ecouteur-actif', 'oui'); // Marque le formulaire comme configuré
             }
         });
     }
 
-    // Lancement initial
+    // Exécution globale au chargement pour lier les formulaires natifs de la page
     activerBoutonsPanier();
 
-    // ========================================================================
-    // RECHERCHE DYNAMIQUE LIVE
-    // ========================================================================
+    // Recherche dynamique live
+    // Filtrage en temps réel des produits du catalogue sans rafraîchir l'écran
     var champRecherche = document.getElementById('champ-recherche');
     var zoneCatalogue = document.getElementById('zone-catalogue');
     if (champRecherche && zoneCatalogue) {
         champRecherche.addEventListener('input', function() {
-            var query = this.value;
+            var query = this.value; // Récupération de la chaîne de caractères saisie par le client
             fetch('traitement_async_recherche.php', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 body: 'recherche=' + encodeURIComponent(query)
             })
-            .then(function(r) { return r.text(); })
+            .then(function(r) { return r.text(); }) // Attente d'un flux de réponse brut contenant le HTML des cartes filtrées
             .then(function(html) { 
-                zoneCatalogue.innerHTML = html; 
-                activerBoutonsPanier(); // On relance l'écoute sur les nouveaux plats
+                zoneCatalogue.innerHTML = html; // Injection immédiate des nouveaux plats correspondants dans la page
+                // Re-liaison cruciale : rattache les écouteurs du panier sur les nouveaux éléments HTML injectés
+                activerBoutonsPanier(); 
             });
         });
     }
 
-    // ========================================================================
-    // ACTION CUISINE (Avec déplacement de carte DOM)
-    // ========================================================================
+    // Action cuisine
+    // Pilotage des étapes de préparation des commandes par le restaurateur
     var boutonsCuisine = document.querySelectorAll('.btn-action-cmd');
     boutonsCuisine.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             var idCmd = this.getAttribute('data-id');
             var action = this.getAttribute('data-action');
-            var carte = document.getElementById('cmd-' + idCmd);
+            var carte = document.getElementById('cmd-' + idCmd); // Ciblage du bloc visuel de la commande concernée
             
             var textInitial = this.innerHTML;
-            this.innerHTML = "⏳..."; this.disabled = true;
+            this.innerHTML = "⏳..."; this.disabled = true; // Désactivation du bouton pour éviter les requêtes doublons
 
             fetch('traitement_async_commandes.php', {
                 method: 'POST',
@@ -102,9 +106,11 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
             }).then(function(r) { return r.json(); }).then(function(data) {
                 if(data.success) {
+                    // Actualisation textuelle du libellé d'état sur l'affichage de la commande
                     carte.querySelector('.statut-actuel').innerHTML = "<strong>Statut actuel :</strong> <span style='color:green'>" + data.nouveau_statut + "</span>";
                     
                     var nomColonneCible = "";
+                    // Transition  : Passage de la commande du statut "À préparer" à "En cours"
                     if (action === 'demarrer') {
                         btn.setAttribute('data-action', 'prete');
                         btn.innerHTML = "✅ Prête";
@@ -112,18 +118,21 @@ document.addEventListener("DOMContentLoaded", function() {
                         btn.classList.add('btn-prete');
                         btn.disabled = false;
                         nomColonneCible = "En Préparation";
-                    } else if (action === 'prete') {
-                        btn.style.display = 'none';
+                    } 
+                    // Transition  : Finalisation de la préparation, en attente de retrait ou de coursier
+                    else if (action === 'prete') {
+                        btn.style.display = 'none'; // Masquage permanent de l'action car la préparation est achevée
                         nomColonneCible = "En Attente";
                     }
 
+                    // Déplacement physique de la carte dans la colonne correspondante du tableau de bord de la cuisine
                     var colonnes = document.querySelectorAll('.colonne-commandes');
                     colonnes.forEach(function(col) {
                         var titre = col.querySelector('h3');
                         if (titre && titre.textContent.trim() === nomColonneCible) {
-                            col.appendChild(carte); 
+                            col.appendChild(carte); // Transfert visuel direct de la commande vers sa nouvelle colonne
                             var msgVide = col.querySelector('.txt-vide');
-                            if (msgVide) msgVide.style.display = 'none';
+                            if (msgVide) msgVide.style.display = 'none'; // Efface la mention "Aucune commande" de la colonne cible
                         }
                     });
                 } else {
@@ -134,16 +143,15 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
-    // ========================================================================
-    // ACTION LIVREUR
-    // ========================================================================
+    // Action livreur
+    // Validation finale ou remontée d'anomalies de livraison par le coursier
     var boutonsLivreur = document.querySelectorAll('.btn-action-livreur');
     boutonsLivreur.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             var idCmd = this.getAttribute('data-id');
             var action = this.getAttribute('data-action');
-            var actionsDiv = document.getElementById('actions-' + idCmd);
+            var actionsDiv = document.getElementById('actions-' + idCmd); // Conteneur des choix d'actions de livraison
             
             this.innerHTML = "⏳..."; this.disabled = true;
 
@@ -153,21 +161,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: 'id_commande=' + encodeURIComponent(idCmd) + '&action=' + encodeURIComponent(action)
             }).then(function(r) { return r.json(); }).then(function(data) {
                 if(data.success) {
+                    // Notification graphique : Remplace définitivement les boutons d'actions pour confirmer la clôture de la course
                     actionsDiv.innerHTML = "<p style='color:green; font-weight:bold; padding:15px; border:1px solid green; text-align:center;'>✅ Action enregistrée</p>";
                 }
             });
         });
     });
 
-    // ========================================================================
-    // ACTION ADMIN (Corrigée, sans erreur de syntaxe)
-    // ========================================================================
+    // Action admin
+    // Suspension d'accès ou réactivation des comptes utilisateurs par le modérateur
     var boutonsAdmin = document.querySelectorAll('.btn-action-admin');
     boutonsAdmin.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             var idUser = this.getAttribute('data-id');
-            // Correction : La variable est collée proprement
             var actionActuelle = this.getAttribute('data-action') || 'bloquer'; 
 
             this.innerHTML = "⏳..."; this.disabled = true;
@@ -178,20 +185,34 @@ document.addEventListener("DOMContentLoaded", function() {
                 body: 'id_user=' + encodeURIComponent(idUser) + '&action=' + encodeURIComponent(actionActuelle)
             }).then(function(r) { return r.json(); }).then(function(data) {
                 if(data.success) {
-                    // Logique de bascule (Toggle)
+                    // Inversion d'état (Toggle) : Met à jour dynamiquement l'action inverse disponible pour ce profil
                     if (actionActuelle === 'bloquer') {
                         btn.innerHTML = "Débloquer";
                         btn.setAttribute('data-action', 'debloquer');
-                        btn.classList.add('etat-bloque');
+                        btn.classList.add('etat-bloque'); // Application du style visuel restrictif gris
                     } else {
                         btn.innerHTML = "Bloquer";
                         btn.setAttribute('data-action', 'bloquer');
-                        btn.classList.remove('etat-bloque');
+                        btn.classList.remove('etat-bloque'); // Restauration du style visuel actif rouge
                     }
                     btn.disabled = false;
                 }
             });
         });
     });
+
+    // Bascule du thème sombre
+    // Gestionnaire du commutateur graphique jour/nuit appliqué globalement
+    var btnTheme = document.getElementById('btn-toggle-theme');
+    if (btnTheme) {
+        btnTheme.addEventListener('click', function(e) {
+            e.preventDefault();
+            document.body.classList.toggle('theme-sombre'); // Commutation instantanée de la classe maîtresse sur le body
+            
+            // Persistance : Sauvegarde le choix du thème dans un cookie persistant (30 jours) pour les futurs chargements
+            var themeActuel = document.body.classList.contains('theme-sombre') ? 'dark' : 'light';
+            document.cookie = 'theme=' + themeActuel + '; path=/; max-age=2592000';
+        });
+    }
 
 });
