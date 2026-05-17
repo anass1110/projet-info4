@@ -59,14 +59,14 @@ if (file_exists($fichier_commandes)) {
     <title>SushyTech - Notation</title>
     <link rel="stylesheet" type="text/css" href="fichier.css">
 </head>
-<body>
+<body class="<?= (isset($_COOKIE['theme']) && $_COOKIE['theme'] === 'dark') ? 'theme-sombre' : '' ?>">
     <?php include('includes/header.php'); ?>
     <div id="contenu-formulaire">
         
         <?php if (!empty($message_erreur_notation)): ?>
             <div class="box-interdiction">
                 <p class="txt-interdiction"><?= $message_erreur_notation ?></p>
-                <a href="accueil.php" class="bouton-nav" style="display: inline-block; margin-top: 15px;">Retour à l'accueil</a>
+                <a href="accueil.php" class="bouton-nav btn-retour-accueil">Retour à l'accueil</a>
             </div>
         <?php else: ?>
             <form action="traitement_notation.php" method="post">
