@@ -1,15 +1,20 @@
 <?php
+// Filtrage et normalisation de la chaîne de recherche saisie par l'utilisateur
 $recherche = strtolower(trim($_POST['recherche'] ?? ''));
+
+// Extraction et décodage du catalogue de plats depuis le fichier de stockage JSON
 $donnees_menu = json_decode(file_get_contents('data/menu.json'), true);
 $plats = $donnees_menu['plats'] ?? [];
 $resultats = [];
 
+// Algorithme de recherche par correspondance de chaînes de caractères sur les noms de plats
 foreach ($plats as $p) {
     if (empty($recherche) || strpos(strtolower($p['nom']), $recherche) !== false) {
         $resultats[] = $p;
     }
 }
 
+// Génération dynamique du rendu HTML pour l'affichage en direct des cartes produits
 if (empty($resultats)) {
     echo "<p class='msg-aucun-resultat'>Aucun plat ne correspond à votre recherche.</p>";
 } else {
