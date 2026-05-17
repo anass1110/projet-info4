@@ -29,6 +29,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande']) && iss
                     $data['commandes'][$index]['statut'] = 'Prête';
                     $mis_a_jour = true;
                 }
+                elseif ($action === 'attribuer_livreur' && isset($_POST['id_livreur'])) {
+                    //  Attribue le livreur sans rechargement
+                    $data['commandes'][$index]['id_livreur'] = $_POST['id_livreur'];
+                    $data['commandes'][$index]['statut'] = 'En livraison';
+                    $mis_a_jour = true;
+                }
                 break;
             }
         }
