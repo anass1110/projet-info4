@@ -28,12 +28,12 @@ if (file_exists($fichier_users)) {
     }
 }
 
-// Cartographie des états métier
-// Définit la correspondance entre les clés de statuts techniques et leurs libellés d'affichage
+// Cartographie réalignée des états métier
+// La commande commence 'En attente' (modifiable par le client), puis passe 'En cours', puis 'Prête'
 $statuts = [ 
-    'A preparer' => 'À Préparer', 
+    'En attente' => 'À Préparer', 
     'En cours' => 'En Préparation', 
-    'En attente' => 'En Attente', 
+    'Prête' => 'En Attente d\'Expédition', 
     'En livraison' => 'En Livraison' 
 ];
 ?>
@@ -66,7 +66,7 @@ $statuts = [
                     ?>
                         <div class="carte-commande" id="cmd-<?= htmlspecialchars($c['id_commande']) ?>">
                             <p><strong>Commande :</strong> <?= htmlspecialchars($c['id_commande']) ?></p>
-                            <p><strong>Type :</strong> <?= htmlspecialchars(ucfirst($c['type'])) ?></p>
+                            <p><strong>Type :</strong> <?= htmlspecialchars(ucfirst($c['type'] ?? $c['type_commande'] ?? 'A emporter')) ?></p>
                             <p><strong>Heure :</strong> <?= htmlspecialchars($c['heure_souhaitee']) ?></p>
                             
                             <div class="details-articles">
@@ -74,21 +74,21 @@ $statuts = [
                                     <?php // Liste des lignes de commande
                                           // Énumère le détail des plats, quantités et options personnalisées demandés ?>
                                     <?php foreach($c['articles'] as $art): ?>
-                                        <li><?= $art['quantite'] ?>x <?= htmlspecialchars($art['nom']) ?> <?= !empty($art['option']) ? "<i>(".htmlspecialchars($art['option']).")</i>" : "" ?></li>
+                                        <li><?= $art['quantite'] ?>x <?= htmlspecialchars($art['nom'] ?? $art['nom_article'] ?? 'Produit') ?> <?= !empty($art['option']) ? "<i>(".htmlspecialchars($art['option']).")</i>" : "" ?></li>
                                     <?php endforeach; ?>
                                 </ul>
                             </div>
                             
                             <p class="statut-actuel"><strong>Statut actuel :</strong> <?= htmlspecialchars($c['statut']) ?></p>
 
-                            <?php // Boutons d'actions contextuels
+                            <?php // Boutons d'actions contextuels réalignés sur le cycle asynchrone AJAX
                                   // Adapte les formulaires et les déclencheurs asynchrones selon l'étape courante de la commande ?>
-                            <?php if($code_statut === 'A preparer'): ?>
+                            <?php if($code_statut === 'En attente'): ?>
                                 <button class="bouton-nav btn-action-cmd btn-demarrer" data-id="<?= htmlspecialchars($c['id_commande']) ?>" data-action="demarrer">🔥 Commencer</button>
                             <?php elseif($code_statut === 'En cours'): ?>
                                 <button class="bouton-nav btn-action-cmd btn-prete" data-id="<?= htmlspecialchars($c['id_commande']) ?>" data-action="prete">✅ Prête</button>
-                            <?php elseif($code_statut === 'En attente'): ?>
-                                <?php if($c['type'] === 'livraison'): ?>
+                            <?php elseif($code_statut === 'Prête'): ?>
+                                <?php if((isset($c['type']) && $c['type'] === 'livraison') || (isset($c['type_commande']) && $c['type_commande'] === 'livraison')): ?>
                                     <form action="traitement_commande.php" method="post" class="form-attrib">
                                         <input type="hidden" name="action" value="attribuer_livreur">
                                         <input type="hidden" name="id_commande" value="<?= htmlspecialchars($c['id_commande']) ?>">
