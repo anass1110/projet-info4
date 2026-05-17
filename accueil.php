@@ -24,7 +24,7 @@ session_start();
             </form>
         </div>
 
-        <?php // Section de mise en avant (Marketing)
+        <?php // Section de mise en avant 
               // Liste statique des produits populaires pour inciter à la navigation vers le catalogue ?>
         <div class="plats-vedettes">
             <h2>Nos plats du jour & Favoris</h2>
