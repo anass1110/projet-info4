@@ -1,11 +1,15 @@
 <?php
 session_start();
 
+// Restriction d'accès transactionnel
+// Bloque le chargement du module bancaire si l'utilisateur n'est pas identifié ou si son panier est vide
 if (!isset($_SESSION['user']) || empty($_SESSION['panier'])) {
     header("Location: accueil.php");
     exit();
 }
 
+// Recalcul de l'assiette financière côté serveur
+// Détermine le montant total brut cumulé pour sécuriser l'affichage avant la transaction
 $total = 0;
 foreach ($_SESSION['panier'] as $article) { 
     $total += $article['prix'] * $article['quantite']; 
@@ -15,6 +19,7 @@ $montant_a_payer = $total;
 $mode_edition = false;
 $ancien_total = 0;
 
+// Logique d'ajustement pour modification de commande (Phase 3)
 if (isset($_SESSION['id_commande_en_modification'])) {
     $mode_edition = true;
     $ancien_total = $_SESSION['total_deja_paye'];
@@ -23,9 +28,11 @@ if (isset($_SESSION['id_commande_en_modification'])) {
     if ($difference > 0) {
         $montant_a_payer = $difference;
     } else {
-        $montant_a_payer = 0; 
+        $montant_a_payer = 0; // Aucun encaissement supplémentaire requis
     }
 } else {
+    // Application du barème de réduction en session
+    // Déduit la valeur correspondante au coupon (taux ou montant fixe) sur le total calculé
     if (isset($_SESSION['coupon'])) {
         if ($_SESSION['coupon']['type'] === 'pourcentage') { 
             $montant_a_payer -= $montant_a_payer * ($_SESSION['coupon']['valeur'] / 100); 
@@ -35,6 +42,7 @@ if (isset($_SESSION['id_commande_en_modification'])) {
     }
 }
 
+// Protection contre les valeurs négatives
 $montant_a_payer = max(0, $montant_a_payer);
 ?>
 <!DOCTYPE html>
@@ -51,6 +59,7 @@ $montant_a_payer = max(0, $montant_a_payer);
         <div class="box-paiement">
             <h2>💳 Finaliser ma commande</h2>
             
+            <?php // Affichage dynamique du ticket de caisse selon le contexte (Nouvelle commande ou Ajustement) ?>
             <?php if ($mode_edition): ?>
                 <div class="box-recap-edition">
                     <p class="txt-recap">Ancien total payé : <strong><?= number_format($ancien_total, 2) ?> €</strong></p>
@@ -71,9 +80,13 @@ $montant_a_payer = max(0, $montant_a_payer);
             <hr>
 
             <form action="traitement_paiement.php" method="post" id="form-paiement">
+                <?php // Persistance du contexte de livraison
+                      // Transmet les paramètres logistiques issus du panier via des variables masquées (POST) ?>
                 <input type="hidden" name="type_commande" value="<?= htmlspecialchars($_POST['type_commande'] ?? 'emporter') ?>">
                 <input type="hidden" name="heure_souhaitee" value="<?= htmlspecialchars($_POST['heure_souhaitee'] ?? '') ?>">
 
+                <?php // Bascule visuelle du TPE
+                      // Demande les informations bancaires uniquement si un flux financier réel est nécessaire ?>
                 <?php if ($montant_a_payer > 0): ?>
                     <label class="label-paiement">Nom sur la carte :</label>
                     <input type="text" name="nom_carte" placeholder="M. JEAN DUPONT" required class="input-paiement">
