@@ -5,6 +5,30 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start(); 
 }
 
+// Contrôle de bannissement et expulsion immédiate
+// Vérifie en temps réel le statut de l'utilisateur dans le référentiel JSON pour interdire l'accès aux comptes bloqués
+if (isset($_SESSION['user'])) {
+    $fichier_verif_users = 'data/utilisateurs.json';
+    if (file_exists($fichier_verif_users)) {
+        $data_verif = json_decode(file_get_contents($fichier_verif_users), true);
+        $utilisateurs_liste = $data_verif['utilisateurs'] ?? [];
+        
+        foreach ($utilisateurs_liste as $user_verif) {
+            if ($user_verif['id'] === $_SESSION['user']['id']) {
+                if (isset($user_verif['statut']) && $user_verif['statut'] === 'bloque') {
+                    // Destruction instantanée de la session courante
+                    session_unset();
+                    session_destroy();
+                    // Redirection immédiate pour verrouiller l'usage du site
+                    header("Location: Connexion.php?erreur=banni");
+                    exit();
+                }
+                break;
+            }
+        }
+    }
+}
+
 // Compteur du panier
 // Calcule la somme cumulée des quantités d'articles stockées en session
 $nb_articles_panier = 0;
