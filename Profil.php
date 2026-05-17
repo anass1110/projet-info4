@@ -63,6 +63,7 @@ if (isset($_GET['id']) && $_SESSION['user']['role'] === 'admin') {
                         <th>Date</th>
                         <th>Statut</th>
                         <th>Total</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -80,18 +81,31 @@ if (isset($_GET['id']) && $_SESSION['user']['role'] === 'admin') {
                         // Valide la correspondance entre le propriétaire de la commande et l'ID cible calculé en amont
                         if (isset($c['id_client']) && $c['id_client'] === $id_utilisateur_actuel) {
                             $nb_trouve++;
+                            
+                            // Détermination du bouton d'édition selon le cahier des charges
+                            // Modifiable uniquement si payée et non débutée en cuisine (Statut: "En attente")
+                            $cellule_action = "Aucune action possible";
+                            if (isset($c['statut']) && $c['statut'] === 'En attente') {
+                                $cellule_action = "
+                                    <form action='traitement_edition_commande.php' method='post' style='margin:0;'>
+                                        <input type='hidden' name='id_commande_edition' value='".htmlspecialchars($c['id_commande'])."'>
+                                        <input type='submit' class='bouton-nav' value='✏️ Modifier' style='padding: 5px 10px; font-size: 0.9em;'>
+                                    </form>
+                                ";
+                            }
+
                             echo "<tr>
                                     <td><strong>".htmlspecialchars($c['id_commande'])."</strong></td>
                                     <td>".htmlspecialchars($c['date_commande'])."</td>
                                     <td><span class='statut-tag'>".htmlspecialchars($c['statut'])."</span></td>
                                     <td>".number_format($c['total'], 2)."€</td>
+                                    <td>".$cellule_action."</td>
                                   </tr>";
                         }
                     }
                     // Traitement de l'état vide
-                    // Génère une ligne d'information unique si aucun achat n'est rattaché à ce compte
                     if ($nb_trouve === 0) {
-                        echo "<tr><td colspan='4'>Aucune commande enregistrée.</td></tr>";
+                        echo "<tr><td colspan='5'>Aucune commande enregistrée.</td></tr>";
                     }
                 }
                 ?>
@@ -99,11 +113,6 @@ if (isset($_GET['id']) && $_SESSION['user']['role'] === 'admin') {
             </table>
         </section>
     </div>
-    </form>
-        </div>
-    </div>
     <script src="scripts.js"></script> 
-</body>
-</html>
 </body>
 </html>
