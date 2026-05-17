@@ -47,5 +47,6 @@ if (!isset($_SESSION['user'])) {
             </fieldset>
         </form>
     </div>
+    <script src="scripts.js"></script>
 </body>
 </html>
