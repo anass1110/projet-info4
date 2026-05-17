@@ -74,5 +74,11 @@ $total = max(0, $total);
             </form>
         </div>
     </div>
+    </form>
+        </div>
+    </div>
+    <script src="scripts.js"></script> 
+</body>
+</html>
 </body>
 </html>
