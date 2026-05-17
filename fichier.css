@@ -401,32 +401,72 @@ header {
     background-color: #3d3d3d; /* Effet de survol */
 }
 
-/*  CORRECTIONS THÈME SOMBRE : PAGE PANIER  */
-/* Le tableau reste visible pour structurer les articles */
+/* PAGE PANIER : MODE CLAIR */
+#contenu-panier { width: 80%; margin: 20px auto; }
+.titre-panier { text-align: center; }
+.panier-vide { text-align: center; padding: 20px; }
+.zone-bouton-vide { text-align: center; }
+
+/* Tableau */
+.table-panier { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+.entete-tableau { background-color: #f2f2f2; }
+.table-panier th, .table-panier td { padding: 10px; border: 1px solid #ddd; }
+.cell-article { text-align: left; }
+.option-article { color: #666; font-style: italic; }
+.cell-centre { text-align: center; }
+.cell-droite { text-align: right; }
+
+/* Récapitulatif global (Clair) */
+.bloc-recap-panier { text-align: right; background: #f9f9f9; padding: 20px; border-radius: 8px; border: 1px solid #eee; }
+.form-coupon { margin-bottom: 10px; }
+.input-coupon { padding: 8px; border-radius: 4px; border: 1px solid #ccc; }
+.txt-total-partiel { font-size: 1.1em; }
+.txt-reduction { color: green; font-weight: bold; }
+.lien-supprimer-coupon { color: red; font-size: 0.8em; text-decoration: none; margin-left: 10px; }
+.total-a-payer { color: #BC002D; margin-top: 10px; }
+.lien-vider { color: #666; font-size: 0.9em; }
+
+.separation-panier { margin: 40px 0; border: 0; border-top: 1px solid #ddd; }
+
+/* Validation (Clair) */
+.bloc-validation-panier { max-width: 500px; margin-left: auto; }
+.titre-validation { color: #BC002D; }
+.alerte-connexion { color: red; background: #fff5f5; padding: 10px; border-radius: 5px; }
+.form-validation { display: flex; flex-direction: column; gap: 15px; }
+.champ-formulaire label { display: block; margin-bottom: 5px; font-weight: bold; }
+.champ-formulaire select, .champ-formulaire input { width: 100%; padding: 8px; }
+.zone-soumission { text-align: right; margin-top: 10px; }
+.bouton-valider { width: 100%; font-size: 1.1em; padding: 12px; }
+
+/*  PAGE PANIER :MODE SOMBRE OPTIMISÉ */
 .theme-sombre .table-panier td, 
 .theme-sombre .entete-tableau th {
     background-color: #222 !important;
     color: #e0e0e0 !important;
     border-color: #444 !important;
 }
+.theme-sombre .option-article { color: #aaa; }
 
-/* Le bloc Total : Transparent et sans bordure */
-.theme-sombre .bloc-recap-panier {
-    background-color: transparent !important;
-    border: none !important;
-    color: #e0e0e0 !important;
-    padding: 0 !important; /* On retire l'espacement devenu inutile */
-}
-.theme-sombre .lien-vider { color: #ff9800 !important; }
-
-/* L'alerte de connexion */
+/* Destruction complète des blocs pour effet flottant */
+.theme-sombre .bloc-recap-panier,
 .theme-sombre .alerte-connexion {
-    background-color: transparent !important; 
+    background-color: transparent !important;
+    background: transparent !important;
     border: none !important;
-    color: #ff8a8a !important; 
-    padding: 0 !important;
+    padding: 10px 0 !important; /* Ajustement du retrait du bloc */
+    color: #e0e0e0 !important;
 }
-.theme-sombre .alerte-connexion a {
-    color: #ffb74d !important; 
-    text-decoration: underline;
+
+/* Couleurs des textes et liens spécifiques en mode sombre */
+.theme-sombre .total-a-payer,
+.theme-sombre .titre-validation {
+    color: #ff4757 !important; /* Rouge néon lisible */
+}
+.theme-sombre .alerte-connexion {
+    color: #ff8a8a !important; /* Alerte rouge douce */
+}
+.theme-sombre .alerte-connexion a,
+.theme-sombre .lien-vider {
+    color: #ff9800 !important; /* Liens d'action orange visibles */
+    text-decoration: underline !important;
 }
