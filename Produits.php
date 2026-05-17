@@ -1,6 +1,8 @@
 <?php
 session_start();
-// Lecture des données JSON
+
+// Chargement des données du catalogue
+// Récupère l'intégralité de la carte depuis le fichier de stockage json structurel
 $donnees_menu = json_decode(file_get_contents('data/menu.json'), true);
 $plats = $donnees_menu['plats'] ?? [];
 $menus = $donnees_menu['menus'] ?? [];
@@ -17,12 +19,16 @@ $menus = $donnees_menu['menus'] ?? [];
     
     <div id="contenu-produits">
         
+        <?php // Barre de recherche
+              // Élément cible capturé par l'écouteur javascript pour le filtrage dynamique du catalogue ?>
         <div class="recherche-container">
             <input type="text" id="champ-recherche" placeholder="Recherche en direct un sushi..." class="input-recherche">
         </div>
 
-        <h2 class="titre-menu">Nos Menus Spéciaux</h2>
+        <h2>Nos Menus Spéciaux</h2>
         <div class="grid-menus">
+            <?php // Génération de la section formules
+                  // Parcourt les offres groupées pour assembler les blocs et lister les composants inclus ?>
             <?php foreach ($menus as $m): ?>
             <div class="plat menu-special">
                 <h4><?= htmlspecialchars($m['nom']) ?></h4>
@@ -47,7 +53,11 @@ $menus = $donnees_menu['menus'] ?? [];
         </div>
 
         <h2 class="titre-menu marge-top">À la carte</h2>
+        <?php // Conteneur cible pour injection asynchrone
+              // Cet identifiant id="zone-catalogue" est vidé et reconstruit par le script de recherche dynamique ?>
         <div class="grid-plats" id="zone-catalogue">
+            <?php // Génération des articles individuels
+                  // Construit les fiches produits avec leurs spécificités nutritionnelles, allergènes et options ?>
             <?php foreach ($plats as $p): ?>
             <div class="plat">
                 <img src="<?= htmlspecialchars($p['image']) ?>" alt="<?= htmlspecialchars($p['nom']) ?>" class="img-plat">
@@ -66,6 +76,8 @@ $menus = $donnees_menu['menus'] ?? [];
                     <input type="hidden" name="nom_article" value="<?= htmlspecialchars($p['nom']) ?>">
                     <input type="hidden" name="prix" value="<?= $p['prix'] ?>">
 
+                    <?php // Menu déroulant d'options personnalisables
+                          // Génère la liste de choix si l'article contient des variantes configurables (ex: type de riz) ?>
                     <?php if (!empty($p['options_possibles'])): ?>
                         <select name="option_choisie" class="select-perso">
                             <option value="">-- Personnaliser --</option>
