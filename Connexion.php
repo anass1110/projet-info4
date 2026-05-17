@@ -1,4 +1,8 @@
-<?php session_start(); ?>
+<?php 
+// Initialisation de la session
+// Démarre ou récupère la session active sur le serveur pour maintenir l'état de l'utilisateur
+session_start(); 
+?>
 <!DOCTYPE html>
 <html lang="fr">
 <head>
@@ -13,6 +17,8 @@
             <fieldset>
                 <legend>Connectez-vous</legend>
                 <?php 
+                // Traitement des notifications contextuelles
+                // Intercepte les paramètres de retour d'URL (GET) pour afficher les messages d'état correspondants
                 if(isset($_GET['succes'])) echo "<p class='msg-succes'>Inscription réussie, connectez-vous.</p>"; 
                 if(isset($_GET['erreur'])) echo "<p class='msg-erreur'>Email ou mot de passe incorrect.</p>"; 
                 ?>
