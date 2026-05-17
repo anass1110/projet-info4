@@ -1,7 +1,6 @@
 <?php
 session_start();
 
-// Protection du script
 // Interdit l'accès si la requête n'est pas un POST ou si l'utilisateur n'est pas connecté
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user']) && isset($_POST['id_commande_edition'])) {
     
