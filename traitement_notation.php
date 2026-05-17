@@ -5,7 +5,7 @@ session_start();
 // Interdit l'exécution directe si la requête n'est pas un POST ou si l'utilisateur n'est pas connecté
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
     
-    // ÉTAPE 1 : Enregistrement de l'avis dans le registre des commentaires
+    // Enregistrement de l'avis dans le registre des commentaires
     $fichier_avis = 'data/avis.json';
     
     // Création de l'architecture JSON racine si nécessaire
@@ -28,8 +28,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
     $data_avis['avis'][] = $nouvel_avis;
     file_put_contents($fichier_avis, json_encode($data_avis, JSON_PRETTY_PRINT)); 
     
-    // ÉTAPE 2 : Verrouillage de la commande pour empêcher la double notation
-    // Récupère l'ID envoyé en tâche de fond pour marquer la commande comme "déjà notée"
+    // Verrouillage de la commande pour empêcher la double notation
+    // Récupère l'ID envoyé en tâche de fond pour marquer la commande comme déjà notée
     if (isset($_POST['id_commande'])) {
         $id_cmd_cible = $_POST['id_commande'];
         $fichier_commandes = 'data/commandes.json';
@@ -40,7 +40,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
             // Recherche de la commande dans le fichier relationnel JSON
             foreach ($data_cmd['commandes'] as $i => $commande) {
                 if ($commande['id_commande'] == $id_cmd_cible) {
-                    // Application du drapeau d'unicité requis par le cahier des charges
                     $data_cmd['commandes'][$i]['deja_note'] = true;
                     break;
                 }
