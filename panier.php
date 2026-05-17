@@ -56,7 +56,7 @@ $total_brut = 0;
                 </thead>
                 <tbody>
                 <?php // Énumération des lignes du panier
-                      // Calcule le coût par ligne et cumule le montant total brut de la commande ?>
+                      // Calcule le coût par ligne et cumule le montant total de la commande ?>
                 <?php foreach ($_SESSION['panier'] as $article): 
                     $st = $article['prix'] * $article['quantite'];
                     $total_brut += $st;
@@ -87,7 +87,7 @@ $total_brut = 0;
                     $reduction = $_SESSION['coupon']['valeur'];
                 }
             }
-            //  empêche un total négatif si la remise dépasse le montant brut
+            //  empêche un total négatif si la remise dépasse le montant
             $total_final = max(0, $total_brut - $reduction);
             ?>
 
