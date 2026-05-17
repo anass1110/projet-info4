@@ -2,6 +2,26 @@
 // Gestion de la session active
 // Démarre l'espace mémoire pour manipuler les articles et coupons de l'utilisateur
 session_start();
+
+// Interception de l'action de suppression d'un article
+if (isset($_GET['action']) && $_GET['action'] === 'supprimer' && isset($_GET['id'])) {
+    $id_cible = $_GET['id'];
+    
+    if (isset($_SESSION['panier'])) {
+        foreach ($_SESSION['panier'] as $index => $article) {
+            if ($article['id'] == $id_cible) {
+                unset($_SESSION['panier'][$index]);
+                // Réindexation propre du tableau pour éviter les trous
+                $_SESSION['panier'] = array_values($_SESSION['panier']);
+                break;
+            }
+        }
+    }
+    // Redirection (Pattern PRG) pour vider l'URL et actualiser l'affichage
+    header("Location: panier.php");
+    exit();
+}
+
 $total_brut = 0;
 ?>
 <!DOCTYPE html>
@@ -44,6 +64,7 @@ $total_brut = 0;
                 <tr>
                     <td class="cell-article">
                         <strong><?= htmlspecialchars($article['nom']) ?></strong>
+                        <a href="panier.php?action=supprimer&id=<?= urlencode($article['id']) ?>" style="color: #BC002D; text-decoration: none; margin-left: 10px;" title="Retirer du panier">❌</a>
                         <?php if(!empty($article['option'])): ?>
                             <br><small class="option-article">(Option : <?= htmlspecialchars($article['option']) ?>)</small>
                         <?php endif; ?>
@@ -58,7 +79,6 @@ $total_brut = 0;
             
             <?php
             // Calcul des remises commerciales
-            // Évalue les règles du coupon en session (déduction fixe ou pourcentage) pour définir la réduction
             $reduction = 0;
             if (isset($_SESSION['coupon'])) {
                 if ($_SESSION['coupon']['type'] === 'pourcentage') {
@@ -67,7 +87,7 @@ $total_brut = 0;
                     $reduction = $_SESSION['coupon']['valeur'];
                 }
             }
-            // Sécurité financière : empêche un total négatif si la remise dépasse le montant brut
+            //  empêche un total négatif si la remise dépasse le montant brut
             $total_final = max(0, $total_brut - $reduction);
             ?>
 
