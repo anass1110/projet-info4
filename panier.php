@@ -1,4 +1,6 @@
 <?php
+// Gestion de la session active
+// Démarre l'espace mémoire pour manipuler les articles et coupons de l'utilisateur
 session_start();
 $total_brut = 0;
 ?>
@@ -15,6 +17,8 @@ $total_brut = 0;
     <div id="contenu-panier">
         <h2 class="titre-panier">Votre Panier</h2>
         
+        <?php // Évaluation du contenu du panier
+              // Propose un lien vers le catalogue si aucun produit n'est stocké en session ?>
         <?php if (empty($_SESSION['panier'])): ?>
             <p class="panier-vide">Votre panier est actuellement vide.</p>
             <div class="zone-bouton-vide">
@@ -31,6 +35,8 @@ $total_brut = 0;
                     </tr>
                 </thead>
                 <tbody>
+                <?php // Énumération des lignes du panier
+                      // Calcule le coût par ligne et cumule le montant total brut de la commande ?>
                 <?php foreach ($_SESSION['panier'] as $article): 
                     $st = $article['prix'] * $article['quantite'];
                     $total_brut += $st;
@@ -51,6 +57,8 @@ $total_brut = 0;
             </table>
             
             <?php
+            // Calcul des remises commerciales
+            // Évalue les règles du coupon en session (déduction fixe ou pourcentage) pour définir la réduction
             $reduction = 0;
             if (isset($_SESSION['coupon'])) {
                 if ($_SESSION['coupon']['type'] === 'pourcentage') {
@@ -59,6 +67,7 @@ $total_brut = 0;
                     $reduction = $_SESSION['coupon']['valeur'];
                 }
             }
+            // Sécurité financière : empêche un total négatif si la remise dépasse le montant brut
             $total_final = max(0, $total_brut - $reduction);
             ?>
 
@@ -87,6 +96,8 @@ $total_brut = 0;
             <div class="bloc-validation-panier">
                 <h3 class="titre-validation">Validation de la commande</h3>
                 
+                <?php // Vérification du statut d'authentification
+                      // Impose la connexion au site avant d'autoriser l'accès au formulaire de paiement ?>
                 <?php if(!isset($_SESSION['user'])): ?>
                     <p class="alerte-connexion">
                         Vous devez être <a href="Connexion.php">connecté</a> pour finaliser votre commande.
