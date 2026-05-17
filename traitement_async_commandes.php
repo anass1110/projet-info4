@@ -1,44 +1,46 @@
 <?php
 session_start();
-// Configuration de l'entête HTTP
-// Spécifie au client que la réponse renvoyée par le serveur est un flux de données au format json
-header('Content-Type: application/json');
 
-// Contrôle d'accès back-office
-// Interdit l'accès au endpoint si l'appelant n'est pas authentifié avec les privilèges de restaurateur
+// Protection : Seul le restaurateur peut manipuler les statuts de cuisson
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
-    echo json_encode(["success" => false]); 
+    echo json_encode(['success' => false, 'message' => 'Non autorisé']);
     exit();
 }
 
-// Validation des données d'entrée
-// Vérifie la réception conjointe de la clé de la commande et de l'instruction de changement d'état
-if (isset($_POST['id_commande']) && isset($_POST['action'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande']) && isset($_POST['action'])) {
+    $id_cmd = $_POST['id_commande'];
+    $action = $_POST['action'];
     $fichier = 'data/commandes.json';
-    $data = json_decode(file_get_contents($fichier), true);
-    
-    // Traitement du flux d'état de la commande
-    // Parcourt l'historique pour trouver l'enregistrement cible et mettre à jour sa phase de traitement
-    foreach ($data['commandes'] as $i => $c) {
-        if ($c['id_commande'] == $_POST['id_commande']) {
-            if ($_POST['action'] === 'demarrer') {
-                $data['commandes'][$i]['statut'] = 'En cours';
-                $nouveau_statut = 'En cours';
-            } elseif ($_POST['action'] === 'prete') {
-                $data['commandes'][$i]['statut'] = 'En attente';
-                $nouveau_statut = 'En attente';
+
+    if (file_exists($fichier)) {
+        $data = json_decode(file_get_contents($fichier), true);
+        $mis_a_jour = false;
+
+        foreach ($data['commandes'] as $index => $c) {
+            if ($c['id_commande'] === $id_cmd) {
+                
+                if ($action === 'demarrer') {
+                    // Passe de 'En attente' à 'En cours' 
+                    $data['commandes'][$index]['statut'] = 'En cours';
+                    $mis_a_jour = true;
+                } 
+                衔elseif ($action === 'prete') {
+                    // Passe de 'En cours' à 'Prête' 
+                    $data['commandes'][$index]['statut'] = 'Prête';
+                    $mis_a_jour = true;
+                }
+                break;
             }
-            
-            // Écriture et confirmation de la transaction
-            // Sauvegarde le nouvel état dans le fichier json et retourne le statut mis à jour au script js
+        }
+
+        if ($mis_a_jour) {
             file_put_contents($fichier, json_encode($data, JSON_PRETTY_PRINT));
-            echo json_encode(["success" => true, "nouveau_statut" => $nouveau_statut]);
+            echo json_encode(['success' => true, 'nouveau_statut' => $data['commandes'][$index]['statut']]);
             exit();
         }
     }
 }
 
-// Interception des anomalies de requête
-// Renvoie un message d'échec standardisé si les paramètres POST requis sont absents ou erronés
-echo json_encode(["success" => false]);
+echo json_encode(['success' => false, 'message' => 'Erreur de traitement']);
+exit();
 ?>
