@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Restriction d'accès de base
+// Restriction d'accès client
 // Bloque l'accès au formulaire si aucun identifiant d'utilisateur n'est enregistré en session
 if (!isset($_SESSION['user'])) {
     header("Location: Connexion.php");
@@ -12,7 +12,7 @@ $id_client_actuel = $_SESSION['user']['id'];
 $commande_eligible = null;
 $message_erreur_notation = "";
 
-// Analyse du référentiel pour appliquer les critères du cahier des charges
+// Analyse du référentiel 
 $fichier_commandes = 'data/commandes.json';
 if (file_exists($fichier_commandes)) {
     $data_cmd = json_decode(file_get_contents($fichier_commandes), true);
@@ -27,7 +27,7 @@ if (file_exists($fichier_commandes)) {
         }
     }
     
-    // Application des filtres restrictifs du cahier des charges
+    // Application des filtres restrictifs 
     if ($derniere_commande === null) {
         $message_erreur_notation = "Vous n'avez pas encore passé de commande sur notre site.";
     } else {
@@ -64,8 +64,8 @@ if (file_exists($fichier_commandes)) {
     <div id="contenu-formulaire">
         
         <?php if (!empty($message_erreur_notation)): ?>
-            <div class="box-grise" style="text-align: center; padding: 20px; max-width: 600px; margin: 40px auto; border: 2px solid #BC002D;">
-                <p class="txt-alerte" style="font-weight: bold; font-size: 1.1em;"><?= $message_erreur_notation ?></p>
+            <div class="box-interdiction">
+                <p class="txt-interdiction"><?= $message_erreur_notation ?></p>
                 <a href="accueil.php" class="bouton-nav" style="display: inline-block; margin-top: 15px;">Retour à l'accueil</a>
             </div>
         <?php else: ?>
