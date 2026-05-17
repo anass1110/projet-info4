@@ -15,10 +15,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // On vérifie si le JSON a bien été décodé et contient la clé 'utilisateurs'
         if ($data && isset($data['utilisateurs'])) {
             foreach ($data['utilisateurs'] as $index => $u) {
-                // Comparaison stricte des identifiants (en clair pour la Phase 2)
+                // Comparaison stricte des identifiants 
                 if ($u['login'] === $login_saisi && $u['mot_de_passe'] === $mdp_saisi) {
                     
-                    // Mise à jour de la date (facultatif, mais on garde votre logique)
+                    // Mise à jour de la date 
                     $data['utilisateurs'][$index]['dates']['derniere_connexion'] = date('Y-m-d H:i:s');
                     file_put_contents($fichier, json_encode($data, JSON_PRETTY_PRINT));
                     
