@@ -333,3 +333,70 @@ header {
     top: 20px;
     right: 20px;
 }
+
+/*   (Admin, Cuisine, Livreur)*/
+
+/* --- PAGE CUISINE & LIVREUR --- */
+.theme-sombre .colonne-commandes {
+    background-color: #2a2a2a;
+    border: 1px solid #444;
+}
+
+.theme-sombre .colonne-titre {
+    color: #f1f1f1;
+    border-bottom: 2px solid #555;
+}
+
+.theme-sombre .carte-commande, 
+.theme-sombre .carte-livreur,
+.theme-sombre .carte-livraison {
+    background-color: #333;
+    color: #e0e0e0;
+    border: 1px solid #555;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.5);
+}
+
+.theme-sombre .carte-commande strong, 
+.theme-sombre .carte-livreur strong,
+.theme-sombre .carte-livraison strong {
+    color: #fff;
+}
+
+.theme-sombre .details-articles {
+    background-color: #222;
+    border-left: 3px solid #ff9800; /* Garde la touche de couleur */
+    color: #ccc;
+}
+
+/* Textes de statut spécifiques */
+.theme-sombre .txt-attente, 
+.theme-sombre .txt-route, 
+.theme-sombre .txt-vide,
+.theme-sombre .vide-livraison {
+    color: #bbb;
+}
+
+/* --- PAGE ADMINISTRATEUR --- */
+.theme-sombre .table-admin {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+.theme-sombre .table-admin th {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    border-bottom: 2px solid #555;
+}
+
+.theme-sombre .table-admin td {
+    border-bottom: 1px solid #444;
+}
+
+.theme-sombre .table-admin tr:nth-child(even) {
+    background-color: #222; /* Lignes zébrées plus foncées */
+}
+
+.theme-sombre .table-admin tr.user-row:hover {
+    background-color: #3d3d3d; /* Effet de survol */
+}
