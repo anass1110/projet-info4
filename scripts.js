@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", function() {
             var mdp = document.getElementById('mdp').value;
             var msgErreur = document.getElementById('erreur-js');
             
-            // Sécurité locale : exige une longueur minimale pour le mot de passe avant envoi au serveur
+            //  exige une longueur minimale pour le mot de passe avant envoi au serveur
             if (mdp.length < 6) {
                 event.preventDefault(); // Annulation de l'envoi du formulaire pour bloquer l'inscription incorrecte
                 msgErreur.innerHTML = "Le mot de passe doit faire au moins 6 caractères.";
@@ -27,9 +27,9 @@ document.addEventListener("DOMContentLoaded", function() {
             var cvcCarte = document.getElementById('cvc_carte').value;
             var zoneErreur = document.getElementById('erreur-bancaire-js');
 
-            var regexNum = /^\d{16}$/; // Contrôle stricte : exactement 16 caractères numériques
-            var regexExp = /^(0[1-9]|1[0-2])\/\d{2}$/; // Contrôle stricte : Format MM/AA valide (mois de 01 à 12)
-            var regexCvc = /^\d{3}$/; // Contrôle stricte : exactement 3 caractères numériques
+            var regexNum = /^\d{16}$/; //  exactement 16 caractères numériques
+            var regexExp = /^(0[1-9]|1[0-2])\/\d{2}$/; // Format MM/AA valide (mois de 01 à 12)
+            var regexCvc = /^\d{3}$/; //  exactement 3 caractères numériques
 
             if (!regexNum.test(numCarte)) {
                 event.preventDefault();
@@ -80,7 +80,7 @@ document.addEventListener("DOMContentLoaded", function() {
         var formulairesPanier = document.querySelectorAll('form[action="traitement_panier.php"]');
         
         formulairesPanier.forEach(function(form) {
-            // Sécurité : empêche d'affecter plusieurs fois le même écouteur sur un formulaire déjà traité
+            //  empêche d'affecter plusieurs fois le même écouteur sur un formulaire déjà traité
             if (form.getAttribute('data-ecouteur-actif') !== 'oui') {
                 form.addEventListener('submit', function(e) {
                     e.preventDefault(); // Bloque le rechargement de la page pour offrir une navigation fluide
@@ -92,7 +92,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         .then(function(r) { return r.json(); })
                         .then(function(data) {
                             if (data.success) {
-                                // Rétroaction visuelle : indique immédiatement au client que le plat a rejoint son panier
+                                //  indique immédiatement au client que le plat a rejoint son panier
                                 var btnSubmit = form.querySelector('input[type="submit"]');
                                 var txtBackup = btnSubmit.value;
                                 btnSubmit.value = "✓ Ajouté !";
@@ -138,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(function(r) { return r.text(); }) // Attente d'un flux de réponse brut contenant le HTML des cartes filtrées
             .then(function(html) { 
                 zoneCatalogue.innerHTML = html; // Injection immédiate des nouveaux plats correspondants dans la page
-                // Re-liaison cruciale : rattache les écouteurs du panier sur les nouveaux éléments HTML injectés
+                //  rattache les écouteurs du panier sur les nouveaux éléments HTML injectés
                 activerBoutonsPanier(); 
             });
         });
@@ -167,7 +167,7 @@ document.addEventListener("DOMContentLoaded", function() {
                     carte.querySelector('.statut-actuel').innerHTML = "<strong>Statut actuel :</strong> <span style='color:green'>" + data.nouveau_statut + "</span>";
                     
                     var nomColonneCible = "";
-                    // Transition  : Passage de la commande du statut "À préparer" à "En cours"
+                    //  Passage de la commande du statut "À préparer" à "En cours"
                     if (action === 'demarrer') {
                         btn.setAttribute('data-action', 'prete');
                         btn.innerHTML = "✅ Prête";
@@ -176,7 +176,7 @@ document.addEventListener("DOMContentLoaded", function() {
                         btn.disabled = false;
                         nomColonneCible = "En Préparation";
                     } 
-                    // Transition  : Finalisation de la préparation, en attente de retrait ou de coursier
+                    // Finalisation de la préparation, en attente de retrait ou de coursier
                     else if (action === 'prete') {
                         btn.style.display = 'none'; // Masquage permanent de l'action car la préparation est achevée
                         nomColonneCible = "En Attente";
@@ -200,7 +200,7 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
     
-    // Interception de l'attribution d'un livreur sans rechargement de page (AJOUT PHASE 3)
+    // Interception de l'attribution d'un livreur sans rechargement de page 
     document.querySelectorAll('.form-attrib').forEach(function(form) {
         form.addEventListener('submit', function(event) {
             event.preventDefault(); // Bloque le rechargement natif de la page
