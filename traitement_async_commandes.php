@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_commande']) && iss
                     $data['commandes'][$index]['statut'] = 'En cours';
                     $mis_a_jour = true;
                 } 
-                衔elseif ($action === 'prete') {
+                elseif ($action === 'prete') {
                     // Passe de 'En cours' à 'Prête' 
                     $data['commandes'][$index]['statut'] = 'Prête';
                     $mis_a_jour = true;
