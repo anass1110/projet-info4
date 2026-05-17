@@ -6,9 +6,9 @@
             "mot_de_passe": "admin",
             "role": "admin",
             "informations": {
-                "nom": "Le Breton",
-                "prenom": "Caryl",
-                "pseudo": "AdminCaryl",
+                "nom": "Gauthier",
+                "prenom": "Pierre",
+                "pseudo": "AdminPierre",
                 "naissance": "1990-01-01",
                 "adresse": "Cergy",
                 "telephone": ""
@@ -25,9 +25,9 @@
             "mot_de_passe": "admin",
             "role": "admin",
             "informations": {
-                "nom": "Grignon",
-                "prenom": "Romuald",
-                "pseudo": "AdminRomuald",
+                "nom": "Rousseau",
+                "prenom": "Sophie",
+                "pseudo": "AdminSophie",
                 "naissance": "1985-05-15",
                 "adresse": "Cergy",
                 "telephone": ""
