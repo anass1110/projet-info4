@@ -17,6 +17,63 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     }
 
+    // Formulaire de paiement sécurisé
+    // Valide la conformité structurelle des informations bancaires saisies localement
+    var formPaiement = document.getElementById('form-paiement');
+    if (formPaiement) {
+        formPaiement.addEventListener('submit', function(event) {
+            var numCarte = document.getElementById('num_carte').value;
+            var expCarte = document.getElementById('exp_carte').value;
+            var cvcCarte = document.getElementById('cvc_carte').value;
+            var zoneErreur = document.getElementById('erreur-bancaire-js');
+
+            var regexNum = /^\d{16}$/; // Contrôle stricte : exactement 16 caractères numériques
+            var regexExp = /^(0[1-9]|1[0-2])\/\d{2}$/; // Contrôle stricte : Format MM/AA valide (mois de 01 à 12)
+            var regexCvc = /^\d{3}$/; // Contrôle stricte : exactement 3 caractères numériques
+
+            if (!regexNum.test(numCarte)) {
+                event.preventDefault();
+                zoneErreur.innerHTML = "⚠️ Numéro de carte invalide (16 chiffres requis).";
+                zoneErreur.classList.remove('cache');
+                return;
+            }
+
+            if (!regexExp.test(expCarte)) {
+                event.preventDefault();
+                zoneErreur.innerHTML = "⚠️ Format d'expiration invalide (MM/AA requis, ex: 12/28).";
+                zoneErreur.classList.remove('cache');
+                return;
+            }
+
+            if (!regexCvc.test(cvcCarte)) {
+                event.preventDefault();
+                zoneErreur.innerHTML = "⚠️ Code CVC invalide (3 chiffres requis au dos de la carte).";
+                zoneErreur.classList.remove('cache');
+                return;
+            }
+        });
+    }
+
+    // Gestion des compteurs de caractères en temps réel
+    // Détecte les inputs limités et met à jour dynamiquement l'indicateur de saisie restante
+    var indicateurs = document.querySelectorAll('.compteur-caracteres');
+    indicateurs.forEach(function(span) {
+        var idCible = span.getAttribute('data-cible');
+        var inputCible = document.getElementById(idCible) || document.getElementsByName(idCible)[0];
+        
+        if (inputCible) {
+            var limiteMax = parseInt(inputCible.getAttribute('maxlength'), 10);
+            
+            var actualiserCompteur = function() {
+                var caracteresRestants = limiteMax - inputCible.value.length;
+                span.textContent = caracteresRestants + " caractère(s) restant(s)";
+            };
+
+            inputCible.addEventListener('input', actualiserCompteur);
+            actualiserCompteur(); // Calcul initial au chargement pour synchroniser l'affichage
+        }
+    });
+
     // Interactions du panier
     // Gestion asynchrone des actions d'ajout et de suppression d'articles
     function activerBoutonsPanier() {
