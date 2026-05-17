@@ -64,7 +64,7 @@ $total_brut = 0;
                 <tr>
                     <td class="cell-article">
                         <strong><?= htmlspecialchars($article['nom']) ?></strong>
-                        <a href="panier.php?action=supprimer&id=<?= urlencode($article['id']) ?>" style="color: #BC002D; text-decoration: none; margin-left: 10px;" title="Retirer du panier">❌</a>
+                        <a href="panier.php?action=supprimer&id=<?= urlencode($article['id']) ?>" class="btn-supprimer-croix" title="Retirer du panier">❌</a>
                         <?php if(!empty($article['option'])): ?>
                             <br><small class="option-article">(Option : <?= htmlspecialchars($article['option']) ?>)</small>
                         <?php endif; ?>
