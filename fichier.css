@@ -303,7 +303,6 @@ th { background-color: #BC002D; color: white; }
 .btn-supprimer-croix { color: #BC002D; text-decoration: none; margin-left: 10px; font-weight: bold; }
 .btn-profil-modifier { padding: 5px 10px; font-size: 0.9em; }
 
-
 /* thème sombre globale */
 /* Fond et Textes de base */
 body.theme-sombre {
@@ -429,4 +428,10 @@ body.theme-sombre .alerte-connexion a,
 body.theme-sombre .lien-vider {
     color: #ff9800; 
     text-decoration: underline;
+}
+
+/* Règle pour la mise en forme du bouton de retour */
+.btn-retour-accueil {
+    display: inline-block;
+    margin-top: 15px;
 }
