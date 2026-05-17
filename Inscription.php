@@ -13,7 +13,7 @@ session_start();
 <body>
     <?php include('includes/header.php'); ?>
     <div id="contenu-formulaire">
-        <form action="traitement_inscription.php" method="post">
+        <form action="traitement_inscription.php" method="post" id="form-inscription">
             <fieldset>
                 <legend>Créer votre compte SushyTech</legend>
                 
@@ -23,21 +23,26 @@ session_start();
                 <?php if(isset($_GET['erreur'])) echo "<p class='msg-erreur'>Veuillez remplir les champs obligatoires.</p>"; ?>
                 
                 <label for="login">Login (Email) :</label>
-                <input type="email" id="login" name="user_login" required>
+                <input type="email" id="login" name="user_login" maxlength="50" required>
+                <span class="compteur-caracteres" data-cible="login">50 caractères restants</span>
 
-                <label for="mdp">Mot de passe :</label>
-                <input type="password" id="mdp" name="user_password" required>
+                <label for="mdp">Mot de passe (Minimum 6 caractères) :</label>
+                <input type="password" id="mdp" name="user_password" maxlength="32" required>
+                <span class="compteur-caracteres" data-cible="mdp">32 caractères restants</span>
 
                 <hr class="separateur">
 
                 <label for="nom">Nom :</label>
-                <input type="text" id="nom" name="user_nom" required>
+                <input type="text" id="nom" name="user_nom" maxlength="30" required>
+                <span class="compteur-caracteres" data-cible="nom">30 caractères restants</span>
 
                 <label for="prenom">Prénom :</label>
-                <input type="text" id="prenom" name="user_prenom" required>
+                <input type="text" id="prenom" name="user_prenom" maxlength="30" required>
+                <span class="compteur-caracteres" data-cible="prenom">30 caractères restants</span>
 
                 <label for="pseudo">Pseudo :</label>
-                <input type="text" id="pseudo" name="user_pseudo">
+                <input type="text" id="pseudo" name="user_pseudo" maxlength="20">
+                <span class="compteur-caracteres" data-cible="pseudo">20 caractères restants</span>
 
                 <label for="naissance">Date de naissance :</label>
                 <input type="date" id="naissance" name="user_naissance">
@@ -54,11 +59,6 @@ session_start();
             </fieldset>
         </form>
     </div>
-    </form>
-        </div>
-    </div>
     <script src="scripts.js"></script> 
-</body>
-</html>
 </body>
 </html>
