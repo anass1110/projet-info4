@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-// Contrôle d'accès back-office
+// Contrôle d'accès
 // Restreint l'accès à la page aux seuls utilisateurs possédant le rôle de restaurateur
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
     header("Location: accueil.php"); 
@@ -28,8 +28,8 @@ if (file_exists($fichier_users)) {
     }
 }
 
-// Cartographie des états métier
-// Définit la correspondance entre les clés de statuts techniques et leurs libellés d'affichage
+
+
 $statuts = [ 
     'En attente' => 'À Préparer', 
     'En cours' => 'En Préparation', 
@@ -50,8 +50,8 @@ $statuts = [
     <div id="gestion-commandes">
         <h2>Tableau de bord - Cuisine</h2>
         <div class="grille-statuts">
-            <?php // Génération dynamique des colonnes de flux
-                  // Construit un conteneur HTML pour chaque étape logique du processus de traitement ?>
+            <?php // Génération dynamique des colonnes 
+                  // Con ?>
             <?php foreach ($statuts as $code_statut => $label_statut): ?>
                 <div class="colonne-commandes">
                     <h3 class="colonne-titre"><?= $label_statut ?></h3>
