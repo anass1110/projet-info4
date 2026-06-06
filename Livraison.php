@@ -1,8 +1,8 @@
 <?php
 session_start();
 
-// Contrôle d'accès back-office
-// Restreint l'accès à l'interface aux seuls comptes possédant le rôle de livreur
+// Contrôle d'accès 
+// Restreint l'accès à l'interface aux comptes possédant le rôle de livreur
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
     header("Location: accueil.php"); 
     exit();
@@ -44,8 +44,8 @@ $commandes = file_exists($fichier_cmd) ? json_decode(file_get_contents($fichier_
                   // Génère un lien externe sécurisé en encodant l'adresse pour le calcul d'itinéraire ?>
             <a href="https://www.google.com/maps/search/?api=1&query=<?= urlencode($c['adresse']) ?>" target="_blank" class="bouton-maps">🗺️ Ouvrir l'itinéraire</a> 
 
-            <?php // Bloc d'interception javascript
-                  // Conteneur identifié par l'ID de commande pour la mise à jour asynchrone des statuts ?>
+            <?php // Blo
+                  // Conteneur identifié par l'ID de commande pour la mise à jour des statuts ?>
             <div id="actions-<?= htmlspecialchars($c['id_commande']) ?>" class="actions-livreur">
                 <button class="bouton-confirmer btn-action-livreur" data-id="<?= htmlspecialchars($c['id_commande']) ?>" data-action="valider">✅ Valider la livraison</button> 
                 <button class="bouton-confirmer btn-action-livreur btn-abandon" data-id="<?= htmlspecialchars($c['id_commande']) ?>" data-action="abandonner">⚠️ Abandonner (Adresse introuvable)</button>
