@@ -43,7 +43,7 @@ if (file_exists($fichier_commandes)) {
         elseif (isset($derniere_commande['deja_note']) && $derniere_commande['deja_note'] === true) {
             $message_erreur_notation = "Vous avez déjà soumis votre avis unique pour votre dernière commande (N° " . htmlspecialchars($derniere_commande['id_commande']) . ").";
         } 
-        // Tout est en ordre, la commande est validée pour notation
+        //  la commande est validée pour notation
         else {
             $commande_eligible = $derniere_commande;
         }
