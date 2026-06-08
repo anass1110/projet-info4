@@ -4,7 +4,7 @@ session_start();
 // Restriction d'accès transactionnel
 // Bloque le chargement du module bancaire si l'utilisateur n'est pas identifié ou si son panier est vide
 if (!isset($_SESSION['user']) || empty($_SESSION['panier'])) {
-    header("Location: accueil.php");
+    header("Location: index.php");
     exit();
 }
 
