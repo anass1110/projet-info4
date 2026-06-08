@@ -4,7 +4,7 @@ session_start();
 // Contrôle d'accès back-office
 // Restreint l'accès à l'interface aux comptes possédant le rôle de livreur
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'livreur') {
-    header("Location: accueil.php"); 
+    header("Location: index.php"); 
     exit();
 }
 
