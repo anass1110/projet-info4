@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Action livreur
     // Validation finale ou remontée d'anomalies de livraison par le coursier
     var boutonsLivreur = document.querySelectorAll('.btn-action-livreur');
-    boutonsLivreur.forEach(function(btn) {
+    buttonsLivreur.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             var idCmd = this.getAttribute('data-id');
@@ -305,3 +305,44 @@ document.addEventListener("DOMContentLoaded", function() {
 
     // Changement du Plat Mystère sans recharger la page
     var btnChangerSurprise = document.getElementById('btn-changer-surprise');
+    if (btnChangerSurprise && typeof cataloguePlatsSurprise !== 'undefined' && cataloguePlatsSurprise.length > 0) {
+        
+        btnChangerSurprise.addEventListener('click', function(e) {
+            e.preventDefault(); // Bloque le rechargement de la page
+
+            // Choisit un plat au hasard dans le tableau envoyé par PHP
+            var indexAleatoire = Math.floor(Math.random() * cataloguePlatsSurprise.length);
+            var nouveauPlat = cataloguePlatsSurprise[indexAleatoire];
+
+            // Met à jour l'affichage du plat (Image, Nom, Prix)
+            document.getElementById('surprise-img').src = nouveauPlat.image;
+            document.getElementById('surprise-img').alt = nouveauPlat.nom;
+            document.getElementById('surprise-nom').textContent = nouveauPlat.nom;
+            document.getElementById('surprise-prix').textContent = parseFloat(nouveauPlat.prix).toFixed(2);
+            
+            // Met à jour les champs cachés du formulaire pour le panier
+            document.getElementById('surprise-id').value = nouveauPlat.id;
+            document.getElementById('surprise-nom-hidden').value = nouveauPlat.nom;
+            document.getElementById('surprise-prix-hidden').value = nouveauPlat.prix;
+
+            // Recharge le menu déroulant des options si le nouveau plat en a
+            var optionsContainer = document.getElementById('surprise-options-container');
+            if (optionsContainer) {
+                if (nouveauPlat.options_possibles && nouveauPlat.options_possibles.length > 0) {
+                    var htmlSelect = '<select name="option_choisie" class="select-perso">';
+                    htmlSelect += '<option value="">-- Personnaliser --</option>';
+                    nouveauPlat.options_possibles.forEach(function(opt) {
+                        // Nettoie les caractères spéciaux pour éviter les bugs d'affichage
+                        var optSecurisee = opt.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+                        htmlSelect += '<option value="' + optSecurisee + '">' + optSecurisee + '</option>';
+                    });
+                    htmlSelect += '</select>';
+                    optionsContainer.innerHTML = htmlSelect;
+                } else {
+                    optionsContainer.innerHTML = ''; // Vide les options si le plat n'en a pas
+                }
+            }
+        });
+    }
+
+});
