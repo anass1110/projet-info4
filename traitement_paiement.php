@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
     $num_carte_propre = str_replace(' ', '', $_POST['num_carte'] ?? '');
 
     if (!preg_match('/^[0-9]{16}$/', $num_carte_propre)) {
-        // Rejet transactionnel
-        // Redirection immédiate vers le terminal de paiement en cas d'anomalie structurelle détectée par le serveur
+        // Rejet de la transaction 
+        // Redirection immédiate vers le terminal de paiement en cas d'anomalie détectée par le serveur
         header("Location: paiement.php?erreur=format_carte_serveur");
         exit();
     }
@@ -60,7 +60,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
                         "id_commande" => $id_cmd_cible,
                         "id_client"   => $_SESSION['user']['id'],
                         "montant"     => floatval($difference),
-                        // Masquage cryptographique partiel basé sur la chaîne de caractères préalablement assainie
+                        // On affiche uniquement les 4 derniers chiffres de la carte
                         "carte_fin"   => "XXXX-XXXX-XXXX-" . substr($num_carte_propre, -4),
                         "type"        => "Ajustement (Complément)",
                         "date"        => date("Y-m-d H:i:s")
@@ -124,7 +124,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
         "id_commande" => $id_commande,
         "id_client"   => $_SESSION['user']['id'],
         "montant"     => floatval($total),
-        // Masquage cryptographique partiel basé sur la chaîne de caractères préalablement filtré
+        // On affiche uniquement les 4 derniers chiffres de la carte
         "carte_fin"   => "XXXX-XXXX-XXXX-" . substr($num_carte_propre, -4),
         "type"        => "Initial",
         "date"        => date("Y-m-d H:i:s")
