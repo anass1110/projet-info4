@@ -4,7 +4,7 @@ session_start();
 // Contrôle d'accès back-office
 // Restreint l'accès à la page aux profils possédant le rôle administrateur
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') { 
-    header("Location: accueil.php"); 
+    header("Location: index.php"); 
     exit(); 
 }
 
