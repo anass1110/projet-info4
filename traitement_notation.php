@@ -50,7 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_SESSION['user'])) {
     }
     
     // Utilisation du pattern PRG pour éviter la soumission multiple en cas de rafraîchissement
-    header("Location: accueil.php"); 
+    header("Location: index.php"); 
     exit();
 } else {
     // Redirection de sécurité si tentative d'accès frauduleux
