@@ -20,7 +20,7 @@ $menus = $donnees_menu['menus'] ?? [];
     <div id="contenu-produits">
         
         <?php // Barre de recherche
-              // catalogue ?>
+              // Élément cible capturé par l'écouteur javascript pour le filtrage dynamique du catalogue ?>
         <div class="recherche-container">
             <input type="text" id="champ-recherche" placeholder="Recherche en direct un sushi..." class="input-recherche">
         </div>
@@ -53,8 +53,8 @@ $menus = $donnees_menu['menus'] ?? [];
         </div>
 
         <h2 class="titre-menu marge-top">À la carte</h2>
-        <?php // Conteneur cible 
-              // Cet identifiant id="zone-catalogue" est vidé et reconstruit par le script de recherche  ?>
+        <?php // Conteneur cible pour injection asynchrone
+              // Cet identifiant id="zone-catalogue" est vidé et reconstruit par le script de recherche dynamique  ?>
         <div class="grid-plats" id="zone-catalogue">
             <?php // Génération des articles individuels
                   // Construit les fiches produits avec leurs spécificités nutritionnelles, allergènes et options ?>
