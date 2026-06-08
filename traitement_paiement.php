@@ -9,6 +9,17 @@ if (!isset($_SESSION['user']) || empty($_SESSION['panier'])) {
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
     
+    // Filtrage des données bancaires
+    // validation stricte du format (16 chiffres) pour bloquer toute falsification contournant l'interface client
+    $num_carte_propre = str_replace(' ', '', $_POST['num_carte'] ?? '');
+
+    if (!preg_match('/^[0-9]{16}$/', $num_carte_propre)) {
+        // Rejet transactionnel
+        // Redirection immédiate vers le terminal de paiement en cas d'anomalie structurelle détectée par le serveur
+        header("Location: paiement.php?erreur=format_carte_serveur");
+        exit();
+    }
+
     // Le calcul du montant total actuel est effectué exclusivement côté serveur
     $total = 0;
     foreach ($_SESSION['panier'] as $article) {
@@ -49,7 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
                         "id_commande" => $id_cmd_cible,
                         "id_client"   => $_SESSION['user']['id'],
                         "montant"     => floatval($difference),
-                        "carte_fin"   => "XXXX-XXXX-XXXX-" . substr($_POST['num_carte'], -4),
+                        // Masquage cryptographique partiel basé sur la chaîne de caractères préalablement assainie
+                        "carte_fin"   => "XXXX-XXXX-XXXX-" . substr($num_carte_propre, -4),
                         "type"        => "Ajustement (Complément)",
                         "date"        => date("Y-m-d H:i:s")
                     ];
@@ -71,8 +83,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
             }
         }
 
-        // Sauvegarde des modifications structurelles
-        file_put_contents($fichier_cmd, json_encode($data_cmd, JSON_PRETTY_PRINT)); 
+        // Sauvegarde des modifications structurelles avec verrouillage
+        // L'instruction LOCK_EX prévient la corruption de la base de données temporelle en cas de transactions simultanées
+        file_put_contents($fichier_cmd, json_encode($data_cmd, JSON_PRETTY_PRINT), LOCK_EX); 
 
         // Sortie du mode édition et nettoyage de la session
         unset($_SESSION['id_commande_en_modification']);
@@ -99,7 +112,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
         "telephone"       => $_SESSION['user']['informations']['telephone'],
         "articles"        => $_SESSION['panier'],
         "total"           => floatval($total),
-        "type"            => $_POST['type_commande'],
+        "type"            => $_POST['type_commande'] ?? 'emporter',
         "heure_souhaitee" => !empty($_POST['heure_souhaitee']) ? $_POST['heure_souhaitee'] : "Dès que possible",
         "date_commande"   => date("Y-m-d H:i:s"),
         "statut"          => "En attente", // Statut initial d'attente requis pour l'édition dynamique
@@ -111,7 +124,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
         "id_commande" => $id_commande,
         "id_client"   => $_SESSION['user']['id'],
         "montant"     => floatval($total),
-        "carte_fin"   => "XXXX-XXXX-XXXX-" . substr($_POST['num_carte'], -4),
+        // Masquage cryptographique partiel basé sur la chaîne de caractères préalablement filtré
+        "carte_fin"   => "XXXX-XXXX-XXXX-" . substr($num_carte_propre, -4),
         "type"        => "Initial",
         "date"        => date("Y-m-d H:i:s")
     ];
@@ -119,7 +133,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
     $data_cmd['commandes'][] = $nouvelle_commande;
     $data_cmd['paiements'][] = $nouveau_paiement;
 
-    file_put_contents($fichier_cmd, json_encode($data_cmd, JSON_PRETTY_PRINT)); 
+    // Sauvegarde des modifications structurelles avec verrouillage
+    // L'instruction LOCK_EX prévient la corruption de la base de données temporelle en cas de transactions simultanées
+    file_put_contents($fichier_cmd, json_encode($data_cmd, JSON_PRETTY_PRINT), LOCK_EX); 
 
     // Nettoyage des données temporaires après validation
     $_SESSION['panier'] = [];
