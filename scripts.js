@@ -234,7 +234,7 @@ document.addEventListener("DOMContentLoaded", function() {
     // Action livreur
     // Validation finale ou remontée d'anomalies de livraison par le coursier
     var boutonsLivreur = document.querySelectorAll('.btn-action-livreur');
-    buttonsLivreur.forEach(function(btn) {
+    boutonsLivreur.forEach(function(btn) {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             var idCmd = this.getAttribute('data-id');
