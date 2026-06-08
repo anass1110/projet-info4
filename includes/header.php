@@ -53,7 +53,7 @@ $cookie_theme = isset($_COOKIE['theme']) ? $_COOKIE['theme'] : 'light';
     <div id="logo"><h1>SUSHYTECH</h1></div>
     <nav>
         <ul>
-            <li><a href="accueil.php" class="bouton-nav">Accueil</a></li>
+            <li><a href="index.php" class="bouton-nav">Accueil</a></li>
             <li><a href="Produits.php" class="bouton-nav">Menu</a></li>
             <li>
                 <a href="panier.php" class="bouton-nav btn-panier">
