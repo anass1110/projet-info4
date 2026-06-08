@@ -460,3 +460,23 @@ body.theme-sombre .lien-vider {
     color: #ff4757;
     margin-top: 0;
 }
+
+/* Corrections pour le mode sombre de la zone surprise */
+body.theme-sombre .zone-surprise {
+    background-color: rgba(255, 77, 77, 0.05); 
+    border-color: #FF4D4D; 
+}
+
+body.theme-sombre .box-plat-surprise {
+    background-color: #2C2C2C; 
+    border-color: #444; 
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+}
+
+body.theme-sombre .titre-surprise {
+    color: #FF4D4D;
+}
+
+body.theme-sombre .zone-surprise small a {
+    color: #bbb; 
+}
