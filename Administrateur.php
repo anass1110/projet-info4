@@ -1,14 +1,14 @@
 <?php
 session_start();
 
-// Contrôle d'accès 
+// Contrôle d'accès back-office
 // Restreint l'accès à la page aux profils possédant le rôle administrateur
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'admin') { 
     header("Location: accueil.php"); 
     exit(); 
 }
 
-// Chargement des comptes
+// Chargement du référentiel des comptes
 // Extrait la liste complète des utilisateurs enregistrés dans le fichier de stockage 
 $fichier_json = 'data/utilisateurs.json';
 $utilisateurs = file_exists($fichier_json) ? json_decode(file_get_contents($fichier_json), true)['utilisateurs'] : [];
@@ -29,8 +29,8 @@ $utilisateurs = file_exists($fichier_json) ? json_decode(file_get_contents($fich
                 <tr><th>ID</th><th>Nom & Prénom</th><th>Rôle</th><th>Actions</th></tr>
             </thead>
             <tbody>
-                 <?php // Génération de la table de modération
-                       // Parcourt l'ensemble des comptes pour construire les lignes du tableau ?>
+                 <?php // Génération dynamique de la table de modération
+                       // Parcourt séquentiellement l'ensemble des comptes pour construire les lignes du tableau ?>
                  <?php foreach ($utilisateurs as $u): ?>
                     <tr class="user-row">
                          <td><?= htmlspecialchars($u['id']) ?></td>
@@ -38,6 +38,8 @@ $utilisateurs = file_exists($fichier_json) ? json_decode(file_get_contents($fich
                          <td><?= htmlspecialchars($u['role']) ?></td>
                          <td>
                              <?php 
+                           // Évaluation de l'état de restriction du compte
+                            // Analyse l'attribut de statut pour déterminer l'action de modération asynchrone adéquate
                              $estBloque = (isset($u['statut']) && $u['statut'] === 'bloque');
                              if ($estBloque): 
                              ?>
