@@ -53,6 +53,44 @@ $menus = $donnees_menu['menus'] ?? [];
             <?php endforeach; ?>
         </div>
 
+        <?php // Section Article Aléatoire : La Surprise du Chef 
+              // Bloc d'incitation interactif générant une suggestion unitaire issue du catalogue global ?>
+        <?php if ($plat_surprise): ?>
+        <div class="zone-surprise">
+            <h3 class="titre-surprise">🎲 Tentez l'aventure : Le Plat Mystère</h3>
+            <p>Vous n'arrivez pas à choisir ? Laissez le chef décider de votre prochain coup de cœur !</p>
+            
+            <div class="box-plat-surprise">
+                <img src="<?= htmlspecialchars($plat_surprise['image']) ?>" alt="<?= htmlspecialchars($plat_surprise['nom']) ?>" class="img-plat">
+                <h4><?= htmlspecialchars($plat_surprise['nom']) ?></h4>
+                <p class="prix-plat"><?= number_format($plat_surprise['prix'], 2) ?>€</p>
+                
+                <form action="traitement_panier.php" method="post" class="form-ajout">
+                    <input type="hidden" name="action" value="ajouter">
+                    <input type="hidden" name="id_article" value="<?= $plat_surprise['id'] ?>">
+                    <input type="hidden" name="nom_article" value="<?= htmlspecialchars($plat_surprise['nom']) ?>">
+                    <input type="hidden" name="prix" value="<?= $plat_surprise['prix'] ?>">
+
+                    <?php // Menu déroulant d'options pour l'article surprise si disponible ?>
+                    <?php if (!empty($plat_surprise['options_possibles'])): ?>
+                        <select name="option_choisie" class="select-perso">
+                            <option value="">-- Personnaliser --</option>
+                            <?php foreach($plat_surprise['options_possibles'] as $opt): ?>
+                                <option value="<?= htmlspecialchars($opt) ?>"><?= htmlspecialchars($opt) ?></option>
+                            <?php endforeach; ?>
+                        </select>
+                    <?php endif; ?>
+
+                    <div class="box-quantite">
+                        <input type="number" name="quantite" value="1" min="1" class="input-qty">
+                        <input type="submit" class="bouton-nav" value="Ajouter la surprise">
+                    </div>
+                </form>
+            </div>
+            <small><a href="Produits.php" style="color: #57606f; text-decoration: underline;">Changer de plat mystère</a></small>
+        </div>
+        <?php endif; ?>
+
         <h2 class="titre-menu marge-top">À la carte</h2>
         <?php // Conteneur cible pour injection asynchrone
               // Cet identifiant id="zone-catalogue" est vidé et reconstruit par le script de recherche dynamique  ?>
