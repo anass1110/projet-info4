@@ -5,6 +5,7 @@ session_start();
 // Récupère l'intégralité de la carte depuis le fichier de stockage json structurel
 $donnees_menu = json_decode(file_get_contents('data/menu.json'), true);
 $plats = $donnees_menu['plats'] ?? [];
+$plat_surprise = !empty($plats) ? $plats[array_rand($plats)] : null;   // Sélection aléatoire sécurisée d'un article unique du catalogue
 $menus = $donnees_menu['menus'] ?? [];
 ?>
 <!DOCTYPE html>
