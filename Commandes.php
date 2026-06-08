@@ -4,7 +4,7 @@ session_start();
 // Contrôle d'accès back-office
 // Restreint l'accès à la page aux seuls utilisateurs possédant le rôle de restaurateur
 if (!isset($_SESSION['user']) || $_SESSION['user']['role'] !== 'restaurateur') {
-    header("Location: accueil.php"); 
+    header("Location: index.php"); 
     exit();
 }
 
