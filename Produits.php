@@ -54,7 +54,7 @@ $menus = $donnees_menu['menus'] ?? [];
         </div>
 
         <?php // Section Article Aléatoire : La Surprise du Chef 
-              // Bloc d'incitation interactif générant une suggestion unitaire issue du catalogue global ?>
+              // Suggestion issue du catalogue global ?>
         <?php if ($plat_surprise): ?>
         <div class="zone-surprise">
             <h3 class="titre-surprise">🎲 Tentez l'aventure : Le Plat Mystère</h3>
