@@ -435,3 +435,28 @@ body.theme-sombre .lien-vider {
     display: inline-block;
     margin-top: 15px;
 }
+
+/* Section dédiée à l'article aléatoire surprise */
+.zone-surprise {
+    margin: 30px 0;
+    padding: 20px;
+    background-color: rgba(255, 71, 87, 0.03);
+    border: 2px dashed #ff4757;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.box-plat-surprise {
+    max-width: 400px;
+    margin: 15px auto;
+    padding: 15px;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.titre-surprise {
+    color: #ff4757;
+    margin-top: 0;
+}
