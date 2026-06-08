@@ -3,7 +3,7 @@ session_start();
 
 // Contrôle d'accès, blocage des utilisateurs non authentifiés ou sans panier actif
 if (!isset($_SESSION['user']) || empty($_SESSION['panier'])) {
-    header("Location: accueil.php");
+    header("Location: index.php");
     exit();
 }
 
@@ -129,6 +129,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['num_carte'])) {
     exit();
 }
 
-header("Location: accueil.php");
+header("Location: index.php");
 exit();
 ?>
